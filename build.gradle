@@ -4,7 +4,8 @@ plugins {
 }
 
 ext {
-    mybatisVersion = "2.1.4"
+    mybatisSpringBootStarterVersion = "2.1.4"
+    commonsLang3Version = "3.11"
 }
 
 allprojects {
