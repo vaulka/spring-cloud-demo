@@ -1,9 +1,11 @@
 plugins {
     id "java"
-    id "org.springframework.boot" version "2.4.2"
 }
 
 ext {
+    lombokVersion = "1.18.16"
+    orgSpringframeworkBootVersion = "2.4.2"
+    comGoogleCloudToolsJibVersion = "2.7.1"
     mybatisSpringBootStarterVersion = "2.1.4"
     commonsLang3Version = "3.11"
 }
@@ -12,8 +14,6 @@ allprojects {
     apply plugin: "java"
     apply plugin: "idea"
     apply plugin: "jacoco"
-    apply plugin: "org.springframework.boot"
-    apply plugin: "io.spring.dependency-management"
 
     sourceCompatibility = 11
     targetCompatibility = 11
@@ -22,12 +22,7 @@ allprojects {
         enabled = true
     }
 
-    bootJar {
-        // 默认不需要打可执行jar包
-        enabled = false
-    }
-
-    group "com.pongsky"
+    group "com.pongsky.cloud"
     version "1.0.0"
 
     repositories {
@@ -38,8 +33,8 @@ allprojects {
     }
 
     dependencies {
-        compileOnly "org.projectlombok:lombok"
-        annotationProcessor "org.projectlombok:lombok"
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     }
 
 }
