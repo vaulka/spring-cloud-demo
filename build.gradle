@@ -1,0 +1,44 @@
+plugins {
+    id "java"
+    id "org.springframework.boot" version "2.4.2"
+}
+
+ext {
+    mybatisVersion = "2.1.4"
+}
+
+allprojects {
+    apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: "jacoco"
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+
+    sourceCompatibility = 11
+    targetCompatibility = 11
+
+    jar {
+        enabled = true
+    }
+
+    bootJar {
+        // 默认不需要打可执行jar包
+        enabled = false
+    }
+
+    group "com.pongsky"
+    version "1.0.0"
+
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.aliyun.com/repository/central" }
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
+        jcenter()
+    }
+
+    dependencies {
+        compileOnly "org.projectlombok:lombok"
+        annotationProcessor "org.projectlombok:lombok"
+    }
+
+}
