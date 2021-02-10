@@ -4,8 +4,11 @@ plugins {
 
 ext {
     lombokVersion = "1.18.16"
-    springBootVersion = "2.4.2"
     jibVersion = "2.7.1"
+    mysqlVersion = "8.0.22"
+    springBootVersion = "2.3.3.RELEASE"
+    springCloudVersion = "Hoxton.SR8"
+    springCloudAlibabaVersion = "2.2.5.RELEASE"
     mybatisVersion = "2.1.4"
     commonsLang3Version = "3.11"
 }
