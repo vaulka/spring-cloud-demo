@@ -1,6 +1,6 @@
 plugins {
-    id "org.springframework.boot" version "${orgSpringframeworkBootVersion}"
-    id "com.google.cloud.tools.jib" version "${comGoogleCloudToolsJibVersion}"
+    id "org.springframework.boot" version "${springBootVersion}"
+    id "com.google.cloud.tools.jib" version "${jibVersion}"
 }
 
 apply plugin: "org.springframework.boot"
@@ -35,7 +35,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "org.springframework.boot:spring-boot-starter-data-jdbc"
     implementation "org.springframework.boot:spring-boot-starter-validation"
-    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVersion}"
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.springframework.security:spring-security-test"
 }

@@ -4,9 +4,9 @@ plugins {
 
 ext {
     lombokVersion = "1.18.16"
-    orgSpringframeworkBootVersion = "2.4.2"
-    comGoogleCloudToolsJibVersion = "2.7.1"
-    mybatisSpringBootStarterVersion = "2.1.4"
+    springBootVersion = "2.4.2"
+    jibVersion = "2.7.1"
+    mybatisVersion = "2.1.4"
     commonsLang3Version = "3.11"
 }
 
