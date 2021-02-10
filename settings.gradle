@@ -1,4 +1,5 @@
 rootProject.name = 'cloud'
 include 'cloud-demo'
+include 'cloud-entity'
 include 'cloud-utils'
 
