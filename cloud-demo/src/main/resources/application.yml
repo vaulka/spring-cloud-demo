@@ -2,7 +2,7 @@ application:
   name: cloud # 工程名称
   module: demo # 模块名称
   version: 1.0.0 # 工程版本号
-  formatted-version: PongSky ${application.name}-${application.module} ${application.version} # 格式化版本
+  formatted-version: PongSky Cloud ${application.name}-${application.module} ${application.version} # 格式化版本
 spring:
   profiles:
     active: local # 选择配置文件
@@ -33,8 +33,15 @@ spring:
   output:
     ansi:
       enabled: always # 启用控制台打印颜色
+  devtools:
+    livereload:
+      port: 20000 # 热部署端口号
 logging:
   pattern:
     console: ${CONSOLE_LOG_PATTERN:%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}  %-5.5L{5}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}} # 控制台日志打印格式
 server:
+  port: 10000 # 服务端口号
   shutdown: graceful # 优雅关机
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true # 查询字段下划线自动转驼峰
