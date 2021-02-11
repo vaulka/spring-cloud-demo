@@ -5,12 +5,16 @@ plugins {
 ext {
     lombokVersion = "1.18.16"
     jibVersion = "2.7.1"
+
     mysqlVersion = "8.0.22"
+
     springBootVersion = "2.3.3.RELEASE"
     springCloudVersion = "Hoxton.SR8"
     springCloudAlibabaVersion = "2.2.5.RELEASE"
-    jwtVersion = "3.12.1"
+    jacksonVersion = "2.11.2"
     mybatisVersion = "2.1.4"
+
+    jwtVersion = "3.12.1"
     fastJsonVersion = "1.2.75"
     commonsLang3Version = "3.11"
 }
