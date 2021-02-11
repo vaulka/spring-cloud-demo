@@ -4,4 +4,5 @@ include 'cloud-entity'
 include 'cloud-payment'
 include 'cloud-utils'
 include 'cloud-docs'
+include 'cloud-web-config'
 

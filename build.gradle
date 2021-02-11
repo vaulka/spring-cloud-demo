@@ -9,7 +9,9 @@ ext {
     springBootVersion = "2.3.3.RELEASE"
     springCloudVersion = "Hoxton.SR8"
     springCloudAlibabaVersion = "2.2.5.RELEASE"
+    jwtVersion = "3.12.1"
     mybatisVersion = "2.1.4"
+    fastJsonVersion = "1.2.75"
     commonsLang3Version = "3.11"
 }
 
