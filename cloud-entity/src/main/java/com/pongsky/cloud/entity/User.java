@@ -1,5 +1,6 @@
 package com.pongsky.cloud.entity;
 
+import com.pongsky.cloud.utils.jwt.enums.AuthRole;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -8,20 +9,20 @@ import org.springframework.data.annotation.Id;
 import java.time.LocalDateTime;
 
 /**
- * 支付表
+ * 用户表
  * <p>
- * unique - serial
+ * unique - role + phone
  *
  * @author pengsenhao
- * @create 2021-02-10
+ * @create 2021-02-11
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
-public class Payment {
+public class User {
 
     /**
-     * 支付ID
+     * 用户ID
      * <p>
      * bigint(20)、unsigned 、not null
      */
@@ -29,11 +30,32 @@ public class Payment {
     private Long id;
 
     /**
-     * 序列号
+     * 角色：管理员：ADMIN，用户：USER
      * <p>
-     * varchar(255)、not null
+     * varchar(10)、not null
      */
-    private String serial;
+    private AuthRole role;
+
+    /**
+     * 名称
+     * <p>
+     * varchar(30)、not null
+     */
+    private String name;
+
+    /**
+     * 手机号
+     * <p>
+     * varchar(30)、not null
+     */
+    private String phone;
+
+    /**
+     * 是否禁用
+     * <p>
+     * tinyint(2)、unsigned 、not null
+     */
+    private Integer isDisable;
 
     /**
      * 创建时间

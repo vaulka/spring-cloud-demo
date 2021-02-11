@@ -32,13 +32,14 @@ dependencies {
     developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
     implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-data-jdbc:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
-    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
     implementation group: "org.springframework.boot", name: "spring-boot-dependencies", version: "${springBootVersion}", ext: "pom"
     implementation group: "org.springframework.cloud", name: "spring-cloud-dependencies", version: "${springCloudVersion}", ext: "pom"
     implementation group: "com.alibaba.cloud", name: "spring-cloud-alibaba-dependencies", version: "${springCloudAlibabaVersion}", ext: "pom"
+
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.springframework.security:spring-security-test"
 }
