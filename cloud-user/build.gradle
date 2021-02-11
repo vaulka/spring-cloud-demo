@@ -1,0 +1,48 @@
+plugins {
+    id "com.google.cloud.tools.jib" version "${jibVersion}"
+    id "org.springframework.boot" version "${springBootVersion}"
+}
+
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
+jib {
+    from {
+        image = "openjdk:11-jre-stretch"
+    }
+    to {
+        image = "registry.cn-hangzhou.aliyuncs.com/pongsky/cloud-payment"
+        auth {
+            username = "x"
+            password = "y"
+        }
+        tags = ["local-v1.0.0"]
+    }
+    container {
+        mainClass = "com.pongsky.cloud.PaymentApplication"
+        ports = ["8080"]
+        jvmFlags = ["-Xmx512M", "-Xms330M", "-Xmn100M",
+                    "-XX:MaxDirectMemorySize=64M", "-XX:MetaspaceSize=100M",
+                    "-Djava.security.egd=file:/dev/./urandom", "-Duser.timezone=GMT+08"]
+    }
+}
+
+dependencies {
+    implementation project(":cloud-utils")
+    implementation project(":cloud-entity")
+    implementation project(":cloud-web-config")
+    runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
+    developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-data-jdbc:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
+    implementation group: "org.springframework.boot", name: "spring-boot-dependencies", version: "${springBootVersion}", ext: "pom"
+    implementation group: "org.springframework.cloud", name: "spring-cloud-dependencies", version: "${springCloudVersion}", ext: "pom"
+    implementation group: "com.alibaba.cloud", name: "spring-cloud-alibaba-dependencies", version: "${springCloudAlibabaVersion}", ext: "pom"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.springframework.security:spring-security-test"
+}
