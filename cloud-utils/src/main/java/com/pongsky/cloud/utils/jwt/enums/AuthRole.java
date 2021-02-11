@@ -1,6 +1,8 @@
 package com.pongsky.cloud.utils.jwt.enums;
 
 /**
+ * 鉴权角色
+ *
  * @author pengsenhao
  * @create 2021-02-11
  */

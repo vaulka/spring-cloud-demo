@@ -1,0 +1,37 @@
+package com.pongsky.cloud.entity.user.dos;
+
+import com.pongsky.cloud.utils.jwt.enums.AuthRole;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+/**
+ * @author pengsenhao
+ * @create 2021-02-11
+ */
+@Data
+@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
+public class UserDo {
+
+    /**
+     * 用户ID
+     */
+    private Long id;
+
+    /**
+     * 角色
+     */
+    private AuthRole role;
+
+    /**
+     * 名称
+     */
+    private String name;
+
+    /**
+     * 手机号
+     */
+    private String phone;
+
+}

@@ -8,6 +8,7 @@ import com.pongsky.cloud.exception.HttpException;
 import com.pongsky.cloud.exception.ValidationException;
 import com.pongsky.cloud.model.annotation.Meaning;
 import com.pongsky.cloud.response.ErrorResult;
+import com.pongsky.cloud.response.annotation.ResponseResult;
 import com.pongsky.cloud.response.enums.ResultCode;
 import com.pongsky.cloud.utils.jwt.dto.AuthInfo;
 import com.pongsky.cloud.web.request.AuthUtils;
@@ -370,20 +371,25 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     private Object getErrorResult(ResultCode resultCode, String message, Exception exception, HttpServletRequest request) {
         String ip = IpUtils.getIp(request);
-        ErrorResult result = new ErrorResult(ip, resultCode, request.getRequestURI(), exception.getClass().getName());
-        exception = getException(exception, 0);
-        if (message != null) {
-            result.setMessage(message);
-        } else if (result.getMessage() == null) {
-            if (exception.getLocalizedMessage() != null) {
-                result.setMessage(exception.getLocalizedMessage());
-            } else if (exception.getMessage() != null) {
-                result.setMessage(exception.getMessage());
-            }
-        }
-        log(exception, request, result);
         // 可通过 getAttribute 获取自定义注解对 body 数据对特定业务场景进行特殊处理
-        return result;
+
+        // 判断是否全局响应数据
+        if (request.getAttribute(ResponseResult.class.getSimpleName()) != null) {
+            ErrorResult result = new ErrorResult(ip, resultCode, request.getRequestURI(), exception.getClass().getName());
+            exception = getException(exception, 0);
+            if (message != null) {
+                result.setMessage(message);
+            } else if (result.getMessage() == null) {
+                if (exception.getLocalizedMessage() != null) {
+                    result.setMessage(exception.getLocalizedMessage());
+                } else if (exception.getMessage() != null) {
+                    result.setMessage(exception.getMessage());
+                }
+            }
+            log(exception, request, result);
+            return result;
+        }
+        return exception.getLocalizedMessage();
     }
 
     /**

@@ -1,6 +1,8 @@
 package com.pongsky.cloud.utils.snowflake;
 
 /**
+ * 雪花算法全局唯一ID
+ *
  * @author pengsenhao
  * @create 2021-02-10
  */

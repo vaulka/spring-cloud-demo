@@ -15,6 +15,7 @@ ext {
     mybatisVersion = "2.1.4"
 
     jwtVersion = "3.12.1"
+    orikaVersion = "1.9.0"
     fastJsonVersion = "1.2.75"
     commonsLang3Version = "3.11"
 }

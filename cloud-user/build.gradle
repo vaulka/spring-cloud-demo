@@ -32,7 +32,9 @@ dependencies {
     implementation project(":cloud-entity")
     implementation project(":cloud-web-config")
     runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
+    implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
     developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+    implementation "net.rakugakibox.spring.boot:orika-spring-boot-starter:${orikaVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
