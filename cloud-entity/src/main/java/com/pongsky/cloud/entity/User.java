@@ -70,6 +70,13 @@ public class User {
     private Integer isDisable;
 
     /**
+     * 数据版本号（乐观锁）
+     * <p>
+     * bigint(20)、unsigned 、not null
+     */
+    private Long dataVersion;
+
+    /**
      * 创建时间
      * <p>
      * datetime(6)、not null

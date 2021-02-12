@@ -48,6 +48,7 @@ public class UserService {
                 .setRole(AuthRole.USER)
                 .setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()))
                 .setIsDisable(0)
+                .setDataVersion(0L)
                 .setCreatedAt(LocalDateTime.now());
         InsertException.validation("用户信息保存失败", userMapper.save(user));
         return mapperFacade.map(user, UserVo.class);
@@ -120,7 +121,9 @@ public class UserService {
         if (StringUtils.isNotBlank(userDto.getPassword())) {
             userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         }
-        UpdateException.validation("用户信息更新失败", userMapper.updateById(userId, userDto));
+        Long dataVersion = userMapper.findDataVersionById(userId)
+                .orElseThrow(() -> new DoesNotExistException("数据版本号不存在"));
+        UpdateException.validation("用户信息更新失败", userMapper.updateById(userId, dataVersion, userDto));
     }
 
     /**
@@ -145,7 +148,7 @@ public class UserService {
     @Transactional(rollbackFor = Exception.class, readOnly = true)
     public void existsByPhoneAndRoleAndNotUserId(String username, Long userId) {
         if (StringUtils.isBlank(username)) {
-            throw new ValidationException("用户名不能为空");
+            return;
         }
         Integer count = userMapper.countByUsernameAndNotId(username, userId);
         if (count > 0) {
