@@ -17,7 +17,6 @@ dependencies {
     implementation project(":cloud-utils")
     implementation project(":cloud-entity")
     implementation "com.auth0:java-jwt:${jwtVersion}"
-    implementation "com.alibaba:fastjson:${fastJsonVersion}"
     implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
