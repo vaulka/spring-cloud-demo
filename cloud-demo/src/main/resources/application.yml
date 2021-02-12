@@ -6,6 +6,9 @@ application:
 spring:
   profiles:
     active: local # 选择配置文件
+  security:
+    user:
+      password: ${application.name} # security 默认密码
   mvc:
     log-resolved-exception: true # 开启日志解析异常
     throw-exception-if-no-handler-found: true # 出现异常直接抛出错误
