@@ -11,6 +11,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -35,7 +38,11 @@ public class RestControllerAround {
     /**
      * 需要记录的请求方法集合
      */
-    private static final List<String> API_REQUEST_METHODS = List.of("PUT", "POST", "DELETE");
+    private static final List<String> API_REQUEST_METHODS = List.of(
+            PutMapping.class.getSimpleName(),
+            PostMapping.class.getSimpleName(),
+            DeleteMapping.class.getSimpleName()
+    );
 
     @Around("execution(public * com.pongsky.cloud.controller..*.*(..))")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -51,7 +58,10 @@ public class RestControllerAround {
         String referer = request.getHeader("referer");
         long start = System.currentTimeMillis();
         Object result = joinPoint.proceed();
-        if (API_REQUEST_METHODS.contains(request.getMethod())) {
+        long count = API_REQUEST_METHODS.stream()
+                .filter(method -> request.getAttribute(method) != null)
+                .count();
+        if (count > 0) {
             log.info("");
             log.info("Started request");
             log.info("IP [{}] userAgent [{}] referer [{}]", ip, userAgent, referer);
