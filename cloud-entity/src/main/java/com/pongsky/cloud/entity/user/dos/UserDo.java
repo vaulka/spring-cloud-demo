@@ -44,4 +44,9 @@ public class UserDo {
      */
     private String phone;
 
+    /**
+     * 是否禁用
+     */
+    private Integer isDisable;
+
 }

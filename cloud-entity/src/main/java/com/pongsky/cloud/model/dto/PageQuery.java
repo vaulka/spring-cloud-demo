@@ -55,7 +55,7 @@ public class PageQuery {
      */
     @JsonIgnore
     public Long getOffset() {
-        return (long) pageNumber * pageSize;
+        return (long) getPageNumber() * getPageSize();
     }
 
     /**
@@ -68,9 +68,9 @@ public class PageQuery {
             count = 0L;
         }
         this.pageCount = count;
-        this.pageLine = this.pageCount % this.pageSize == 0
-                ? this.pageCount / this.pageSize
-                : this.pageCount / this.pageSize + 1;
+        this.pageLine = this.pageCount % getPageSize() == 0
+                ? this.pageCount / getPageSize()
+                : this.pageCount / getPageSize() + 1;
     }
 
 }

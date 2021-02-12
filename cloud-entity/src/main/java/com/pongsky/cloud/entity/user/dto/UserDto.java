@@ -26,7 +26,7 @@ public class UserDto {
      * 用户名
      */
     @NotBlank(groups = {CreateGroup.class, SearchGroup.class})
-    @Length(min = 6, max = 20, groups = {CreateGroup.class, UpdateGroup.class, SearchGroup.class})
+    @Length(min = 5, max = 20, groups = {CreateGroup.class, UpdateGroup.class, SearchGroup.class})
     private String username;
 
     public void setUsername(String username) {

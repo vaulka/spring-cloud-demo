@@ -2,13 +2,17 @@ package com.pongsky.cloud.mapper;
 
 import com.pongsky.cloud.entity.User;
 import com.pongsky.cloud.entity.user.dos.UserDo;
+import com.pongsky.cloud.entity.user.dto.SearchUserDto;
 import com.pongsky.cloud.entity.user.dto.UserDto;
+import com.pongsky.cloud.model.dto.PageQuery;
+import com.pongsky.cloud.utils.jwt.enums.AuthRole;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -120,5 +124,48 @@ public interface UserMapper {
             "</script>")
     Integer countByUsernameAndNotId(@Param("username") String username,
                                     @Param("userId") Long userId);
+
+    /**
+     * 根据搜索信息查询总数
+     *
+     * @param role          角色
+     * @param searchUserDto 搜索信息
+     * @return 根据搜索信息查询总数
+     */
+    @Select("<script>" +
+            "select count(u.id) " +
+            "from `user` u " +
+            "where u.role = #{role} " +
+            "<if test = 'search.search != null' >" +
+            "and (u.username like concat('%',#{search.search},'%') " +
+            "and u.name like concat('%',#{search.search},'%') " +
+            "and u.phone like concat('%',#{search.search},'%')) " +
+            "</if>" +
+            "</script>")
+    Long countByRoleAndSearch(@Param("role") AuthRole role, @Param("search") SearchUserDto searchUserDto);
+
+    /**
+     * 根据搜索信息查询用户信息
+     *
+     * @param role          角色
+     * @param searchUserDto 搜索信息
+     * @param pageQuery     分页信息
+     * @return 根据搜索信息查询用户信息
+     */
+    @Select("<script>" +
+            "select u.id,u.role,u.username,u.name,u.phone,u.is_disable " +
+            "from `user` u " +
+            "where u.role = #{role} " +
+            "<if test = 'search.search != null' >" +
+            "and (u.username like concat('%',#{search.search},'%') " +
+            "and u.name like concat('%',#{search.search},'%') " +
+            "and u.phone like concat('%',#{search.search},'%')) " +
+            "</if>" +
+            "order by u.created_at desc " +
+            "limit #{page.offset},#{page.pageSize} " +
+            "</script>")
+    List<UserDo> findByRoleAndSearch(@Param("role") AuthRole role,
+                                     @Param("search") SearchUserDto searchUserDto,
+                                     @Param("page") PageQuery pageQuery);
 
 }

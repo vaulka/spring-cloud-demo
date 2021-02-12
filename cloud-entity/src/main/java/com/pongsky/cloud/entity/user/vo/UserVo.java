@@ -40,6 +40,11 @@ public class UserVo {
     private String phone;
 
     /**
+     * 是否禁用
+     */
+    private Integer isDisable;
+
+    /**
      * authorization
      */
     private String authorization;

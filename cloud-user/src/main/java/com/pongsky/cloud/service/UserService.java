@@ -2,6 +2,7 @@ package com.pongsky.cloud.service;
 
 import com.pongsky.cloud.entity.User;
 import com.pongsky.cloud.entity.user.dos.UserDo;
+import com.pongsky.cloud.entity.user.dto.SearchUserDto;
 import com.pongsky.cloud.entity.user.dto.UserDto;
 import com.pongsky.cloud.entity.user.vo.UserVo;
 import com.pongsky.cloud.exception.DoesNotExistException;
@@ -9,6 +10,8 @@ import com.pongsky.cloud.exception.InsertException;
 import com.pongsky.cloud.exception.UpdateException;
 import com.pongsky.cloud.exception.ValidationException;
 import com.pongsky.cloud.mapper.UserMapper;
+import com.pongsky.cloud.model.dto.PageQuery;
+import com.pongsky.cloud.model.vo.PageResponse;
 import com.pongsky.cloud.utils.jwt.JwtUtils;
 import com.pongsky.cloud.utils.jwt.enums.AuthRole;
 import com.pongsky.cloud.utils.snowflake.SnowFlakeUtils;
@@ -21,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author pengsenhao
@@ -154,6 +158,21 @@ public class UserService {
         if (count > 0) {
             throw new ValidationException("用户名 " + username + " 已存在，请更换其他手机号重试");
         }
+    }
+
+    /**
+     * 查看用户
+     *
+     * @param pageQuery     分页信息
+     * @param searchUserDto 搜索信息
+     * @return 查看用户
+     */
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
+    public PageResponse<UserVo> query(PageQuery pageQuery, SearchUserDto searchUserDto) {
+        AuthRole role = AuthRole.USER;
+        long count = userMapper.countByRoleAndSearch(role, searchUserDto);
+        List<UserDo> userDos = userMapper.findByRoleAndSearch(role, searchUserDto, pageQuery);
+        return new PageResponse<>(mapperFacade.mapAsList(userDos, UserVo.class), pageQuery, count);
     }
 
 }
