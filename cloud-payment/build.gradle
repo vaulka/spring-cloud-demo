@@ -28,6 +28,7 @@ jib {
 }
 
 dependencies {
+    implementation project(":cloud-utils")
     implementation project(":cloud-entity")
     implementation project(":cloud-web-config")
     runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"

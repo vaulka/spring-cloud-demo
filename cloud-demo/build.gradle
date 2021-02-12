@@ -28,6 +28,9 @@ jib {
 }
 
 dependencies {
+    implementation project(":cloud-utils")
+    implementation project(":cloud-entity")
+    implementation project(":cloud-web-config")
     runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
     developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"

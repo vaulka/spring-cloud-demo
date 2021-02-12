@@ -8,7 +8,6 @@ import com.pongsky.cloud.exception.HttpException;
 import com.pongsky.cloud.exception.ValidationException;
 import com.pongsky.cloud.model.annotation.Meaning;
 import com.pongsky.cloud.response.ErrorResult;
-import com.pongsky.cloud.response.annotation.ResponseResult;
 import com.pongsky.cloud.response.enums.ResultCode;
 import com.pongsky.cloud.utils.jwt.dto.AuthInfo;
 import com.pongsky.cloud.web.request.AuthUtils;
@@ -20,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -38,7 +38,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 import java.lang.reflect.Field;
-import java.nio.file.AccessDeniedException;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -373,23 +372,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         String ip = IpUtils.getIp(request);
         // 可通过 getAttribute 获取自定义注解对 body 数据对特定业务场景进行特殊处理
 
-        // 判断是否全局响应数据
-        if (request.getAttribute(ResponseResult.class.getSimpleName()) != null) {
-            ErrorResult result = new ErrorResult(ip, resultCode, request.getRequestURI(), exception.getClass().getName());
-            exception = getException(exception, 0);
-            if (message != null) {
-                result.setMessage(message);
-            } else if (result.getMessage() == null) {
-                if (exception.getLocalizedMessage() != null) {
-                    result.setMessage(exception.getLocalizedMessage());
-                } else if (exception.getMessage() != null) {
-                    result.setMessage(exception.getMessage());
-                }
+        ErrorResult result = new ErrorResult(ip, resultCode, request.getRequestURI(), exception.getClass().getName());
+        exception = getException(exception, 0);
+        if (message != null) {
+            result.setMessage(message);
+        } else if (result.getMessage() == null) {
+            if (exception.getLocalizedMessage() != null) {
+                result.setMessage(exception.getLocalizedMessage());
+            } else if (exception.getMessage() != null) {
+                result.setMessage(exception.getMessage());
             }
-            log(exception, request, result);
-            return result;
         }
-        return exception.getLocalizedMessage();
+        log(exception, request, result);
+        return result;
     }
 
     /**
