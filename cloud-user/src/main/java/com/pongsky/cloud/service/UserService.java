@@ -175,4 +175,17 @@ public class UserService {
         return new PageResponse<>(mapperFacade.mapAsList(userDos, UserVo.class), pageQuery, count);
     }
 
+    /**
+     * 禁用/启用用户
+     *
+     * @param userId    用户ID
+     * @param isDisable 是否禁用
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void disable(Long userId, Integer isDisable) {
+        Long dataVersion = userMapper.findDataVersionById(userId)
+                .orElseThrow(() -> new DoesNotExistException("数据版本号不存在"));
+        UpdateException.validation("用户信息更新失败", userMapper.updateIsDisableById(userId, dataVersion, isDisable));
+    }
+
 }

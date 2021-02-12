@@ -168,4 +168,24 @@ public interface UserMapper {
                                      @Param("search") SearchUserDto searchUserDto,
                                      @Param("page") PageQuery pageQuery);
 
+    /**
+     * 根据用户ID和数据版本号修改是否禁用
+     *
+     * @param userId      用户ID
+     * @param dataVersion 数据版本号
+     * @param isDisable   是否禁用
+     * @return 根据用户ID和数据版本号修改是否禁用
+     */
+    @Update("<script>" +
+            "update `user` " +
+            "set updated_at = now() " +
+            ",data_version = #{dataVersion} + 1 " +
+            ",is_disable = #{isDisable} " +
+            "where id = #{userId} " +
+            "and data_version = #{dataVersion} " +
+            "</script>")
+    Integer updateIsDisableById(@Param("userId") Long userId,
+                                @Param("dataVersion") Long dataVersion,
+                                @Param("isDisable") Integer isDisable);
+
 }
