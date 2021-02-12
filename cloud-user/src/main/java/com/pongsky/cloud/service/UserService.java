@@ -61,11 +61,24 @@ public class UserService {
      */
     @Transactional(rollbackFor = Exception.class, readOnly = true)
     public UserVo login(UserDto userDto) {
-        UserDo user = userMapper.selectByUsername(userDto.getUsername())
+        UserDo user = userMapper.findByUsername(userDto.getUsername())
                 .orElseThrow(() -> new DoesNotExistException("用户不存在"));
         if (!bCryptPasswordEncoder.matches(userDto.getPassword(), user.getPassword())) {
             throw new ValidationException("用户名或密码错误");
         }
+        return getAuthorization(user);
+    }
+
+    /**
+     * refresh 登录
+     *
+     * @param userId 用户ID
+     * @return refresh 登录
+     */
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
+    public UserVo refreshLogin(Long userId) {
+        UserDo user = userMapper.findById(userId)
+                .orElseThrow(() -> new DoesNotExistException("用户不存在"));
         return getAuthorization(user);
     }
 

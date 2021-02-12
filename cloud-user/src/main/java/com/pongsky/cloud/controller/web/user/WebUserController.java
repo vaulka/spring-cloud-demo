@@ -1,15 +1,18 @@
 package com.pongsky.cloud.controller.web.user;
 
+import com.pongsky.cloud.entity.user.dto.RefreshTokenLoginDto;
 import com.pongsky.cloud.entity.user.dto.UserDto;
 import com.pongsky.cloud.entity.user.vo.UserVo;
 import com.pongsky.cloud.response.annotation.ResponseResult;
 import com.pongsky.cloud.service.UserService;
+import com.pongsky.cloud.utils.jwt.JwtUtils;
 import com.pongsky.cloud.utils.jwt.enums.AuthRole;
 import com.pongsky.cloud.validator.CreateGroup;
 import com.pongsky.cloud.validator.SearchGroup;
 import com.pongsky.cloud.validator.UpdateGroup;
 import com.pongsky.cloud.web.request.AuthUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +57,20 @@ public class WebUserController {
     @PostMapping("/login")
     public UserVo login(@Validated({SearchGroup.class}) @RequestBody UserDto userDto) {
         return userService.login(userDto);
+    }
+
+    /**
+     * refresh 登录
+     *
+     * @param refreshTokenLoginDto 登录信息
+     * @return refresh 登录
+     */
+    @PostMapping("/refreshLogin")
+    public UserVo refreshLogin(@Validated({SearchGroup.class}) @RequestBody RefreshTokenLoginDto refreshTokenLoginDto) {
+        if (AuthUtils.verifyToken(refreshTokenLoginDto.getRefreshToken())) {
+            throw new AccessDeniedException("refreshToken 已过期，请重新登录");
+        }
+        return userService.refreshLogin(JwtUtils.getId(refreshTokenLoginDto.getRefreshToken()));
     }
 
     /**

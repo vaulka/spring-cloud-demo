@@ -37,7 +37,7 @@ public interface UserMapper {
     @Select("select u.id,u.role,u.username,u.password,u.name,u.phone " +
             "from `user` u " +
             "where u.username = #{username} ")
-    Optional<UserDo> selectByUsername(@Param("username") String username);
+    Optional<UserDo> findByUsername(@Param("username") String username);
 
     /**
      * 根据用户ID查看总数
