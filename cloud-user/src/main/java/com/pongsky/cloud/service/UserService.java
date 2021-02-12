@@ -5,14 +5,18 @@ import com.pongsky.cloud.entity.user.dos.UserDo;
 import com.pongsky.cloud.entity.user.dto.UserDto;
 import com.pongsky.cloud.entity.user.vo.UserVo;
 import com.pongsky.cloud.exception.DoesNotExistException;
+import com.pongsky.cloud.exception.InsertException;
+import com.pongsky.cloud.exception.UpdateException;
 import com.pongsky.cloud.exception.ValidationException;
 import com.pongsky.cloud.mapper.UserMapper;
-import com.pongsky.cloud.repository.UserRepository;
+import com.pongsky.cloud.utils.jwt.JwtUtils;
 import com.pongsky.cloud.utils.jwt.enums.AuthRole;
 import com.pongsky.cloud.utils.snowflake.SnowFlakeUtils;
+import com.pongsky.cloud.web.request.SystemConfigUtils;
 import lombok.RequiredArgsConstructor;
 import ma.glasnost.orika.MapperFacade;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,8 +32,8 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final MapperFacade mapperFacade;
-    private final UserRepository userRepository;
     private final SnowFlakeUtils snowFlakeUtils;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * 注册
@@ -42,10 +46,41 @@ public class UserService {
         User user = mapperFacade.map(userDto, User.class)
                 .setId(snowFlakeUtils.getId())
                 .setRole(AuthRole.USER)
+                .setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()))
                 .setIsDisable(0)
                 .setCreatedAt(LocalDateTime.now());
-        userRepository.save(user);
+        InsertException.validation("用户信息保存失败", userMapper.save(user));
         return mapperFacade.map(user, UserVo.class);
+    }
+
+    /**
+     * 登录
+     *
+     * @param userDto 登录信息
+     * @return 登录
+     */
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
+    public UserVo login(UserDto userDto) {
+        UserDo user = userMapper.selectByUsername(userDto.getUsername())
+                .orElseThrow(() -> new DoesNotExistException("用户不存在"));
+        if (!bCryptPasswordEncoder.matches(userDto.getPassword(), user.getPassword())) {
+            throw new ValidationException("用户名或密码错误");
+        }
+        return getAuthorization(user);
+    }
+
+    /**
+     * 获取访问凭证
+     *
+     * @param user 用户信息
+     * @return 获取访问凭证
+     */
+    private UserVo getAuthorization(UserDo user) {
+        return mapperFacade.map(user, UserVo.class)
+                .setAuthorization(JwtUtils.createAccessToken(user.getId().toString(),
+                        user.getRole().toString(), SystemConfigUtils.getActive(), SystemConfigUtils.getApplicationName()))
+                .setRefreshToken(JwtUtils.createRefreshToken(user.getId().toString(),
+                        SystemConfigUtils.getActive(), SystemConfigUtils.getApplicationName()));
     }
 
     /**
@@ -69,7 +104,10 @@ public class UserService {
      */
     @Transactional(rollbackFor = Exception.class)
     public void modifyInfo(Long userId, UserDto userDto) {
-        userMapper.updateById(userId, userDto);
+        if (StringUtils.isNotBlank(userDto.getPassword())) {
+            userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        }
+        UpdateException.validation("用户信息更新失败", userMapper.updateById(userId, userDto));
     }
 
     /**
@@ -79,27 +117,26 @@ public class UserService {
      */
     @Transactional(rollbackFor = Exception.class, readOnly = true)
     public void existsByUserId(Long userId) {
-        boolean exists = userRepository.existsById(userId);
-        if (!exists) {
+        Integer count = userMapper.countById(userId);
+        if (count == 0) {
             throw new DoesNotExistException("用户不存在");
         }
     }
 
     /**
-     * 根据手机号和角色和用户ID检验是否存在
+     * 根据用户名和用户ID检验是否存在
      *
-     * @param phone  手机号
-     * @param role   角色
-     * @param userId 用户ID
+     * @param username 用户名
+     * @param userId   用户ID
      */
     @Transactional(rollbackFor = Exception.class, readOnly = true)
-    public void existsByPhoneAndRoleAndUserId(String phone, AuthRole role, Long userId) {
-        if (StringUtils.isBlank(phone)) {
-            throw new ValidationException("手机号不能为空");
+    public void existsByPhoneAndRoleAndNotUserId(String username, Long userId) {
+        if (StringUtils.isBlank(username)) {
+            throw new ValidationException("用户名不能为空");
         }
-        long count = userMapper.countByPhoneAndRoleAndId(phone, role, userId);
-        if (count > 0L) {
-            throw new ValidationException("手机号 " + phone + " 已存在，请更换其他手机号重试");
+        Integer count = userMapper.countByUsernameAndNotId(username, userId);
+        if (count > 0) {
+            throw new ValidationException("用户名 " + username + " 已存在，请更换其他手机号重试");
         }
     }
 

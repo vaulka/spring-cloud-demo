@@ -1,9 +1,11 @@
 package com.pongsky.cloud.web.aspect;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pongsky.cloud.utils.jwt.dto.AuthInfo;
 import com.pongsky.cloud.web.request.AuthUtils;
 import com.pongsky.cloud.web.request.IpUtils;
 import com.pongsky.cloud.web.request.RequestUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -25,14 +27,17 @@ import java.util.Optional;
 @Slf4j
 @Aspect
 @Component
+@RequiredArgsConstructor
 public class RestControllerAround {
+
+    private final ObjectMapper jsonMapper;
 
     /**
      * 需要记录的请求方法集合
      */
     private static final List<String> API_REQUEST_METHODS = List.of("PUT", "POST", "DELETE");
 
-    @Around("execution(public * com.pongsky.cloud..*.controller..*.*(..))")
+    @Around("execution(public * com.pongsky.cloud.controller..*.*(..))")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         ServletRequestAttributes requestAttributes
                 = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -57,7 +62,7 @@ public class RestControllerAround {
                     request.getMethod(),
                     Optional.ofNullable(request.getQueryString()).orElse(""),
                     RequestUtils.getBody(request));
-            log.info("response is [{}]", Optional.ofNullable(result).orElse(""));
+            log.info("response is [{}]", jsonMapper.writeValueAsString(Optional.ofNullable(result).orElse("")));
             log.info("cost [{}] ms",
                     System.currentTimeMillis() - start);
             log.info("Ended request");

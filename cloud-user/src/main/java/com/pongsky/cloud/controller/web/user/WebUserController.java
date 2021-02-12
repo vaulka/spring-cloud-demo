@@ -6,6 +6,7 @@ import com.pongsky.cloud.response.annotation.ResponseResult;
 import com.pongsky.cloud.service.UserService;
 import com.pongsky.cloud.utils.jwt.enums.AuthRole;
 import com.pongsky.cloud.validator.CreateGroup;
+import com.pongsky.cloud.validator.SearchGroup;
 import com.pongsky.cloud.validator.UpdateGroup;
 import com.pongsky.cloud.web.request.AuthUtils;
 import lombok.RequiredArgsConstructor;
@@ -40,8 +41,19 @@ public class WebUserController {
      */
     @PostMapping("/registered")
     public UserVo registered(@Validated({CreateGroup.class}) @RequestBody UserDto userDto) {
-        userService.existsByPhoneAndRoleAndUserId(userDto.getPhone(), AuthRole.USER, null);
+        userService.existsByPhoneAndRoleAndNotUserId(userDto.getUsername(), null);
         return userService.registered(userDto);
+    }
+
+    /**
+     * 登录
+     *
+     * @param userDto 登录信息
+     * @return 登录
+     */
+    @PostMapping("/login")
+    public UserVo login(@Validated({SearchGroup.class}) @RequestBody UserDto userDto) {
+        return userService.login(userDto);
     }
 
     /**
@@ -69,7 +81,7 @@ public class WebUserController {
                            @Validated({UpdateGroup.class}) @RequestBody UserDto userDto) {
         Long userId = AuthUtils.getAuthUserId(request);
         userService.existsByUserId(userId);
-        userService.existsByPhoneAndRoleAndUserId(userDto.getPhone(), AuthRole.USER, userId);
+        userService.existsByPhoneAndRoleAndNotUserId(userDto.getUsername(), userId);
         userService.modifyInfo(userId, userDto);
     }
 

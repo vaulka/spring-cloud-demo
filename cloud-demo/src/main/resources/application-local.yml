@@ -17,5 +17,4 @@ spring:
 logging:
   level:
     root: info
-    org.springframework.jdbc.core: debug
     com.pongsky.cloud.mapper: debug

@@ -11,7 +11,7 @@ jib {
         image = "openjdk:11-jre-stretch"
     }
     to {
-        image = "registry.cn-hangzhou.aliyuncs.com/pongsky/cloud-payment"
+        image = "registry.cn-hangzhou.aliyuncs.com/pongsky/cloud-user"
         auth {
             username = "x"
             password = "y"
@@ -19,7 +19,7 @@ jib {
         tags = ["local-v1.0.0"]
     }
     container {
-        mainClass = "com.pongsky.cloud.PaymentApplication"
+        mainClass = "com.pongsky.cloud.UserApplication"
         ports = ["8080"]
         jvmFlags = ["-Xmx512M", "-Xms330M", "-Xmn100M",
                     "-XX:MaxDirectMemorySize=64M", "-XX:MetaspaceSize=100M",
@@ -39,7 +39,6 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
     implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-data-jdbc:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
     implementation group: "org.springframework.boot", name: "spring-boot-dependencies", version: "${springBootVersion}", ext: "pom"
     implementation group: "org.springframework.cloud", name: "spring-cloud-dependencies", version: "${springCloudVersion}", ext: "pom"

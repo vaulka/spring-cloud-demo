@@ -3,7 +3,6 @@ package com.pongsky.cloud.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
@@ -25,7 +24,6 @@ public class Payment {
      * <p>
      * bigint(20)、unsigned 、not null
      */
-    @Id
     private Long id;
 
     /**

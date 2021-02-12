@@ -25,6 +25,11 @@ public class UserVo {
     private AuthRole role;
 
     /**
+     * 用户名
+     */
+    private String username;
+
+    /**
      * 名称
      */
     private String name;
@@ -33,5 +38,15 @@ public class UserVo {
      * 手机号
      */
     private String phone;
+
+    /**
+     * authorization
+     */
+    private String authorization;
+
+    /**
+     * refreshToken
+     */
+    private String refreshToken;
 
 }

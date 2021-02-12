@@ -4,7 +4,6 @@ import com.pongsky.cloud.utils.jwt.enums.AuthRole;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
@@ -26,7 +25,6 @@ public class User {
      * <p>
      * bigint(20)、unsigned 、not null
      */
-    @Id
     private Long id;
 
     /**
@@ -35,6 +33,20 @@ public class User {
      * varchar(10)、not null
      */
     private AuthRole role;
+
+    /**
+     * 用户名
+     * <p>
+     * varchar(20)、not null
+     */
+    private String username;
+
+    /**
+     * 密码
+     * <p>
+     * varchar(100)、not null
+     */
+    private String password;
 
     /**
      * 名称

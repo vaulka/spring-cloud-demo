@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 @Component
 public class AnnotationAround {
 
-    @Before("execution(public * com.pongsky.cloud..*.controller..*.*(..))")
+    @Before("execution(public * com.pongsky.cloud.controller..*.*(..))")
     public void before(JoinPoint point) {
         ServletRequestAttributes requestAttributes
                 = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();

@@ -1,10 +1,13 @@
 package com.pongsky.cloud.web.handler;
 
-import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pongsky.cloud.exception.DoesNotExistException;
 import com.pongsky.cloud.exception.ExistException;
 import com.pongsky.cloud.exception.FrequencyException;
 import com.pongsky.cloud.exception.HttpException;
+import com.pongsky.cloud.exception.InsertException;
+import com.pongsky.cloud.exception.UpdateException;
 import com.pongsky.cloud.exception.ValidationException;
 import com.pongsky.cloud.model.annotation.Meaning;
 import com.pongsky.cloud.response.ErrorResult;
@@ -13,6 +16,7 @@ import com.pongsky.cloud.utils.jwt.dto.AuthInfo;
 import com.pongsky.cloud.web.request.AuthUtils;
 import com.pongsky.cloud.web.request.IpUtils;
 import com.pongsky.cloud.web.request.RequestUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -49,7 +53,10 @@ import java.util.Optional;
  */
 @Slf4j
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
+    private final ObjectMapper jsonMapper;
 
     /**
      * 打印堆栈信息最小标识码
@@ -348,6 +355,30 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
+     * 保存异常
+     *
+     * @param exception exception
+     * @param request   request
+     * @return 保存异常
+     */
+    @ExceptionHandler(value = InsertException.class)
+    public Object insertException(InsertException exception, HttpServletRequest request) {
+        return getErrorResult(ResultCode.InsertException, null, exception, request);
+    }
+
+    /**
+     * 更新异常
+     *
+     * @param exception exception
+     * @param request   request
+     * @return 更新异常
+     */
+    @ExceptionHandler(value = UpdateException.class)
+    public Object updateException(UpdateException exception, HttpServletRequest request) {
+        return getErrorResult(ResultCode.UpdateException, null, exception, request);
+    }
+
+    /**
      * 系统异常
      *
      * @param exception exception
@@ -426,15 +457,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             log.error("body 参数：{}", RequestUtils.getBody(request));
             log.error("异常详细信息：{}", result.getMessage());
             Arrays.asList(exception.getStackTrace()).forEach(stackTrace -> log.error(stackTrace.toString()));
-            log.error("返回结果：{}", JSON.toJSONString(result));
-            log.error("Exception Ended");
         } else {
             log.info("");
             log.info("Exception Started");
             log.info("异常详细信息：{}", result.getMessage());
-            log.info("返回结果：{}", JSON.toJSONString(result));
-            log.info("Exception Ended");
         }
+        try {
+            log.error("返回结果：{}", jsonMapper.writeValueAsString(result));
+        } catch (JsonProcessingException e) {
+            log.error(e.getLocalizedMessage());
+        }
+        log.error("Exception Ended");
     }
 
 }

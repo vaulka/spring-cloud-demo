@@ -65,6 +65,10 @@ public enum ResultCode {
 
     DbActionExecutionException("数据库异常", 500),
 
+    InsertException("保存异常", 501),
+
+    UpdateException("修改异常", 502),
+
     //1000 表示系统异常
 
     Exception("系统异常", 1000);

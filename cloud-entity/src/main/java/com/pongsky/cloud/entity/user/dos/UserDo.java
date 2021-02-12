@@ -25,6 +25,16 @@ public class UserDo {
     private AuthRole role;
 
     /**
+     * 用户名
+     */
+    private String username;
+
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
      * 名称
      */
     private String name;
