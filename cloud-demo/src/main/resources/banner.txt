@@ -5,5 +5,5 @@
  ╚██╗╚██████╗███████╗╚██████╔╝╚██████╔╝██████╔╝      ██████╔╝███████╗██║ ╚═╝ ██║╚██████╔╝██╔╝
   ╚═╝ ╚═════╝╚══════╝ ╚═════╝  ╚═════╝ ╚═════╝       ╚═════╝ ╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚═╝
 
-Application Version: ${application.formatted-version}
+Application Version: ${spring.application.name}
 Spring Boot Version: ${spring-boot.formatted-version}
