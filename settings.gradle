@@ -1,4 +1,5 @@
 rootProject.name = 'cloud'
+include 'cloud-boot-deploy'
 include 'cloud-boot-docs'
 include 'cloud-common-entity'
 include 'cloud-common-utils'
