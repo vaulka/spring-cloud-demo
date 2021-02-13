@@ -2,9 +2,10 @@ application:
   name: Cloud # 工程名称
   module: Payment # 模块名称
   version: 1.0.0 # 工程版本号
+  formatted-version: PongSky ${application.name}-${application.module} ${application.version} # 格式化版本
 spring:
   application:
-    name: PongSky ${application.name}-${application.module} ${application.version} # 应用名称
+    name: ${application.name}-${application.module} # 应用名称
   profiles:
     active: local # 选择配置文件
   security:
