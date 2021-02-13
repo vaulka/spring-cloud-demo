@@ -33,10 +33,10 @@ jib {
 }
 
 dependencies {
-    implementation project(":cloud-utils")
-    implementation project(":cloud-config")
-    implementation project(":cloud-entity")
-    implementation project(":cloud-web-config")
+    implementation project(":cloud-config-web")
+    implementation project(":cloud-config-boot")
+    implementation project(":cloud-common-utils")
+    implementation project(":cloud-common-entity")
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"

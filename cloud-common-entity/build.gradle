@@ -9,7 +9,7 @@ jar {
 }
 
 dependencies {
-    implementation project(":cloud-utils")
+    implementation project(":cloud-common-utils")
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"

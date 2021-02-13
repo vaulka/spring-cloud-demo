@@ -15,8 +15,8 @@ bootJar {
 }
 
 dependencies {
-    implementation project(":cloud-utils")
-    implementation project(":cloud-entity")
+    implementation project(":cloud-common-utils")
+    implementation project(":cloud-common-entity")
     implementation "com.auth0:java-jwt:${jwtVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
