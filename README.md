@@ -13,13 +13,15 @@
 
 * Spring Boot
 
-> * Spring AOP
-> * Spring MVC
-> * Spring Validation
+    * Spring AOP
+      
+    * Spring MVC
+    
+    * Spring Validation
 
 * Spring Cloud
 
-> * 
+    * 
 
 * Spring Security
 
