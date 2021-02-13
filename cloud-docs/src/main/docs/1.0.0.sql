@@ -9,12 +9,16 @@ CREATE DATABASE `cloud` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 -- ----------------------------
 CREATE TABLE `cloud`.`payment`
 (
-    `id`         bigint(20) unsigned                     NOT NULL COMMENT '支付ID',
-    `serial`     varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '序列号',
-    `created_at` datetime(6)                             NOT NULL COMMENT '创建时间',
-    `updated_at` datetime DEFAULT NULL COMMENT '修改时间',
+    `id`           bigint(20) unsigned                     NOT NULL COMMENT '支付ID',
+    `product`      varchar(30) COLLATE utf8mb4_unicode_ci  NOT NULL COMMENT '产品',
+    `serial`       varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '序列号',
+    `data_version` bigint(20) unsigned                     NOT NULL COMMENT '数据版本号（乐观锁）',
+    `created_at`   datetime(6)                             NOT NULL COMMENT '创建时间',
+    `updated_at`   datetime DEFAULT NULL COMMENT '修改时间',
+    `user_id`      bigint(20) unsigned                     NOT NULL COMMENT '用户ID',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `unique_serial` (`serial`) USING BTREE
+    UNIQUE KEY `unique_serial` (`serial`) USING BTREE,
+    KEY `index_userId` (`user_id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;

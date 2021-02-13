@@ -27,11 +27,25 @@ public class Payment {
     private Long id;
 
     /**
+     * 产品
+     * <p>
+     * varchar(30)、not null
+     */
+    private String product;
+
+    /**
      * 序列号
      * <p>
      * varchar(255)、not null
      */
     private String serial;
+
+    /**
+     * 数据版本号（乐观锁）
+     * <p>
+     * bigint(20)、unsigned 、not null
+     */
+    private Long dataVersion;
 
     /**
      * 创建时间
@@ -46,5 +60,12 @@ public class Payment {
      * datetime(6)
      */
     private LocalDateTime updatedAt;
+
+    /**
+     * 用户ID
+     * <p>
+     * bigint(20)、unsigned 、not null
+     */
+    private Long userId;
 
 }
