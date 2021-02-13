@@ -1,10 +1,10 @@
 rootProject.name = 'cloud'
 include 'cloud-config'
-include 'cloud-demo'
 include 'cloud-docs'
 include 'cloud-entity'
-include 'cloud-payment'
-include 'cloud-user'
+include 'cloud-service-demo'
+include 'cloud-service-payment'
+include 'cloud-service-user'
 include 'cloud-utils'
 include 'cloud-web-config'
 
