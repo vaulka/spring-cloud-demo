@@ -2,8 +2,7 @@ package com.pongsky.cloud.web.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pongsky.cloud.response.ErrorResult;
-import com.pongsky.cloud.response.SuccessResult;
+import com.pongsky.cloud.response.GlobalResult;
 import com.pongsky.cloud.response.annotation.ResponseResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,21 +45,21 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
                                   ServerHttpResponse response) {
         HttpServletRequest httpServletRequest =
                 ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
-        // 判断是否是错误
-        if (body instanceof ErrorResult) {
+        // 判断是否已封装好全局响应结果
+        if (body instanceof GlobalResult) {
             return body;
         }
         // 判断是否全局响应数据
         if (httpServletRequest.getAttribute(ResponseResult.class.getSimpleName()) != null) {
             if (body instanceof String) {
                 try {
-                    return jsonMapper.writeValueAsString(new SuccessResult(body));
+                    return jsonMapper.writeValueAsString(new GlobalResult(body));
                 } catch (JsonProcessingException e) {
                     log.error(e.getLocalizedMessage());
-                    return new SuccessResult(body);
+                    return new GlobalResult(body);
                 }
             } else {
-                return new SuccessResult(body);
+                return new GlobalResult(body);
             }
         }
         return body;

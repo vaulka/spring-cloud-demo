@@ -10,7 +10,7 @@ import com.pongsky.cloud.exception.InsertException;
 import com.pongsky.cloud.exception.UpdateException;
 import com.pongsky.cloud.exception.ValidationException;
 import com.pongsky.cloud.model.annotation.Meaning;
-import com.pongsky.cloud.response.ErrorResult;
+import com.pongsky.cloud.response.GlobalResult;
 import com.pongsky.cloud.response.enums.ResultCode;
 import com.pongsky.cloud.utils.jwt.dto.AuthInfo;
 import com.pongsky.cloud.web.request.AuthUtils;
@@ -77,7 +77,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                          HttpStatus status, WebRequest request) {
         HttpServletRequest httpServletRequest = ((ServletRequestAttributes)
                 (RequestContextHolder.currentRequestAttributes())).getRequest();
-        Object result = getErrorResult(ResultCode.BindException, getFieldMessages(ex.getBindingResult()),
+        Object result = getResult(ResultCode.BindException, getFieldMessages(ex.getBindingResult()),
                 ex, httpServletRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -97,7 +97,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                           WebRequest request) {
         HttpServletRequest httpServletRequest = ((ServletRequestAttributes)
                 (RequestContextHolder.currentRequestAttributes())).getRequest();
-        Object result = getErrorResult(ResultCode.BindException, ex.getMessage(), ex, httpServletRequest);
+        Object result = getResult(ResultCode.BindException, ex.getMessage(), ex, httpServletRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -116,7 +116,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   WebRequest request) {
         HttpServletRequest httpServletRequest = ((ServletRequestAttributes)
                 (RequestContextHolder.currentRequestAttributes())).getRequest();
-        Object result = getErrorResult(ResultCode.MethodArgumentNotValidException,
+        Object result = getResult(ResultCode.MethodArgumentNotValidException,
                 getFieldMessages(ex.getBindingResult()), ex, httpServletRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -210,7 +210,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   WebRequest request) {
         HttpServletRequest httpServletRequest = ((ServletRequestAttributes)
                 (RequestContextHolder.currentRequestAttributes())).getRequest();
-        Object result = getErrorResult(ResultCode.HttpMessageNotReadableException, null, ex, httpServletRequest);
+        Object result = getResult(ResultCode.HttpMessageNotReadableException, null, ex, httpServletRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -219,7 +219,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                    HttpStatus status, WebRequest request) {
         HttpServletRequest httpServletRequest = ((ServletRequestAttributes)
                 (RequestContextHolder.currentRequestAttributes())).getRequest();
-        Object result = getErrorResult(ResultCode.NoHandlerFoundException,
+        Object result = getResult(ResultCode.NoHandlerFoundException,
                 httpServletRequest.getRequestURI() + " 接口不存在", ex, httpServletRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -230,7 +230,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                          WebRequest request) {
         HttpServletRequest httpServletRequest = ((ServletRequestAttributes)
                 (RequestContextHolder.currentRequestAttributes())).getRequest();
-        Object result = getErrorResult(ResultCode.HttpRequestMethodNotSupportedException,
+        Object result = getResult(ResultCode.HttpRequestMethodNotSupportedException,
                 httpServletRequest.getMethod() + " 方法不存在", ex, httpServletRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -244,7 +244,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = DoesNotExistException.class)
     public Object doesNotExistException(DoesNotExistException exception, HttpServletRequest request) {
-        return getErrorResult(ResultCode.DoesNotExistException, exception.getLocalizedMessage(), exception, request);
+        return getResult(ResultCode.DoesNotExistException, exception.getLocalizedMessage(), exception, request);
     }
 
     /**
@@ -256,7 +256,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = {ValidationException.class, ConstraintViolationException.class})
     public Object validationException(Exception exception, HttpServletRequest request) {
-        return getErrorResult(ResultCode.ValidationException, exception.getLocalizedMessage(), exception, request);
+        return getResult(ResultCode.ValidationException, exception.getLocalizedMessage(), exception, request);
     }
 
     /**
@@ -268,7 +268,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = HttpException.class)
     public Object httpException(HttpException exception, HttpServletRequest request) {
-        return getErrorResult(ResultCode.HttpException, exception.getLocalizedMessage(), exception, request);
+        return getResult(ResultCode.HttpException, exception.getLocalizedMessage(), exception, request);
     }
 
     /**
@@ -282,9 +282,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public Object accessDeniedException(AccessDeniedException exception, HttpServletRequest request) {
         if (AuthUtils.getUser(request).equals(AuthInfo.PUBLIC_INFO)) {
             // 过期则重新登录
-            return getErrorResult(ResultCode.TokenExpiredException, "访问凭证已过期，请重新登录", exception, request);
+            return getResult(ResultCode.TokenExpiredException, "访问凭证已过期，请重新登录", exception, request);
         }
-        return getErrorResult(ResultCode.AccessDeniedException, null, exception, request);
+        return getResult(ResultCode.AccessDeniedException, null, exception, request);
     }
 
     /**
@@ -296,7 +296,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = MultipartException.class)
     public Object multipartException(MultipartException exception, HttpServletRequest request) {
-        return getErrorResult(ResultCode.MultipartException, null, exception, request);
+        return getResult(ResultCode.MultipartException, null, exception, request);
     }
 
     /**
@@ -314,7 +314,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = MaxUploadSizeExceededException.class)
     public Object maxUploadSizeExceededException(MaxUploadSizeExceededException exception, HttpServletRequest request) {
-        return getErrorResult(ResultCode.MaxUploadSizeExceededException,
+        return getResult(ResultCode.MaxUploadSizeExceededException,
                 "文件最大 " + maxFileSize + " ，请缩小文件内容后重新上传", exception, request);
     }
 
@@ -327,7 +327,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = IllegalArgumentException.class)
     public Object illegalArgumentException(IllegalArgumentException exception, HttpServletRequest request) {
-        return getErrorResult(ResultCode.IllegalArgumentException, null, exception, request);
+        return getResult(ResultCode.IllegalArgumentException, null, exception, request);
     }
 
     /**
@@ -339,7 +339,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = ExistException.class)
     public Object existException(ExistException exception, HttpServletRequest request) {
-        return getErrorResult(ResultCode.ExistException, null, exception, request);
+        return getResult(ResultCode.ExistException, null, exception, request);
     }
 
     /**
@@ -351,7 +351,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = FrequencyException.class)
     public Object frequencyException(FrequencyException exception, HttpServletRequest request) {
-        return getErrorResult(ResultCode.FrequencyException, null, exception, request);
+        return getResult(ResultCode.FrequencyException, null, exception, request);
     }
 
     /**
@@ -363,7 +363,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = InsertException.class)
     public Object insertException(InsertException exception, HttpServletRequest request) {
-        return getErrorResult(ResultCode.InsertException, null, exception, request);
+        return getResult(ResultCode.InsertException, null, exception, request);
     }
 
     /**
@@ -375,7 +375,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = UpdateException.class)
     public Object updateException(UpdateException exception, HttpServletRequest request) {
-        return getErrorResult(ResultCode.UpdateException, null, exception, request);
+        return getResult(ResultCode.UpdateException, null, exception, request);
     }
 
     /**
@@ -387,7 +387,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = Exception.class)
     public Object exception(Exception exception, HttpServletRequest request) {
-        return getErrorResult(ResultCode.Exception, null, exception, request);
+        return getResult(ResultCode.Exception, null, exception, request);
     }
 
     /**
@@ -399,11 +399,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @param request    request
      * @return 封装异常响应体并打印
      */
-    private Object getErrorResult(ResultCode resultCode, String message, Exception exception, HttpServletRequest request) {
+    private Object getResult(ResultCode resultCode, String message, Exception exception, HttpServletRequest request) {
         String ip = IpUtils.getIp(request);
         // 可通过 getAttribute 获取自定义注解对 body 数据对特定业务场景进行特殊处理
 
-        ErrorResult result = new ErrorResult(ip, resultCode, request.getRequestURI(), exception.getClass().getName());
+        GlobalResult result = new GlobalResult(ip, resultCode, request.getRequestURI(), exception.getClass().getName());
         exception = getException(exception, 0);
         if (message != null) {
             result.setMessage(message);
@@ -447,7 +447,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @param request   request
      * @param result    错误响应数据
      */
-    private void log(Exception exception, HttpServletRequest request, ErrorResult result) {
+    private void log(Exception exception, HttpServletRequest request, GlobalResult result) {
         if (result.getCode() >= BOUNDARY) {
             log.error("");
             log.error("Exception Started");
