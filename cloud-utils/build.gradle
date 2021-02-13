@@ -2,7 +2,15 @@ plugins {
 
 }
 
+apply plugin: "java"
+
+jar {
+    enabled = true
+}
+
 dependencies {
     implementation "com.auth0:java-jwt:${jwtVersion}"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
 }

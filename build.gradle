@@ -20,16 +20,11 @@ ext {
 }
 
 allprojects {
-    apply plugin: "java"
+
     apply plugin: "idea"
-    apply plugin: "jacoco"
 
     sourceCompatibility = 11
     targetCompatibility = 11
-
-    jar {
-        enabled = true
-    }
 
     group "com.pongsky.cloud"
     version "1.0.0"
@@ -39,11 +34,6 @@ allprojects {
         maven { url "https://maven.aliyun.com/repository/central" }
         maven { url "https://maven.aliyun.com/repository/jcenter" }
         jcenter()
-    }
-
-    dependencies {
-        compileOnly "org.projectlombok:lombok:${lombokVersion}"
-        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     }
 
 }

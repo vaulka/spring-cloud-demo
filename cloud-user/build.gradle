@@ -3,8 +3,13 @@ plugins {
     id "org.springframework.boot" version "${springBootVersion}"
 }
 
+apply plugin: "java"
 apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
+
+jar {
+    enabled = true
+}
 
 jib {
     from {
@@ -31,7 +36,9 @@ dependencies {
     implementation project(":cloud-utils")
     implementation project(":cloud-entity")
     implementation project(":cloud-web-config")
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
     runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
     developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
     implementation "net.rakugakibox.spring.boot:orika-spring-boot-starter:${orikaVersion}"

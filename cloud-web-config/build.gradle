@@ -2,6 +2,7 @@ plugins {
     id "org.springframework.boot" version "${springBootVersion}"
 }
 
+apply plugin: "java"
 apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
 
@@ -17,6 +18,8 @@ dependencies {
     implementation project(":cloud-utils")
     implementation project(":cloud-entity")
     implementation "com.auth0:java-jwt:${jwtVersion}"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"

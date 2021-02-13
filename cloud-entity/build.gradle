@@ -2,8 +2,16 @@ plugins {
 
 }
 
+apply plugin: "java"
+
+jar {
+    enabled = true
+}
+
 dependencies {
     implementation project(":cloud-utils")
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
     implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
     implementation "org.springframework.data:spring-data-commons:${springBootVersion}"
