@@ -2,6 +2,7 @@ package com.pongsky.cloud.response;
 
 import com.pongsky.cloud.response.enums.ResultCode;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 正确响应数据体
@@ -10,6 +11,7 @@ import lombok.Data;
  * @create 2021-02-10
  */
 @Data
+@NoArgsConstructor
 public class GlobalResult<T> {
 
     /**
