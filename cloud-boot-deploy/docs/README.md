@@ -55,6 +55,15 @@
     * cloud-payment.yml # `payment` 服务 `docker-compose` 编排文件
 
 
+* cloud-service-user # `user` 服务
+
+    * DownUserService.sh # 停止 `user` 服务脚本
+
+    * StartUserService.sh # 启动 `user` 服务脚本
+
+    * cloud-user.yml # `user` 服务 `docker-compose` 编排文件
+
+
 * README.md # 说明文档
 
 * CreateNetwork.sh # 创建项目全局网络
@@ -100,3 +109,11 @@
 2. 运行 `StartPaymentService.sh` 脚本用于启动 `payment` 服务。
 
 > 如需停止服务，则运行 `DownPaymentService.sh` 脚本。
+
+### 部署 user 服务
+
+1. 执行 `cd cloud-service-user` 命令进入到目标目录。
+
+2. 运行 `StartUserService.sh` 脚本用于启动 `user` 服务。
+
+> 如需停止服务，则运行 `DownUserService.sh` 脚本。
