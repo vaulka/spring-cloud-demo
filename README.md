@@ -22,6 +22,8 @@
 
     * Spring Cloud Consul
 
+    * Spring CLoud OpenFeign
+
 * Spring Security
 
 * JWT、MyBatis、Orika、Lombok
