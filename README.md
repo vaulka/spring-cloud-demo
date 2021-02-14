@@ -4,7 +4,6 @@
 
 本项目旨在沉淀已掌握的技术， 并持续更新...
 
-
 ## 架构栈
 
 本项目用到架构栈如下
@@ -14,14 +13,14 @@
 * Spring Boot
 
     * Spring AOP
-      
+
     * Spring MVC
-    
+
     * Spring Validation
 
 * Spring Cloud
 
-    * 
+    * Spring Cloud Consul
 
 * Spring Security
 
