@@ -38,6 +38,10 @@ spring:
   output:
     ansi:
       enabled: always # 启用控制台打印颜色
+  cloud:
+    consul:
+      discovery:
+        instance-id: ${spring.application.name}-${random.uuid} # 唯一实例ID
   devtools:
     livereload:
       port: 20002 # 热部署端口号
