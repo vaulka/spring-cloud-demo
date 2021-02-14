@@ -69,6 +69,8 @@ public enum ResultCode {
 
     UpdateException("修改异常", 502),
 
+    RemoteCallException("远程调用异常", 503),
+
     //1000 表示系统异常
 
     Exception("系统异常", 1000);

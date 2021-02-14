@@ -17,6 +17,7 @@ import com.pongsky.cloud.utils.jwt.dto.AuthInfo;
 import com.pongsky.cloud.web.request.AuthUtils;
 import com.pongsky.cloud.web.request.IpUtils;
 import com.pongsky.cloud.web.request.RequestUtils;
+import feign.RetryableException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -388,6 +389,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = RemoteCallException.class)
     public Object remoteCallException(RemoteCallException exception) {
         return exception.getResult();
+    }
+
+    /**
+     * 远程调用异常
+     *
+     * @param exception exception
+     * @param request   request
+     * @return 远程调用异常
+     */
+    @ExceptionHandler(value = RetryableException.class)
+    public Object retryableException(RetryableException exception, HttpServletRequest request) {
+        return getResult(ResultCode.RemoteCallException, null, exception, request);
     }
 
     /**

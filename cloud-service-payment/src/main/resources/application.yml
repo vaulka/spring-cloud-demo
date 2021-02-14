@@ -59,3 +59,13 @@ server:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true # 查询字段下划线自动转驼峰
+feign:
+  okhttp:
+    enabled: true # 启用 okhttp
+  httpclient:
+    enabled: false # 禁用 httpclient
+  client:
+    config:
+      default:
+        connectTimeout: 5000 # 连接超时限制
+        readTimeout: 5000 # 读取超时限制
