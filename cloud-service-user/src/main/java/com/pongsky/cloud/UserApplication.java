@@ -4,12 +4,14 @@ import com.pongsky.cloud.config.DatabaseConfig;
 import com.pongsky.cloud.config.JacksonConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Import;
 
 /**
  * @author pengsenhao
  * @create 2021-02-11
  */
+@EnableDiscoveryClient
 @SpringBootApplication
 @Import({
         DatabaseConfig.class,

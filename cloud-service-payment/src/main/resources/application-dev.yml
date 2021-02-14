@@ -18,8 +18,6 @@ spring:
     consul:
       host: consul1
       port: 8500
-      discovery:
-        service-name: ${spring.application.name}
 logging:
   level:
     root: info

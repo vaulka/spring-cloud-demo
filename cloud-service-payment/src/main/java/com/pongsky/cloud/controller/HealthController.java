@@ -1,5 +1,6 @@
-package com.pongsky.cloud.controller.web;
+package com.pongsky.cloud.controller;
 
+import com.pongsky.cloud.response.annotation.ResponseResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author pengsenhao
  * @create 2021-02-14
  */
+@ResponseResult
 @RestController
 @RequestMapping("/health")
 public class HealthController {

@@ -41,6 +41,7 @@ spring:
   cloud:
     consul:
       discovery:
+        service-name: ${spring.application.name} # 服务名称
         instance-id: ${spring.application.name}-${random.uuid} # 唯一实例ID
   devtools:
     livereload:
