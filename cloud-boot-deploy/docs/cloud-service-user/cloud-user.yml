@@ -6,7 +6,7 @@ services: # 服务列表
     restart: always # 重启策略，docker 启动后，如果有运行此服务会自启
     deploy:
       mode: replicated
-      replicas: 3 # 部署节点数量
+      replicas: 2 # 部署节点数量
     environment: # 环境参数
       - TZ=Asia/Shanghai # 设置上海时区
     healthcheck:
