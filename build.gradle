@@ -10,6 +10,7 @@ ext {
 
     springBootVersion = "2.3.3.RELEASE"
     springCloudVersion = "Hoxton.SR8"
+    springCloudConsulVersion = "2.2.4.RELEASE"
     springCloudAlibabaVersion = "2.2.5.RELEASE"
     jacksonVersion = "2.11.2"
     mybatisVersion = "2.1.4"
