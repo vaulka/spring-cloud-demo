@@ -3,11 +3,11 @@ services: # 服务列表
 
   consul1: # 服务名称
     image: consul:1.9.3 # 引用镜像
-    restart: always # 重启策略，docker启动后，如果有运行此服务会自启
+    restart: always # 重启策略，docker 启动后，如果有运行此服务会自启
     hostname: consul1 # hostname 名称
     ports: # 映射端口列表
-      - 8500:8500 # 映射 web 端口号，生产环境有状态服务建议不映射端口号
-    environment:
+      - 8501:8500 # 映射 web 端口号，生产环境有状态服务建议不映射端口号
+    environment: # 环境参数
       CONSUL_BIND_INTERFACE: eth0 # 配置 consul 网络信息
     volumes: # 挂载数据卷列表
       - ~/docker-volumes/cloud/consul1/data:/consul/data # 挂载 consul 数据

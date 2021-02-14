@@ -1,0 +1,18 @@
+version: '3.8' # compose 编排文件版本号
+services: # 服务列表
+
+  mysql: # 服务名称
+    image: mysql:5.7.25 # 引用镜像
+    restart: always # 重启策略，docker 启动后，如果有运行此服务会自启
+    ports: # 映射端口列表
+      - 3306:3306 # 映射 mysql 服务端口，生产环境有状态服务建议不映射端口号
+    environment: # 环境参数
+      MYSQL_ROOT_PASSWORD: 123456 # mysql 密码
+    volumes: # 挂载数据卷列表
+      - ~/docker-volumes/cloud/mysql/data:/var/lib/mysql # 挂载 mysql 数据
+
+
+networks:
+  default:
+    external: true # 指定加入外部已存在网络
+    name: cloud # 网络名称

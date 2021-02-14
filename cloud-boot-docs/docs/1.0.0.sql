@@ -49,6 +49,6 @@ CREATE TABLE `cloud`.`user`
 -- ----------------------------
 -- Init Table Data for user
 -- ----------------------------
-insert `user`(id, role, username, password, name, phone, is_disable, data_version, created_at)
+insert `cloud`.`user`(id, role, username, password, name, phone, is_disable, data_version, created_at)
     value (1, 'ADMIN', 'admin', '$2a$10$ps7WiT7B.omuLvsPVBi2aePOitjsprzJ5v.Bgxkb889DGkWjROQaO', '系统管理员',
            '15159845510', 0, 0, '2021-02-10 00:00:00');

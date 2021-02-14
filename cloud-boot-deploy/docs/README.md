@@ -34,11 +34,34 @@
 
     * cloud-consul3.yml # `consul3` 服务 `docker-compose` 编排文件
 
+
+* cloud-service-mysql # `mysql` 服务
+
+    * CreateVolumesDirectory.sh # 创建 `mysql` 服务挂载数据卷目录脚本
+
+    * DownMySQLService.sh # 停止 `mysql` 服务脚本
+
+    * StartMySQLService.sh # 启动 `mysql` 服务脚本
+
+    * cloud-mysql.yml # `mysql` 服务 `docker-compose` 编排文件
+
+
+* cloud-service-payment # `payment` 服务
+
+    * DownPaymentService.sh # 停止 `payment` 服务脚本
+
+    * StartPaymentService.sh # 启动 `payment` 服务脚本
+
+    * cloud-payment.yml # `payment` 服务 `docker-compose` 编排文件
+
+
 * README.md # 说明文档
 
 * CreateNetwork.sh # 创建项目全局网络
 
 ## 部署
+
+> WARN: 请按照部署顺序依次部署。
 
 ### 创建全局网络
 
@@ -46,12 +69,34 @@
 
 > 只需运行一次，除非网络被删除，后续再部署此项目中的服务时网络需要重新创建。
 
+### 部署 mysql 服务
+
+1. 执行 `cd cloud-service-mysql` 命令进入到目标目录。
+
+2. 运行 `CreateVolumesDirectory.sh` 脚本用于创建数据卷挂载目录。
+
+3. 运行 `StartMySQLService.sh` 脚本用于启动 `mysql` 服务。
+
+4. 连接 mysql，并根据当前版本运行版本相关 SQL。（文档参考：cloud-boot-docs 模块）
+
+> 如需停止服务，则运行 `DownMySQLService.sh` 脚本。
+>
+> WARN: 数据库不建议部署在 docker 中。
+
 ### 部署 consul 服务
 
-1. 执行 `cd cloud-service-consul` 进入到目标目录。
+1. 执行 `cd cloud-service-consul` 命令进入到目标目录。
 
 2. 运行 `CreateVolumesDirectory.sh` 脚本用于创建数据卷挂载目录。
 
 3. 运行 `StartConsulService.sh` 脚本用于启动 `consul` 服务。
 
 > 如需停止服务，则运行 `DownConsulService.sh` 脚本。
+
+### 部署 payment 服务
+
+1. 执行 `cd cloud-service-payment` 命令进入到目标目录。
+
+2. 运行 `StartPaymentService.sh` 脚本用于启动 `payment` 服务。
+
+> 如需停止服务，则运行 `DownPaymentService.sh` 脚本。

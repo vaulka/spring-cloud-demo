@@ -3,11 +3,11 @@ services: # 服务列表
 
   payment: # 服务名称
     image: cloud-payment:1.0.0 # 引用镜像
-    restart: always # 重启策略，docker启动后，如果有运行此服务会自启
+    restart: always # 重启策略，docker 启动后，如果有运行此服务会自启
     deploy:
       mode: replicated
       replicas: 3 # 部署节点数量
-    environment:
+    environment: # 环境参数
       - TZ=Asia/Shanghai # 设置上海时区
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:10002/health/check" ] # 心跳检测指令
@@ -19,7 +19,7 @@ services: # 服务列表
     # application.yml 配置每行以 -D 开头，key=value 形式进行编写
     entrypoint: java
       -Dspring.profiles.active=dev
-      -cp /app/resources/:/app/classes/:/app/libs/* com.pongsky.cloud.PaymentApiApplication
+      -cp /app/resources/:/app/classes/:/app/libs/* com.pongsky.cloud.PaymentApplication
 
 
 networks:
