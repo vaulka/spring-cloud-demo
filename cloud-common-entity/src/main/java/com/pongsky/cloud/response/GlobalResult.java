@@ -76,7 +76,7 @@ public class GlobalResult<T> {
      * <p>
      * 有数据的情况：成功
      */
-    private T data;
+    private T data = null;
 
     /**
      * 调用接口路径地址

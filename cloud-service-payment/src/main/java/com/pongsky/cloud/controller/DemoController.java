@@ -1,5 +1,6 @@
 package com.pongsky.cloud.controller;
 
+import com.pongsky.cloud.exception.ValidationException;
 import com.pongsky.cloud.response.annotation.ResponseResult;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,19 @@ public class DemoController {
      */
     @RequestMapping("/uid")
     public String uid() {
+        return UID;
+    }
+
+    /**
+     * 异常
+     *
+     * @return 异常
+     */
+    @RequestMapping("/exception")
+    public String exception() {
+        if (true) {
+            throw new ValidationException("啊哈哈");
+        }
         return UID;
     }
 

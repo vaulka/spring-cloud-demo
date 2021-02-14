@@ -33,7 +33,7 @@ public class PaymentController {
      * @return 登录
      */
     @RequestMapping("/login")
-    public UserVo paymentUid(@Validated({SearchGroup.class}) @RequestBody UserDto userDto) {
+    public UserVo login(@Validated({SearchGroup.class}) @RequestBody UserDto userDto) {
         return paymentFeign.login(userDto).getData();
     }
 
@@ -43,8 +43,18 @@ public class PaymentController {
      * @return 获取 Payment 随机 UUID
      */
     @RequestMapping("/uid")
-    public String paymentUid() {
+    public String uid() {
         return paymentFeign.uid().getData();
+    }
+
+    /**
+     * 异常
+     *
+     * @return 异常
+     */
+    @RequestMapping("/exception")
+    public Object exception() {
+        return paymentFeign.exception().getData();
     }
 
 }

@@ -7,6 +7,7 @@ import com.pongsky.cloud.exception.ExistException;
 import com.pongsky.cloud.exception.FrequencyException;
 import com.pongsky.cloud.exception.HttpException;
 import com.pongsky.cloud.exception.InsertException;
+import com.pongsky.cloud.exception.RemoteCallException;
 import com.pongsky.cloud.exception.UpdateException;
 import com.pongsky.cloud.exception.ValidationException;
 import com.pongsky.cloud.model.annotation.Meaning;
@@ -379,6 +380,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
+     * 远程调用异常
+     *
+     * @param exception exception
+     * @return 远程调用异常
+     */
+    @ExceptionHandler(value = RemoteCallException.class)
+    public Object remoteCallException(RemoteCallException exception) {
+        return exception.getResult();
+    }
+
+    /**
      * 系统异常
      *
      * @param exception exception
@@ -403,7 +415,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         String ip = IpUtils.getIp(request);
         // 可通过 getAttribute 获取自定义注解对 body 数据对特定业务场景进行特殊处理
 
-        GlobalResult result = new GlobalResult(ip, resultCode, request.getRequestURI(), exception.getClass().getName());
+        GlobalResult<Void> result = new GlobalResult<>(ip, resultCode, request.getRequestURI(), exception.getClass().getName());
         exception = getException(exception, 0);
         if (message != null) {
             result.setMessage(message);
@@ -447,7 +459,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @param request   request
      * @param result    错误响应数据
      */
-    private void log(Exception exception, HttpServletRequest request, GlobalResult result) {
+    private void log(Exception exception, HttpServletRequest request, GlobalResult<Void> result) {
         if (result.getCode() >= BOUNDARY) {
             log.error("");
             log.error("Exception Started");

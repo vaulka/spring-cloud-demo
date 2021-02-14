@@ -55,4 +55,12 @@ public interface PaymentFeign {
     @RequestMapping("/demo/uid")
     GlobalResult<String> uid();
 
+    /**
+     * 异常
+     *
+     * @return 异常
+     */
+    @RequestMapping("/demo/exception")
+    GlobalResult<String> exception();
+
 }
