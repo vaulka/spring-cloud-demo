@@ -38,6 +38,7 @@ dependencies {
     runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
+    implementation "com.github.ben-manes.caffeine:caffeine:${caffeineVersion}"
     developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
     implementation "net.rakugakibox.spring.boot:orika-spring-boot-starter:${orikaVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"

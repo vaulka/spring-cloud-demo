@@ -37,6 +37,7 @@ dependencies {
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    implementation "com.github.ben-manes.caffeine:caffeine:${caffeineVersion}"
     developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
