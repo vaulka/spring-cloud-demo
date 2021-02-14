@@ -35,6 +35,15 @@
     * cloud-consul3.yml # `consul3` 服务 `docker-compose` 编排文件
 
 
+* cloud-service-demo # `demo` 服务
+
+    * DownDemoService.sh # 停止 `demo` 服务脚本
+
+    * StartDemoService.sh # 启动 `demo` 服务脚本
+
+    * cloud-demo.yml # `demo` 服务 `docker-compose` 编排文件
+
+
 * cloud-service-mysql # `mysql` 服务
 
     * CreateVolumesDirectory.sh # 创建 `mysql` 服务挂载数据卷目录脚本
@@ -101,6 +110,14 @@
 3. 运行 `StartConsulService.sh` 脚本用于启动 `consul` 服务。
 
 > 如需停止服务，则运行 `DownConsulService.sh` 脚本。
+
+### 部署 demo 服务
+
+1. 执行 `cd cloud-service-demo` 命令进入到目标目录。
+
+2. 运行 `StartDemoService.sh` 脚本用于启动 `demo` 服务。
+
+> 如需停止服务，则运行 `DownDemoService.sh` 脚本。
 
 ### 部署 payment 服务
 
