@@ -8,6 +8,7 @@ import com.pongsky.cloud.utils.jwt.enums.AuthRole;
 import com.pongsky.cloud.validator.UpdateGroup;
 import com.pongsky.cloud.web.request.AuthUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +28,8 @@ import javax.servlet.http.HttpServletRequest;
 @ResponseResult
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/web/admin/account")
 @PreAuthorize("hasRole('" + AuthRole.ADMIN_ROLE + "')")
+@RequestMapping(value = "/web/admin/account", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WebAdminAccountController {
 
     private final UserService userService;

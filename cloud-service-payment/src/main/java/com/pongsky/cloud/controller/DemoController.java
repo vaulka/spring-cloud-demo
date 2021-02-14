@@ -1,6 +1,7 @@
 package com.pongsky.cloud.controller;
 
 import com.pongsky.cloud.response.annotation.ResponseResult;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +15,7 @@ import java.util.UUID;
  */
 @ResponseResult
 @RestController
-@RequestMapping("/demo")
+@RequestMapping(value = "/demo", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DemoController {
 
     /**
@@ -24,6 +25,8 @@ public class DemoController {
 
     /**
      * 获取 随机 UUID
+     *
+     * @return 获取 随机 UUID
      */
     @RequestMapping("/uid")
     public String uid() {

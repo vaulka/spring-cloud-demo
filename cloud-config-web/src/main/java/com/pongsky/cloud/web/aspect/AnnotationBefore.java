@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
  */
 @Aspect
 @Component
-public class AnnotationAround {
+public class AnnotationBefore {
 
     @Before("execution(public * com.pongsky.cloud.controller..*.*(..))")
     public void before(JoinPoint point) {

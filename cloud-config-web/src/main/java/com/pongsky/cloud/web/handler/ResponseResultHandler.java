@@ -53,13 +53,13 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
         if (httpServletRequest.getAttribute(ResponseResult.class.getSimpleName()) != null) {
             if (body instanceof String) {
                 try {
-                    return jsonMapper.writeValueAsString(new GlobalResult(body));
+                    return jsonMapper.writeValueAsString(new GlobalResult<>(body));
                 } catch (JsonProcessingException e) {
                     log.error(e.getLocalizedMessage());
-                    return new GlobalResult(body);
+                    return new GlobalResult<>(body);
                 }
             } else {
-                return new GlobalResult(body);
+                return new GlobalResult<>(body);
             }
         }
         return body;

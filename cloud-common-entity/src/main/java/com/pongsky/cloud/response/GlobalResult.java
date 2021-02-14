@@ -10,14 +10,14 @@ import lombok.Data;
  * @create 2021-02-10
  */
 @Data
-public class GlobalResult {
+public class GlobalResult<T> {
 
     /**
      * 【成功】构造方法
      *
      * @param data 接口响应数据体
      */
-    public GlobalResult(Object data) {
+    public GlobalResult(T data) {
         this.code = ResultCode.Success.getCode();
         this.message = ResultCode.Success.getMessage();
         this.data = data;
@@ -74,7 +74,7 @@ public class GlobalResult {
      * <p>
      * 有数据的情况：成功
      */
-    private Object data;
+    private T data;
 
     /**
      * 调用接口路径地址

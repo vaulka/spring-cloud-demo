@@ -9,6 +9,7 @@ import com.pongsky.cloud.utils.jwt.JwtUtils;
 import com.pongsky.cloud.validator.SearchGroup;
 import com.pongsky.cloud.web.request.AuthUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @ResponseResult
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/web/admin/login")
+@RequestMapping(value = "/web/admin/login", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WebAdminLoginController {
 
     private final UserService userService;
