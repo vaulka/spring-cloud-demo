@@ -1,14 +1,16 @@
 #!/bin/bash
 
+SHELL_FOLDER=$(dirname "$0")
+
 # 启动 consul1 服务
-docker stack deploy -c cloud-consul1.yml cloud-consul1;
+docker stack deploy -c ${SHELL_FOLDER}/cloud-consul1.yml cloud_consul1;
 
 sleep 5s;
 
 # 启动 consul2 服务
-docker stack deploy -c cloud-consul2.yml cloud-consul2;
+docker stack deploy -c ${SHELL_FOLDER}/cloud-consul2.yml cloud_consul2;
 
 sleep 5s;
 
 # 启动 consul3 服务
-docker stack deploy -c cloud-consul3.yml cloud-consul3;
+docker stack deploy -c ${SHELL_FOLDER}/cloud-consul3.yml cloud_consul3;
