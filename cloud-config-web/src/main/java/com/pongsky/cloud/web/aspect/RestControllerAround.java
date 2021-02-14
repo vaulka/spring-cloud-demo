@@ -73,8 +73,7 @@ public class RestControllerAround {
                     Optional.ofNullable(request.getQueryString()).orElse(""),
                     RequestUtils.getBody(request));
             log.info("response is [{}]", jsonMapper.writeValueAsString(Optional.ofNullable(result).orElse("")));
-            log.info("cost [{}] ms",
-                    System.currentTimeMillis() - start);
+            log.info("cost [{}] ms", System.currentTimeMillis() - start);
             log.info("Ended request");
             log.info("");
         }
