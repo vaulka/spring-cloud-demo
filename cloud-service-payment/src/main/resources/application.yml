@@ -67,5 +67,6 @@ feign:
   client:
     config:
       default:
-        connectTimeout: 5000 # 连接超时限制
-        readTimeout: 5000 # 读取超时限制
+        loggerLevel: FULL # 日志记录级别
+        connectTimeout: 5000 # 建立连接超时限制
+        readTimeout: 5000 # 从建立连接起到连接结束超时限制
