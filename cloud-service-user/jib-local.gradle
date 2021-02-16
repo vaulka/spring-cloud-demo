@@ -3,12 +3,12 @@ jib {
         image = "openjdk:11-jre-stretch"
     }
     to {
-        image = "cloud-payment"
+        image = "cloud-user"
         tags = ["local-" + version.toString()]
     }
     container {
-        mainClass = "com.pongsky.cloud.PaymentApplication"
-        ports = ["10002"]
+        mainClass = "com.pongsky.cloud.UserApplication"
+        ports = ["10001"]
         jvmFlags = ["-Xmx512M", "-Xms330M", "-Xmn100M",
                     "-XX:MaxDirectMemorySize=64M", "-XX:MetaspaceSize=100M",
                     "-Djava.security.egd=file:/dev/./urandom", "-Duser.timezone=GMT+08",

@@ -2,7 +2,7 @@ version: '3.8' # compose 编排文件版本号
 services: # 服务列表
 
   user: # 服务名称
-    image: cloud-user:1.0.0 # 引用镜像
+    image: cloud-user:user-1.0.0 # 引用镜像
     restart: always # 重启策略，docker 启动后，如果有运行此服务会自启
     environment: # 环境参数
       - TZ=Asia/Shanghai # 设置上海时区
@@ -18,11 +18,6 @@ services: # 服务列表
       resources:
         limits: # 限制资源
           memory: 500M # 内存容量，支持单位：b、k、m、g
-    # jvm 配置每行以 - 开头，keyvalue 形式进行编写
-    # application.yml 配置每行以 -D 开头，key=value 形式进行编写
-    entrypoint: java
-      -Dspring.profiles.active=dev
-      -cp /app/resources/:/app/classes/:/app/libs/* com.pongsky.cloud.UserApplication
 
 
 networks:

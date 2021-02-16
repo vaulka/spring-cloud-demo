@@ -3,7 +3,7 @@ jib {
         image = "openjdk:11-jre-stretch"
     }
     to {
-        image = "cloud-demo"
+        image = "cloud-payment"
         tags = ["dev-" + version.toString()]
     }
     container {

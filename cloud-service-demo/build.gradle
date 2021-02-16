@@ -7,8 +7,9 @@ apply plugin: "java"
 apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
 
-if (!hasProperty("jibProfile")) ext.jibProfile = "dev"
-
+if (!hasProperty("jibProfile")) {
+    ext.jibProfile = "dev"
+}
 apply from: "jib-${jibProfile}.gradle"
 
 jar {
