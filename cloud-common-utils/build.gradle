@@ -12,6 +12,7 @@ dependencies {
     implementation "com.auth0:java-jwt:${jwtVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    implementation "javax.servlet:javax.servlet-api:${servletVersion}"
     implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
 }

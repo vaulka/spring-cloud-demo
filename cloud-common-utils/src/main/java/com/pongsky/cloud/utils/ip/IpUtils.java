@@ -1,4 +1,4 @@
-package com.pongsky.cloud.web.request;
+package com.pongsky.cloud.utils.ip;
 
 import org.apache.commons.lang3.StringUtils;
 

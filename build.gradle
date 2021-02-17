@@ -12,12 +12,14 @@ ext {
     springCloudVersion = "Hoxton.SR8"
     springCloudConsulVersion = "2.2.4.RELEASE"
     springCloudOpenFeignVersion = "2.2.5.RELEASE"
+    springCloudHystrixVersion = "2.2.5.RELEASE"
     springCloudAlibabaVersion = "2.2.5.RELEASE"
     jacksonVersion = "2.11.2"
     mybatisVersion = "2.1.4"
 
     jwtVersion = "3.12.1"
     orikaVersion = "1.9.0"
+    servletVersion = "4.0.1"
     caffeineVersion = "2.8.8"
     commonsLang3Version = "3.11"
 }

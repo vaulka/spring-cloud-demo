@@ -1,9 +1,9 @@
 package com.pongsky.cloud.web.aspect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pongsky.cloud.utils.ip.IpUtils;
 import com.pongsky.cloud.utils.jwt.dto.AuthInfo;
 import com.pongsky.cloud.web.request.AuthUtils;
-import com.pongsky.cloud.web.request.IpUtils;
 import com.pongsky.cloud.web.request.RequestUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
