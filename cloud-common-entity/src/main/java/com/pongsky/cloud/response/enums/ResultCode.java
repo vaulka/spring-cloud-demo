@@ -71,6 +71,8 @@ public enum ResultCode {
 
     RemoteCallException("远程调用异常", 503),
 
+    CircuitBreakerException("断路异常", 504, "服务器出了点小差，请稍后再试"),
+
     //1000 表示系统异常
 
     Exception("系统异常", 1000);

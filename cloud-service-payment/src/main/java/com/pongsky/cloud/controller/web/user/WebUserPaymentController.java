@@ -1,7 +1,12 @@
 package com.pongsky.cloud.controller.web.user;
 
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.pongsky.cloud.entity.payment.dto.PaymentDto;
+import com.pongsky.cloud.response.GlobalResult;
 import com.pongsky.cloud.response.annotation.ResponseResult;
+import com.pongsky.cloud.response.enums.ResultCode;
 import com.pongsky.cloud.service.PaymentService;
 import com.pongsky.cloud.utils.jwt.enums.AuthRole;
 import com.pongsky.cloud.validator.CreateGroup;
@@ -28,9 +33,23 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('" + AuthRole.USER_ROLE + "')")
 @RequestMapping(value = "/web/user/payment", produces = MediaType.APPLICATION_JSON_VALUE)
+@DefaultProperties(defaultFallback = "circuitBreakerResult",
+        commandProperties = {
+                @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
+        })
 public class WebUserPaymentController {
 
     private final PaymentService paymentService;
+
+    /**
+     * 服务降级 fallback 方法
+     * WARN: controller 所有方法返回值必须为 Object
+     *
+     * @return 服务降级 fallback 方法
+     */
+    public GlobalResult<Void> circuitBreakerResult() {
+        return new GlobalResult<>(null, ResultCode.CircuitBreakerException, null, null);
+    }
 
     /**
      * 保存支付信息
@@ -38,12 +57,14 @@ public class WebUserPaymentController {
      * @param request    request
      * @param paymentDto 支付信息
      */
+    @HystrixCommand
     @PostMapping
-    public void save(HttpServletRequest request,
-                     @Validated({CreateGroup.class}) @RequestBody PaymentDto paymentDto) {
+    public Object save(HttpServletRequest request,
+                       @Validated({CreateGroup.class}) @RequestBody PaymentDto paymentDto) {
         Long userId = AuthUtils.getAuthUserId(request);
         paymentService.existsBySerialAndNotUserId(paymentDto.getSerial(), null);
         paymentService.save(userId, paymentDto);
+        return null;
     }
 
 }

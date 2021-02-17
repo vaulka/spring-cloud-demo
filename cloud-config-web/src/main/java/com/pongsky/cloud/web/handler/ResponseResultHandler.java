@@ -2,8 +2,11 @@ package com.pongsky.cloud.web.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pongsky.cloud.exception.CircuitBreakerException;
 import com.pongsky.cloud.response.GlobalResult;
 import com.pongsky.cloud.response.annotation.ResponseResult;
+import com.pongsky.cloud.response.enums.ResultCode;
+import com.pongsky.cloud.utils.ip.IpUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -47,7 +50,12 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
                 ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
         // 判断是否已封装好全局响应结果
         if (body instanceof GlobalResult) {
-            return body;
+            // 判断是否断路异常
+            if (!((GlobalResult<?>) body).getCode().equals(ResultCode.CircuitBreakerException.getCode())) {
+                return body;
+            }
+            return new GlobalResult<>(IpUtils.getIp(httpServletRequest), ResultCode.CircuitBreakerException,
+                    httpServletRequest.getRequestURI(), CircuitBreakerException.class.getName());
         }
         // 判断是否全局响应数据
         if (httpServletRequest.getAttribute(ResponseResult.class.getSimpleName()) != null) {
