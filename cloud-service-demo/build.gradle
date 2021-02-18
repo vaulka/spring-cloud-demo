@@ -34,6 +34,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign:${springCloudOpenFeignVersion}"
     implementation "org.springframework.cloud:spring-cloud-starter-consul-discovery:${springCloudConsulVersion}"
+    implementation "org.springframework.cloud:spring-cloud-starter-netflix-hystrix:${springCloudHystrixVersion}"
     implementation group: "org.springframework.boot", name: "spring-boot-dependencies", version: "${springBootVersion}", ext: "pom"
     implementation group: "org.springframework.cloud", name: "spring-cloud-dependencies", version: "${springCloudVersion}", ext: "pom"
     implementation group: "com.alibaba.cloud", name: "spring-cloud-alibaba-dependencies", version: "${springCloudAlibabaVersion}", ext: "pom"

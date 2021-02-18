@@ -69,7 +69,7 @@ public enum ResultCode {
 
     UpdateException("修改异常", 502),
 
-    RemoteCallException("远程调用异常", 503),
+    RemoteCallException("远程调用异常", 503, "远程调用服务失败"),
 
     CircuitBreakerException("断路异常", 504, "服务器出了点小差，请稍后再试"),
 

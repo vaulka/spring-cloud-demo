@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pongsky.cloud.exception.RemoteCallException;
 import com.pongsky.cloud.response.GlobalResult;
 import com.pongsky.cloud.response.enums.ResultCode;
+import com.pongsky.cloud.utils.ip.IpUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -12,6 +13,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 远程调用耗时打印、校验远程调用响应数据
@@ -34,6 +37,7 @@ public class RemoteCallAround {
         if (requestAttributes == null) {
             return null;
         }
+        HttpServletRequest request = requestAttributes.getRequest();
         long start = System.currentTimeMillis();
         Object result = joinPoint.proceed();
         log.info("Started remote call request");
@@ -43,7 +47,7 @@ public class RemoteCallAround {
         if (result instanceof GlobalResult) {
             GlobalResult<?> globalResult = (GlobalResult<?>) result;
             if (!globalResult.getCode().equals(ResultCode.Success.getCode())) {
-                throw new RemoteCallException(globalResult);
+                throw new RemoteCallException(globalResult.setIp(IpUtils.getIp(request)).setPath(request.getRequestURI()));
             }
         }
         return result;

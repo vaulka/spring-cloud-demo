@@ -70,3 +70,5 @@ feign:
         loggerLevel: FULL # 日志记录级别
         connectTimeout: 5000 # 建立连接超时限制
         readTimeout: 5000 # 从建立连接起到连接结束超时限制
+  hystrix:
+    enabled: true # 开启 hystrix

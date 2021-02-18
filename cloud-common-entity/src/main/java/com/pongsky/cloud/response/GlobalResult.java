@@ -1,8 +1,11 @@
 package com.pongsky.cloud.response;
 
+import com.pongsky.cloud.exception.RemoteCallException;
 import com.pongsky.cloud.response.enums.ResultCode;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
  * 正确响应数据体
@@ -12,6 +15,8 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
+@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
 public class GlobalResult<T> {
 
     /**
@@ -41,6 +46,17 @@ public class GlobalResult<T> {
         this.path = path;
         this.exception = exception;
         this.timestamp = System.currentTimeMillis();
+    }
+
+    /**
+     * 远程调用异常 fallback 响应数据
+     *
+     * @param clazz clazz
+     * @param <T>   <T>
+     * @return 远程调用异常 fallback 响应数据
+     */
+    public static <T> GlobalResult<T> remoteCallExceptionResult(Class<T> clazz) {
+        return new GlobalResult<>(null, ResultCode.RemoteCallException, null, RemoteCallException.class.getName());
     }
 
     /**

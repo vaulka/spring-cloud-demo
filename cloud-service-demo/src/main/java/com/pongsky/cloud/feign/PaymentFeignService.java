@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author pengsenhao
  * @create 2021-02-14
  */
-@FeignClient(value = ServiceConfig.PAYMENT_SERVICE)
-public interface PaymentFeign {
+@FeignClient(value = ServiceConfig.PAYMENT_SERVICE, fallback = PaymentFeignServiceImpl.class)
+public interface PaymentFeignService {
 
     /**
      * 注册
