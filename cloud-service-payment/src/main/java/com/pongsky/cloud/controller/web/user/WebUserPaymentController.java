@@ -4,6 +4,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.pongsky.cloud.entity.payment.dto.PaymentDto;
+import com.pongsky.cloud.exception.CircuitBreakerException;
 import com.pongsky.cloud.response.GlobalResult;
 import com.pongsky.cloud.response.annotation.ResponseResult;
 import com.pongsky.cloud.response.enums.ResultCode;
@@ -33,7 +34,9 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('" + AuthRole.USER_ROLE + "')")
 @RequestMapping(value = "/web/user/payment", produces = MediaType.APPLICATION_JSON_VALUE)
-@DefaultProperties(defaultFallback = "circuitBreakerResult",
+@DefaultProperties(
+        defaultFallback = "circuitBreakerResult",
+        ignoreExceptions = RuntimeException.class,
         commandProperties = {
                 @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
         })
@@ -48,7 +51,7 @@ public class WebUserPaymentController {
      * @return 服务降级 fallback 方法
      */
     public GlobalResult<Void> circuitBreakerResult() {
-        return new GlobalResult<>(null, ResultCode.CircuitBreakerException, null, null);
+        return new GlobalResult<>(null, ResultCode.CircuitBreakerException, null, CircuitBreakerException.class.getName());
     }
 
     /**
@@ -64,7 +67,7 @@ public class WebUserPaymentController {
         Long userId = AuthUtils.getAuthUserId(request);
         paymentService.existsBySerialAndNotUserId(paymentDto.getSerial(), null);
         paymentService.save(userId, paymentDto);
-        return null;
+        return GlobalResult.SUCCESS;
     }
 
 }

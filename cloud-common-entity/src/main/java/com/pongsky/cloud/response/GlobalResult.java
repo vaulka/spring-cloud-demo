@@ -60,6 +60,11 @@ public class GlobalResult<T> {
     }
 
     /**
+     * 成功
+     */
+    public static final String SUCCESS = "SUCCESS";
+
+    /**
      * 客户端 IP 地址
      * <p>
      * 有数据的情况：失败
