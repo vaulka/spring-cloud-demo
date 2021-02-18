@@ -13,6 +13,8 @@ import com.pongsky.cloud.validator.SearchGroup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,13 +67,24 @@ public class PaymentController {
      *
      * @return 获取 Payment 随机 UUID
      */
+    @GetMapping("/uid")
+    public Object getUid() {
+        GlobalResult<String> uid = paymentFeignService.uid();
+        return "TEST";
+    }
+
+    /**
+     * 获取 Payment 随机 UUID
+     *
+     * @return 获取 Payment 随机 UUID
+     */
     @HystrixCommand
-    @RequestMapping("/uid")
-    public Object uid() {
+    @PostMapping("/uid")
+    public Object postUid() {
         // TODO controller 方法增加 @HystrixCommand，会导致 open feign 远程调用失败
         // TODO open feign hystrix 服务降级失败
         GlobalResult<String> uid = paymentFeignService.uid();
-        return "a";
+        return "TEST";
     }
 
     /**

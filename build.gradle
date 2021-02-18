@@ -3,19 +3,21 @@ plugins {
 }
 
 ext {
-    lombokVersion = "1.18.16"
     jibVersion = "2.7.1"
+    lombokVersion = "1.18.16"
 
     mysqlVersion = "8.0.22"
 
     springBootVersion = "2.3.3.RELEASE"
     springCloudVersion = "Hoxton.SR8"
-    springCloudConsulVersion = "2.2.4.RELEASE"
-    springCloudOpenFeignVersion = "2.2.5.RELEASE"
-    springCloudHystrixVersion = "2.2.5.RELEASE"
     springCloudAlibabaVersion = "2.2.5.RELEASE"
-    jacksonVersion = "2.11.2"
+
+    springCloudConsulVersion = "2.2.4.RELEASE"
+    springCloudHystrixVersion = "2.2.5.RELEASE"
+    springCloudOpenFeignVersion = "2.2.5.RELEASE"
+
     mybatisVersion = "2.1.4"
+    jacksonVersion = "2.11.2"
 
     jwtVersion = "3.12.1"
     orikaVersion = "1.9.0"
