@@ -32,7 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
         ignoreExceptions = RuntimeException.class,
         commandProperties = {
                 @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "60000")
-        })
+        }
+)
 public class PaymentController {
 
     private final PaymentFeignService paymentFeignService;

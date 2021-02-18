@@ -38,8 +38,9 @@ import javax.servlet.http.HttpServletRequest;
         defaultFallback = "circuitBreakerResult",
         ignoreExceptions = RuntimeException.class,
         commandProperties = {
-                @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
-        })
+                @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "60000")
+        }
+)
 public class WebUserPaymentController {
 
     private final PaymentService paymentService;
