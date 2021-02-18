@@ -1,5 +1,6 @@
 package com.pongsky.cloud.response;
 
+import com.pongsky.cloud.exception.CircuitBreakerException;
 import com.pongsky.cloud.exception.RemoteCallException;
 import com.pongsky.cloud.response.enums.ResultCode;
 import lombok.Data;
@@ -57,6 +58,15 @@ public class GlobalResult<T> {
      */
     public static <T> GlobalResult<T> remoteCallExceptionResult(Class<T> clazz) {
         return new GlobalResult<>(null, ResultCode.RemoteCallException, null, RemoteCallException.class.getName());
+    }
+
+    /**
+     * 熔断 响应数据
+     *
+     * @return 熔断 响应数据
+     */
+    public static GlobalResult<Void> circuitBreakerExceptionResult() {
+        return new GlobalResult<>(null, ResultCode.CircuitBreakerException, null, CircuitBreakerException.class.getName());
     }
 
     /**

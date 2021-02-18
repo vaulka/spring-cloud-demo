@@ -52,7 +52,7 @@ public class WebUserPaymentController {
      * @return 服务降级 fallback 方法
      */
     public GlobalResult<Void> circuitBreakerResult() {
-        return new GlobalResult<>(null, ResultCode.CircuitBreakerException, null, CircuitBreakerException.class.getName());
+        return GlobalResult.circuitBreakerExceptionResult();
     }
 
     /**
