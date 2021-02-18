@@ -10,6 +10,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,7 @@ import java.util.Optional;
 @Slf4j
 @Aspect
 @Component
+@Order(value = 3)
 @RequiredArgsConstructor
 public class RemoteCallAround {
 
@@ -40,25 +43,31 @@ public class RemoteCallAround {
         long start = System.currentTimeMillis();
         Object result = joinPoint.proceed();
         log.info("Started remote call request");
+        FeignClient feignClient = (FeignClient) joinPoint.getSignature().getDeclaringType().getAnnotation(FeignClient.class);
         RequestMapping request = method.getAnnotation(RequestMapping.class);
         if (request != null) {
-            log.info("methodURL [{}] methodType [UNKNOWN]", request.value().length > 0 ? request.value()[0] : "");
+            log.info("serviceName [{}] methodURL [{}] methodType [UNKNOWN]",
+                    feignClient.value(), request.value().length > 0 ? request.value()[0] : "");
         }
         GetMapping get = method.getAnnotation(GetMapping.class);
         if (get != null) {
-            log.info("methodURL [{}] methodType [GET]", get.value().length > 0 ? get.value()[0] : "");
+            log.info("serviceName [{}] methodURL [{}] methodType [GET]",
+                    feignClient.value(), get.value().length > 0 ? get.value()[0] : "");
         }
         PutMapping put = method.getAnnotation(PutMapping.class);
         if (put != null) {
-            log.info("methodURL [{}] methodType [PUT]", put.value().length > 0 ? put.value()[0] : "");
+            log.info("serviceName [{}] methodURL [{}] methodType [PUT]",
+                    feignClient.value(), put.value().length > 0 ? put.value()[0] : "");
         }
         PostMapping post = method.getAnnotation(PostMapping.class);
         if (post != null) {
-            log.info("methodURL [{}] methodType [POST]", post.value().length > 0 ? post.value()[0] : "");
+            log.info("serviceName [{}] methodURL [{}] methodType [POST]",
+                    feignClient.value(), post.value().length > 0 ? post.value()[0] : "");
         }
         DeleteMapping delete = method.getAnnotation(DeleteMapping.class);
         if (delete != null) {
-            log.info("methodURL [{}] methodType [DELETE]", delete.value().length > 0 ? delete.value()[0] : "");
+            log.info("serviceName [{}] methodURL [{}] methodType [DELETE]",
+                    feignClient.value(), delete.value().length > 0 ? delete.value()[0] : "");
         }
         log.info("response is [{}]", jsonMapper.writeValueAsString(Optional.ofNullable(result).orElse("")));
         log.info("cost [{}] ms", System.currentTimeMillis() - start);

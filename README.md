@@ -24,6 +24,8 @@
 
     * Spring CLoud OpenFeign
 
+    * Spring CLoud Netflix Hystrix
+
 * Spring Security
 
 * JWT、MyBatis、Orika、Lombok

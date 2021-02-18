@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,7 @@ import java.util.Optional;
 @Slf4j
 @Aspect
 @Component
+@Order(value = 2)
 @RequiredArgsConstructor
 public class RestControllerAround {
 
@@ -56,8 +58,6 @@ public class RestControllerAround {
         String ip = IpUtils.getIp(request);
         String userAgent = request.getHeader("user-agent");
         String referer = request.getHeader("referer");
-        long start = System.currentTimeMillis();
-        Object result = joinPoint.proceed();
         long count = API_REQUEST_METHODS.stream()
                 .filter(method -> request.getAttribute(method) != null)
                 .count();
@@ -72,6 +72,10 @@ public class RestControllerAround {
                     request.getMethod(),
                     Optional.ofNullable(request.getQueryString()).orElse(""),
                     RequestUtils.getBody(request));
+        }
+        long start = System.currentTimeMillis();
+        Object result = joinPoint.proceed();
+        if (count > 0) {
             log.info("response is [{}]", jsonMapper.writeValueAsString(Optional.ofNullable(result).orElse("")));
             log.info("cost [{}] ms", System.currentTimeMillis() - start);
             log.info("Ended request");

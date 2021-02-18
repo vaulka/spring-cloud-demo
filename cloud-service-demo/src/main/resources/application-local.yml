@@ -21,5 +21,4 @@ spring:
 logging:
   level:
     root: info
-    com.pongsky.cloud.feign: debug
     com.pongsky.cloud.mapper: debug

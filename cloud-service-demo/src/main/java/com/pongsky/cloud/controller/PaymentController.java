@@ -69,8 +69,7 @@ public class PaymentController {
      */
     @GetMapping("/uid")
     public Object getUid() {
-        GlobalResult<String> uid = paymentFeignService.uid();
-        return "TEST";
+        return paymentFeignService.uid().getData();
     }
 
     /**
@@ -81,10 +80,7 @@ public class PaymentController {
     @HystrixCommand
     @PostMapping("/uid")
     public Object postUid() {
-        // TODO controller 方法增加 @HystrixCommand，会导致 open feign 远程调用失败
-        // TODO open feign hystrix 服务降级失败
-        GlobalResult<String> uid = paymentFeignService.uid();
-        return "TEST";
+        return paymentFeignService.uid().getData();
     }
 
     /**
