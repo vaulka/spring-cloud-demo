@@ -49,12 +49,12 @@ spring:
         enabled: false # 禁用 RibbonLoadBalancerClient
   devtools:
     livereload:
-      port: 20000 # 热部署端口号
+      port: 20003 # 热部署端口号
 logging:
   pattern:
     console: ${CONSOLE_LOG_PATTERN:%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}  %-5.5L{5}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}} # 控制台日志打印格式
 server:
-  port: 10000 # 服务端口号
+  port: 10003 # 服务端口号
   shutdown: graceful # 优雅关机
 mybatis:
   configuration:

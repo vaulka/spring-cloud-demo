@@ -8,7 +8,7 @@ jib {
     }
     container {
         mainClass = "com.pongsky.cloud.DemoApplication"
-        ports = ["10000"]
+        ports = ["10003"]
         jvmFlags = ["-Xmx512M", "-Xms330M", "-Xmn100M",
                     "-XX:MaxDirectMemorySize=64M", "-XX:MetaspaceSize=100M",
                     "-Djava.security.egd=file:/dev/./urandom", "-Duser.timezone=GMT+08",
