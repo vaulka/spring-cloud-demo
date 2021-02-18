@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
- * 正确响应数据体
+ * 响应数据体
  *
  * @author pengsenhao
  * @create 2021-02-10
@@ -57,6 +57,21 @@ public class GlobalResult<T> {
      */
     public static <T> GlobalResult<T> remoteCallExceptionResult(Class<T> clazz) {
         return new GlobalResult<>(null, ResultCode.RemoteCallException, null, RemoteCallException.class.getName());
+    }
+
+    /**
+     * 校验响应数据体是否异常
+     * WARN:feign 远程调用 必须调用此方法
+     *
+     * @param globalResult 响应数据体
+     * @param <T>          <T>
+     * @return 校验响应数据体是否异常
+     */
+    public static <T> GlobalResult<T> validation(GlobalResult<T> globalResult) {
+        if (!globalResult.getCode().equals(ResultCode.Success.getCode())) {
+            throw new RemoteCallException(globalResult);
+        }
+        return globalResult;
     }
 
     /**

@@ -1,9 +1,6 @@
 package com.pongsky.cloud.web.aspect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pongsky.cloud.exception.RemoteCallException;
-import com.pongsky.cloud.response.GlobalResult;
-import com.pongsky.cloud.response.enums.ResultCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -72,13 +69,17 @@ public class RemoteCallAround {
         log.info("response is [{}]", jsonMapper.writeValueAsString(Optional.ofNullable(result).orElse("")));
         log.info("cost [{}] ms", System.currentTimeMillis() - start);
         log.info("Ended remote call request");
-        if (result instanceof GlobalResult) {
-            GlobalResult<?> globalResult = (GlobalResult<?>) result;
-            if (!globalResult.getCode().equals(ResultCode.Success.getCode())) {
-                throw new RemoteCallException(globalResult);
-            }
-        }
         return result;
     }
+
+    /*
+     * //    // WARN 在 @Around or @AfterReturning 中抛异常都会导致 failed and fallback failed
+     * //    @AfterReturning(value = "execution(public * com.pongsky.cloud.feign..*.*(..))", returning = "globalResult")
+     * //    public void afterReturning(GlobalResult<?> globalResult) {
+     * //        if (!globalResult.getCode().equals(ResultCode.Success.getCode())) {
+     * //            throw new RemoteCallException(globalResult);
+     * //        }
+     * //    }
+     */
 
 }

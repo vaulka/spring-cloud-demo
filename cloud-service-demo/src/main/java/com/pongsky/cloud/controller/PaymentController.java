@@ -59,7 +59,7 @@ public class PaymentController {
     @HystrixCommand
     @RequestMapping("/login")
     public Object login(@Validated({SearchGroup.class}) @RequestBody UserDto userDto) {
-        return paymentFeignService.login(userDto).getData();
+        return GlobalResult.validation(paymentFeignService.login(userDto)).getData();
     }
 
     /**
@@ -69,7 +69,7 @@ public class PaymentController {
      */
     @GetMapping("/uid")
     public Object getUid() {
-        return paymentFeignService.uid().getData();
+        return GlobalResult.validation(paymentFeignService.uid()).getData();
     }
 
     /**
@@ -80,7 +80,7 @@ public class PaymentController {
     @HystrixCommand
     @PostMapping("/uid")
     public Object postUid() {
-        return paymentFeignService.uid().getData();
+        return GlobalResult.validation(paymentFeignService.uid()).getData();
     }
 
     /**
@@ -91,7 +91,7 @@ public class PaymentController {
     @HystrixCommand
     @RequestMapping("/exception")
     public Object exception() {
-        return paymentFeignService.exception().getData();
+        return GlobalResult.validation(paymentFeignService.exception()).getData();
     }
 
 }
