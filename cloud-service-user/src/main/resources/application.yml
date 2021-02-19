@@ -48,9 +48,6 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false # 禁用 RibbonLoadBalancerClient
-  devtools:
-    livereload:
-      port: 20001 # 热部署端口号
 logging:
   pattern:
     console: ${CONSOLE_LOG_PATTERN:%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}  %-5.5L{5}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}} # 控制台日志打印格式
@@ -67,3 +64,5 @@ feign:
         loggerLevel: FULL # 日志记录级别
         connectTimeout: 5000 # 建立连接超时限制
         readTimeout: 5000 # 从建立连接起到连接结束超时限制
+  hystrix:
+    enabled: true # 开启 hystrix

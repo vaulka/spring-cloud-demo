@@ -1,5 +1,6 @@
-package com.pongsky.cloud.controller;
+package com.pongsky.cloud.controller.feign;
 
+import com.pongsky.cloud.exception.ValidationException;
 import com.pongsky.cloud.response.annotation.ResponseResult;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,8 @@ import java.util.UUID;
  */
 @ResponseResult
 @RestController
-@RequestMapping(value = "/demo", produces = MediaType.APPLICATION_JSON_VALUE)
-public class DemoController {
+@RequestMapping(value = "/feign/demo", produces = MediaType.APPLICATION_JSON_VALUE)
+public class FeignDemoController {
 
     /**
      * 随机 UUID
@@ -30,6 +31,19 @@ public class DemoController {
      */
     @RequestMapping("/uid")
     public String uid() {
+        return UID;
+    }
+
+    /**
+     * 异常
+     *
+     * @return 异常
+     */
+    @RequestMapping("/exception")
+    public String exception() {
+        if (true) {
+            throw new ValidationException("这是一个普普通通的校验异常");
+        }
         return UID;
     }
 
