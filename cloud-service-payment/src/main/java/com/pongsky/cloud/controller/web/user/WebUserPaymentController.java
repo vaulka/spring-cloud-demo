@@ -3,6 +3,7 @@ package com.pongsky.cloud.controller.web.user;
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import com.pongsky.cloud.config.HystrixConfigurationConfig;
 import com.pongsky.cloud.entity.payment.dto.PaymentDto;
 import com.pongsky.cloud.response.GlobalResult;
 import com.pongsky.cloud.response.annotation.ResponseResult;
@@ -36,7 +37,22 @@ import javax.servlet.http.HttpServletRequest;
         defaultFallback = "circuitBreakerResult",
         ignoreExceptions = RuntimeException.class,
         commandProperties = {
-                @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "60000")
+                @HystrixProperty(
+                        name = HystrixConfigurationConfig.TIMEOUT_IN_MILLISECONDS_PROP,
+                        value = HystrixConfigurationConfig.TIMEOUT_IN_MILLISECONDS_VALUE
+                ),
+                @HystrixProperty(
+                        name = HystrixConfigurationConfig.REQUEST_VOLUME_THRESHOLD_PROP,
+                        value = HystrixConfigurationConfig.REQUEST_VOLUME_THRESHOLD_VALUE
+                ),
+                @HystrixProperty(
+                        name = HystrixConfigurationConfig.SLEEP_WINDOW_IN_MILLISECONDS_PROP,
+                        value = HystrixConfigurationConfig.SLEEP_WINDOW_IN_MILLISECONDS_VALUE
+                ),
+                @HystrixProperty(
+                        name = HystrixConfigurationConfig.ERROR_THRESHOLD_PERCENTAGE_PROP,
+                        value = HystrixConfigurationConfig.ERROR_THRESHOLD_PERCENTAGE_VALUE
+                )
         }
 )
 public class WebUserPaymentController {

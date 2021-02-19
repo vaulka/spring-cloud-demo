@@ -17,4 +17,5 @@ dependencies {
     implementation "org.springframework.data:spring-data-commons:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign:${springCloudOpenFeignVersion}"
+    implementation "org.springframework.cloud:spring-cloud-starter-netflix-hystrix:${springCloudHystrixVersion}"
 }
