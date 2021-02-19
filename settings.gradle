@@ -1,10 +1,10 @@
-rootProject.name = 'cloud'
-include 'cloud-boot-deploy'
-include 'cloud-boot-docs'
-include 'cloud-common-entity'
-include 'cloud-common-utils'
-include 'cloud-config-boot'
-include 'cloud-config-web'
-include 'cloud-service-demo'
-include 'cloud-service-payment'
-include 'cloud-service-user'
+rootProject.name = "cloud"
+include "cloud-boot-deploy"
+include "cloud-boot-docs"
+include "cloud-common-entity"
+include "cloud-common-utils"
+include "cloud-config-boot"
+include "cloud-config-web"
+include "cloud-service-demo"
+include "cloud-service-payment"
+include "cloud-service-user"

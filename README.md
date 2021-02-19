@@ -18,15 +18,16 @@
 
     * Spring Validation
 
+    * Spring Security
+
 * Spring Cloud
 
     * Spring Cloud Consul
 
-    * Spring CLoud OpenFeign
+    * Spring Cloud OpenFeign
 
-    * Spring CLoud Netflix Hystrix
-
-* Spring Security
+    * Spring Cloud Hystrix
+  
 
 * JWT、MyBatis、Orika、Lombok
 
