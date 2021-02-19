@@ -27,7 +27,7 @@
     * Spring Cloud OpenFeign
 
     * Spring Cloud Hystrix
-  
+
 
 * JWT、MyBatis、Orika、Lombok
 
