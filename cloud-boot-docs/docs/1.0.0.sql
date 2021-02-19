@@ -47,7 +47,7 @@ CREATE TABLE `cloud`.`user`
 
 
 -- ----------------------------
--- Init Table Data for user
+-- Init table data for user
 -- ----------------------------
 insert `cloud`.`user`(id, role, username, password, name, phone, is_disable, data_version, created_at)
     value (1, 'ADMIN', 'admin', '$2a$10$ps7WiT7B.omuLvsPVBi2aePOitjsprzJ5v.Bgxkb889DGkWjROQaO', '系统管理员',

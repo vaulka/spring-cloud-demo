@@ -42,7 +42,6 @@ spring:
   cloud:
     consul:
       discovery:
-        prefer-ip-address: true # 注册时使用IP地址而不是主机名
         service-name: ${spring.application.name} # 服务名称
         instance-id: ${spring.application.name}-${random.uuid} # 唯一实例ID
         health-check-critical-timeout: 30s # 设置健康检查失败多长时间后，取消注册
