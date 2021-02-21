@@ -13,6 +13,7 @@ ext {
     springCloudAlibabaVersion = "2.2.5.RELEASE"
 
     springCloudConsulVersion = "2.2.4.RELEASE"
+    springCloudGatewayVersion = "2.2.5.RELEASE"
     springCloudHystrixVersion = "2.2.5.RELEASE"
     springCloudOpenFeignVersion = "2.2.5.RELEASE"
 

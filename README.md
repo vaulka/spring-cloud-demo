@@ -10,7 +10,9 @@
 
 ### Java
 
-* Spring Boot
+* JDK `11`
+
+* Spring Boot `2.3.3.RELEASE`
 
     * Spring AOP
 
@@ -20,13 +22,15 @@
 
     * Spring Security
 
-* Spring Cloud
+* Spring Cloud `Hoxton.SR8`
 
     * Spring Cloud Consul
 
     * Spring Cloud OpenFeign
 
     * Spring Cloud Hystrix
+
+    * Spring Cloud Gateway
 
 
 * JWT、MyBatis、Orika、Lombok
@@ -37,7 +41,7 @@
 
 ### 数据库
 
-* MySQL
+* MySQL `5.7.25`
 
 ### 项目构建
 

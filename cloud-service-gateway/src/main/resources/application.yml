@@ -1,0 +1,75 @@
+application:
+  name: Cloud # 工程名称
+  module: Gateway # 模块名称
+  version: 1.0.0 # 工程版本号
+  formatted-version: PongSky ${application.name}-${application.module} ${application.version} # 格式化版本
+spring:
+  application:
+    name: ${application.name}-${application.module} # 应用名称
+  profiles:
+    active: local # 选择配置文件
+  mvc:
+    log-resolved-exception: true # 开启日志解析异常
+    throw-exception-if-no-handler-found: true # 出现异常直接抛出错误
+    locale: zh_CN # 简体中文语言
+    format:
+      time: HH:mm:ss # time 转换格式
+      date: yyyy-MM-dd # date 转换格式
+      date-time: yyyy-MM-dd HH:mm:ss # date-time 转换格式
+  resources:
+    add-mappings: false # 不要为资源文件建立映射
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss # 设置时间默认序列化格式
+    time-zone: Asia/Shanghai # 设置序列化时区
+    default-property-inclusion: non_null # 只序列化非空字段
+  servlet:
+    multipart:
+      max-file-size: 100MB # 设置最大文件上传大小 100MB
+      max-request-size: 100MB # 设置发起请求最大文件上传大小 100MB
+  task:
+    execution:
+      pool:
+        core-size: 10 # 定时任务线程池核心数
+        max-size: 100 # 定时任务最大线程数
+        keep-alive: 30s # 定时任务线程保持空闲时间
+  output:
+    ansi:
+      enabled: always # 启用控制台打印颜色
+  cloud:
+    consul:
+      discovery:
+        service-name: ${spring.application.name} # 服务名称
+        instance-id: ${spring.application.name}-${random.uuid} # 唯一实例ID
+        health-check-critical-timeout: 30s # 设置健康检查失败多长时间后，取消注册
+    loadbalancer:
+      ribbon:
+        enabled: false # 禁用 RibbonLoadBalancerClient
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 利用服务名进行路由
+      routes:
+        - id: cloud-demo # 路由唯一ID
+          uri: lb://cloud-demo # 路由到 cloud-demo 微服务
+          predicates:
+            - Path=/cloud-demo/** # 匹配以 /cloud-demo 开头的请求
+          filters:
+            - StripPrefix=1 # 去除 URL 开头的 /cloud-demo
+        - id: cloud-payment # 路由唯一ID
+          uri: lb://cloud-payment # 路由到 cloud-payment 微服务
+          predicates:
+            - Path=/cloud-payment/** # 匹配以 /cloud-payment 开头的请求
+          filters:
+            - StripPrefix=1 # 去除 URL 开头的 /cloud-payment
+        - id: cloud-user # 路由唯一ID
+          uri: lb://cloud-user # 路由到 cloud-user 微服务
+          predicates:
+            - Path=/cloud-user/** # 匹配以 /cloud-user 开头的请求
+          filters:
+            - StripPrefix=1 # 去除 URL 开头的 /cloud-user
+logging:
+  pattern:
+    console: ${CONSOLE_LOG_PATTERN:%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}  %-5.5L{5}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}} # 控制台日志打印格式
+server:
+  port: 10004 # 服务端口号
+  shutdown: graceful # 优雅关机

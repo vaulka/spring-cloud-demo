@@ -6,5 +6,6 @@ include "cloud-common-utils"
 include "cloud-config-boot"
 include "cloud-config-web"
 include "cloud-service-demo"
+include 'cloud-service-gateway'
 include "cloud-service-payment"
 include "cloud-service-user"

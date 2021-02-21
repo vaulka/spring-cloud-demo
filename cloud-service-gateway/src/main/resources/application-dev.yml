@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    consul:
+      host: consul1
+      port: 8500
+logging:
+  level:
+    root: info
