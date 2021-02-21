@@ -13,7 +13,7 @@ public class HystrixConfigurationConfig {
     /**
      * 此属性设置时间，在此时间之后，调用者将观察到超时并退出命令执行。 Hystrix 将 HystrixCommand 标记为 TIMEOUT，并执行回退逻辑
      */
-    public static final String TIMEOUT_IN_MILLISECONDS_PROP = "hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds";
+    public static final String TIMEOUT_IN_MILLISECONDS_PROP = "execution.isolation.thread.timeoutInMilliseconds";
 
     /**
      * 此属性设置时间，在此时间之后，调用者将观察到超时并退出命令执行。 Hystrix 将 HystrixCommand 标记为 TIMEOUT，并执行回退逻辑
@@ -25,7 +25,7 @@ public class HystrixConfigurationConfig {
     /**
      * 此属性在滚动窗口中设置将使电路跳闸的最小请求数
      */
-    public static final String REQUEST_VOLUME_THRESHOLD_PROP = "hystrix.command.default.circuitBreaker.requestVolumeThreshold";
+    public static final String REQUEST_VOLUME_THRESHOLD_PROP = "circuitBreaker.requestVolumeThreshold";
 
     /**
      * 此属性在滚动窗口中设置将使电路跳闸的最小请求数
