@@ -1,5 +1,7 @@
 package com.pongsky.cloud.web.filter;
 
+import org.apache.http.entity.ContentType;
+
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 /**
  * 替换 HttpServletRequest，实现 body 数据多次读取
@@ -25,17 +28,33 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 
     public RequestWrapper(HttpServletRequest request) {
         super(request);
+        body = readBody(request);
+    }
+
+    public byte[] readBody(HttpServletRequest request) {
         StringBuilder stringBuilder = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream(),
-                Charset.defaultCharset()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
+        if (request.getContentType().contains(ContentType.APPLICATION_FORM_URLENCODED.getMimeType())) {
+            request.getParameterMap().forEach((k, v) -> {
+                if (v == null) {
+                    return;
+                }
+                stringBuilder.append(k).append("=").append(v.length == 1 ? v[0] : Arrays.toString(v)).append("&");
+            });
+            if (stringBuilder.length() > 0) {
+                stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e.getLocalizedMessage(), e);
+        } else {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream(),
+                    Charset.defaultCharset()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e.getLocalizedMessage(), e);
+            }
         }
-        body = stringBuilder.toString().getBytes(Charset.defaultCharset());
+        return stringBuilder.toString().getBytes(Charset.defaultCharset());
     }
 
     @Override

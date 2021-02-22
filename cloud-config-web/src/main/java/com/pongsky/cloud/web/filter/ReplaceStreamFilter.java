@@ -1,6 +1,7 @@
 package com.pongsky.cloud.web.filter;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.entity.ContentType;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
@@ -30,28 +31,30 @@ public class ReplaceStreamFilter implements Filter {
     /**
      * 上传文件请求头
      */
-    private static final List<String> UPLOAD_FILE_CONTENT_TYPE = List.of(
-            "image",
-            "multipart/form-data"
+    private static final List<ContentType> UPLOAD_FILE_CONTENT_TYPE = List.of(
+            ContentType.IMAGE_BMP,
+            ContentType.IMAGE_GIF,
+            ContentType.IMAGE_JPEG,
+            ContentType.IMAGE_PNG,
+            ContentType.IMAGE_SVG,
+            ContentType.IMAGE_TIFF,
+            ContentType.IMAGE_WEBP,
+            ContentType.MULTIPART_FORM_DATA
     );
 
     /**
-     * 判断是否切换request
+     * 判断是否切换 request
      *
      * @param request request
-     * @return 判断是否切换request
+     * @return 判断是否切换 request
      */
     public boolean isCheckRequest(ServletRequest request) {
         if (request.getContentType() == null) {
             return false;
         }
-        for (String type : UPLOAD_FILE_CONTENT_TYPE) {
-            if (request.getContentType().startsWith(type)) {
-                // binary 形式上传文件，不读取body数据，并且不切换request
-                return false;
-            }
-        }
-        return true;
+        return UPLOAD_FILE_CONTENT_TYPE.stream()
+                .filter(contentType -> request.getContentType().contains(contentType.getMimeType()))
+                .findAny().isEmpty();
     }
 
     @Override

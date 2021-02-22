@@ -25,6 +25,7 @@ ext {
     servletVersion = "4.0.1"
     caffeineVersion = "2.8.8"
     commonsLang3Version = "3.11"
+    apacheHttpCoreVersion = "4.4.14"
 }
 
 allprojects {
