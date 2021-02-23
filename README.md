@@ -30,7 +30,7 @@
 
     * Spring Cloud Hystrix
 
-    * Spring Cloud Gateway
+    * ~~Spring Cloud Gateway~~
 
 
 * JWT、MyBatis、Orika、Lombok
