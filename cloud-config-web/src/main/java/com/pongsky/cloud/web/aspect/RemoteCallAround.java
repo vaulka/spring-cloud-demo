@@ -1,6 +1,5 @@
 package com.pongsky.cloud.web.aspect;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.lang.reflect.Method;
-import java.util.Optional;
 
 /**
  * 远程调用耗时打印、校验远程调用响应数据
@@ -32,8 +30,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RemoteCallAround {
 
-    private final ObjectMapper jsonMapper;
-
     @Around("execution(public * com.pongsky.cloud.feign..*.*(..))")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
@@ -43,7 +39,7 @@ public class RemoteCallAround {
         FeignClient feignClient = (FeignClient) joinPoint.getSignature().getDeclaringType().getAnnotation(FeignClient.class);
         RequestMapping request = method.getAnnotation(RequestMapping.class);
         if (request != null) {
-            log.info("serviceName [{}] methodURL [{}] methodType [UNKNOWN]",
+            log.info("serviceName [{}] methodURL [{}] methodType [REQUEST]",
                     feignClient.value(), request.value().length > 0 ? request.value()[0] : "");
         }
         GetMapping get = method.getAnnotation(GetMapping.class);
@@ -66,7 +62,6 @@ public class RemoteCallAround {
             log.info("serviceName [{}] methodURL [{}] methodType [DELETE]",
                     feignClient.value(), delete.value().length > 0 ? delete.value()[0] : "");
         }
-        log.info("response is [{}]", jsonMapper.writeValueAsString(Optional.ofNullable(result).orElse("")));
         log.info("cost [{}] ms", System.currentTimeMillis() - start);
         log.info("Ended remote call request");
         return result;

@@ -473,26 +473,25 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @param result    错误响应数据
      */
     private void log(Exception exception, HttpServletRequest request, GlobalResult<Void> result) {
+        log.error("");
+        log.error("Started exception");
         if (result.getCode() >= BOUNDARY) {
-            log.error("");
-            log.error("Exception Started");
-            log.error("请求路径：{}", request.getRequestURI());
-            log.error("方法类型：{}", request.getMethod());
-            log.error("param 参数：{}", request.getQueryString());
-            log.error("body 参数：{}", RequestUtils.getBody(request));
-            log.error("异常详细信息：{}", result.getMessage());
+            log.error("request: methodURL [{}] methodType [{}] params [{}] body [{}]",
+                    request.getRequestURI(),
+                    request.getMethod(),
+                    Optional.ofNullable(request.getQueryString()).orElse(""),
+                    Optional.ofNullable(RequestUtils.getBody(request)).orElse(""));
+            log.error("exception message: [{}]", result.getMessage());
             Arrays.asList(exception.getStackTrace()).forEach(stackTrace -> log.error(stackTrace.toString()));
         } else {
-            log.info("");
-            log.info("Exception Started");
-            log.info("异常详细信息：{}", result.getMessage());
+            log.error("exception message: [{}]", result.getMessage());
         }
         try {
-            log.error("返回结果：{}", jsonMapper.writeValueAsString(result));
+            log.error("response: [{}]", jsonMapper.writeValueAsString(result));
         } catch (JsonProcessingException e) {
             log.error(e.getLocalizedMessage());
         }
-        log.error("Exception Ended");
+        log.error("Ended exception");
     }
 
 }

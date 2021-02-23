@@ -12,14 +12,13 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Optional;
 
 /**
@@ -37,15 +36,6 @@ public class RestControllerAround {
 
     private final ObjectMapper jsonMapper;
 
-    /**
-     * 需要记录的请求方法集合
-     */
-    private static final List<String> API_REQUEST_METHODS = List.of(
-            PutMapping.class.getSimpleName(),
-            PostMapping.class.getSimpleName(),
-            DeleteMapping.class.getSimpleName()
-    );
-
     @Around("execution(public * com.pongsky.cloud.controller..*.*(..))")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         ServletRequestAttributes requestAttributes
@@ -56,32 +46,94 @@ public class RestControllerAround {
         HttpServletRequest request = requestAttributes.getRequest();
         AuthInfo authInfo = AuthUtils.getUser(request);
         String ip = IpUtils.getIp(request);
-        String userAgent = request.getHeader("user-agent");
-        String referer = request.getHeader("referer");
-        long count = API_REQUEST_METHODS.stream()
-                .filter(method -> request.getAttribute(method) != null)
-                .count();
-        if (count > 0) {
-            log.info("");
-            log.info("Started request");
-            log.info("IP [{}] userAgent [{}] referer [{}]", ip, userAgent, referer);
-            log.info("ID [{}] ROLE [{}] methodURL [{}] methodType [{}] params [{}] body [{}]",
-                    authInfo.getId(),
-                    authInfo.getRole(),
-                    request.getRequestURI(),
-                    request.getMethod(),
-                    Optional.ofNullable(request.getQueryString()).orElse(""),
-                    RequestUtils.getBody(request));
+        String userAgent = Optional.ofNullable(request.getHeader("user-agent")).orElse("");
+        String referer = Optional.ofNullable(request.getHeader("referer")).orElse("");
+        switch (RequestMethod.valueOf(request.getMethod())) {
+            case PUT:
+            case POST:
+            case DELETE:
+                log.info("");
+                log.info("Started request");
+                log.info("authInfo: id [{}] role [{}]", authInfo.getId(), authInfo.getRole());
+                log.info("request header: IP [{}] userAgent [{}] referer [{}]", ip, userAgent, referer);
+                log.info("request: methodURL [{}] methodType [{}] params [{}] body [{}]",
+                        request.getRequestURI(),
+                        request.getMethod(),
+                        Optional.ofNullable(request.getQueryString()).orElse(""),
+                        Optional.ofNullable(RequestUtils.getBody(request)).orElse(""));
+                break;
+            default:
+                break;
+
         }
         long start = System.currentTimeMillis();
         Object result = joinPoint.proceed();
-        if (count > 0) {
-            log.info("response is [{}]", jsonMapper.writeValueAsString(Optional.ofNullable(result).orElse("")));
-            log.info("cost [{}] ms", System.currentTimeMillis() - start);
-            log.info("Ended request");
-            log.info("");
+        long cost = System.currentTimeMillis() - start;
+        switch (RequestMethod.valueOf(request.getMethod())) {
+            case PUT:
+            case POST:
+            case DELETE:
+                log.info("response: [{}]", jsonMapper.writeValueAsString(Optional.ofNullable(result).orElse("")));
+                log.info("cost: [{}] [{}]", cost(cost), costUnit(cost));
+                log.info("Ended request");
+                log.info("");
+                break;
+            default:
+                break;
         }
         return result;
+    }
+
+    /**
+     * 秒间隔
+     */
+    private static final long SECOND_INTERVAL = 1000L;
+
+    /**
+     * 秒间隔
+     */
+    private static final BigDecimal SECOND_INTERVAL_DECIMAL = BigDecimal.valueOf(SECOND_INTERVAL);
+
+    /**
+     * 获取耗时时间
+     *
+     * @param millisecond 耗时毫秒
+     * @return 获取耗时时间
+     */
+    private String cost(Long millisecond) {
+        if (SECOND_INTERVAL >= millisecond) {
+            return millisecond.toString();
+        }
+        BigDecimal second = BigDecimal.valueOf(millisecond)
+                .divide(SECOND_INTERVAL_DECIMAL, 2, RoundingMode.HALF_UP);
+        return second.toString();
+    }
+
+    /**
+     * 耗时单位
+     */
+    enum CostUnit {
+
+        /**
+         * 毫秒
+         */
+        ms,
+
+        /**
+         * 秒
+         */
+        s
+
+    }
+
+    /**
+     * 获取耗时时间单位
+     *
+     * @param millisecond 耗时毫秒
+     * @return 获取耗时时间单位
+     */
+    private CostUnit costUnit(long millisecond) {
+        return SECOND_INTERVAL >= millisecond ? CostUnit.ms : CostUnit.s;
     }
 
 }
