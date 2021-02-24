@@ -74,7 +74,7 @@ public class RestControllerAspect {
             case POST:
             case DELETE:
                 log.info("response: [{}]", jsonMapper.writeValueAsString(Optional.ofNullable(result).orElse("")));
-                log.info("cost: [{}] [{}]", cost(cost), costUnit(cost));
+                log.info("cost: [{}] {}", cost(cost), costUnit(cost));
                 log.info("Ended request");
                 log.info("");
                 break;
