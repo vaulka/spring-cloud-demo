@@ -14,7 +14,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 /**
- * 注解赋值
+ * controller 注解加入 request.attribute
  *
  * @author pengsenhao
  * @create 2021-02-11
@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 @Order(value = 1)
-public class AnnotationBefore {
+public class ControllerAnnotationAspect {
 
     @Before("execution(public * com.pongsky.cloud.controller..*.*(..))")
     public void before(JoinPoint point) {

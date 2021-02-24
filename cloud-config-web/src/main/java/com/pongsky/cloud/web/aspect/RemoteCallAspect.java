@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.lang.reflect.Method;
 
 /**
- * 远程调用耗时打印、校验远程调用响应数据
+ * feign 远程调用日志打印
  *
  * @author pengsenhao
  * @create 2021-02-14
@@ -28,7 +28,7 @@ import java.lang.reflect.Method;
 @Component
 @Order(value = 3)
 @RequiredArgsConstructor
-public class RemoteCallAround {
+public class RemoteCallAspect {
 
     @Around("execution(public * com.pongsky.cloud.feign..*.*(..))")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {

@@ -22,7 +22,7 @@ import java.math.RoundingMode;
 import java.util.Optional;
 
 /**
- * 请求参数、响应数据 统一日志打印
+ * controller 请求日志打印
  *
  * @author pengsenhao
  * @create 2021-02-11
@@ -32,7 +32,7 @@ import java.util.Optional;
 @Component
 @Order(value = 2)
 @RequiredArgsConstructor
-public class RestControllerAround {
+public class RestControllerAspect {
 
     private final ObjectMapper jsonMapper;
 
