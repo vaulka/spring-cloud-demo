@@ -41,7 +41,7 @@ public class RestControllerAspect {
         ServletRequestAttributes requestAttributes
                 = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {
-            return null;
+            return joinPoint.proceed();
         }
         HttpServletRequest request = requestAttributes.getRequest();
         AuthInfo authInfo = AuthUtils.getUser(request);
