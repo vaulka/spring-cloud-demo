@@ -18,6 +18,8 @@ spring:
     consul:
       host: consul1
       port: 8500
+  zipkin:
+    base-url: http://zipkin:9411/
 logging:
   level:
     root: info

@@ -18,8 +18,9 @@ spring:
     consul:
       host: localhost
       port: 8500
+  zipkin:
+    base-url: http://localhost:9411/
 logging:
   level:
     root: info
-    com.pongsky.cloud.feign: debug
     com.pongsky.cloud.mapper: debug
