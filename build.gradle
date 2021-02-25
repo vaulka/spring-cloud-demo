@@ -10,7 +10,6 @@ ext {
 
     springBootVersion = "2.3.3.RELEASE"
     springCloudVersion = "Hoxton.SR8"
-    springCloudAlibabaVersion = "2.2.5.RELEASE"
 
     springCloudSleuthVersion = "2.2.5.RELEASE"
     springCloudZipkinVersion = "2.2.5.RELEASE"
