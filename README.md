@@ -32,6 +32,8 @@
 
     * ~~Spring Cloud Gateway~~
 
+    * Spring Cloud Sleuth
+
 
 * JWT、MyBatis、Orika、Lombok
 

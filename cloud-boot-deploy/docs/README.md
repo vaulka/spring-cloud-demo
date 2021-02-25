@@ -73,6 +73,15 @@
     * cloud-user.yml # `user` 服务 `docker-compose` 编排文件
 
 
+* cloud-service-zipkin # `zipkin` 服务
+
+    * DownZipkinService.sh # 停止 `zipkin` 服务脚本
+
+    * StartZipkinService.sh # 启动 `zipkin` 服务脚本
+
+    * cloud-zipkin.yml # `zipkin` 服务 `docker-compose` 编排文件
+
+
 * README.md # 说明文档
 
 * CreateNetwork.sh # 创建项目全局网络
@@ -110,6 +119,14 @@
 3. 运行 `StartConsulService.sh` 脚本用于启动 `consul` 服务。
 
 > 如需停止服务，则运行 `DownConsulService.sh` 脚本。
+
+### 部署 zipkin 服务
+
+1. 执行 `cd cloud-service-zipkin` 命令进入到目标目录。
+
+2. 运行 `StartZipkinService.sh` 脚本用于启动 `zipkin` 服务。
+
+> 如需停止服务，则运行 `DownZipkinService.sh` 脚本。
 
 ### 部署 demo 服务
 
