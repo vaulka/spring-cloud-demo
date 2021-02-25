@@ -38,6 +38,7 @@ dependencies {
     implementation "org.springframework.cloud:spring-cloud-starter-netflix-hystrix:${springCloudHystrixVersion}"
     implementation group: "org.springframework.boot", name: "spring-boot-dependencies", version: "${springBootVersion}", ext: "pom"
     implementation group: "org.springframework.cloud", name: "spring-cloud-dependencies", version: "${springCloudVersion}", ext: "pom"
+    implementation group: "org.springframework.cloud", name: "spring-cloud-dependencies", version: "${springCloudVersion}", ext: "pom"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.springframework.security:spring-security-test"
