@@ -20,7 +20,7 @@ public class HystrixConfigurationConfig {
      * 单位:ms
      * 默认:1000
      */
-    public static final String TIMEOUT_IN_MILLISECONDS_VALUE = "5000";
+    public static final String TIMEOUT_IN_MILLISECONDS_VALUE = "10000";
 
     /**
      * 此属性在滚动窗口中设置将使电路跳闸的最小请求数

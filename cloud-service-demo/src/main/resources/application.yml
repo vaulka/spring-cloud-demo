@@ -1,6 +1,6 @@
 application:
-  name: Cloud # 工程名称
-  module: Demo # 模块名称
+  name: cloud # 工程名称
+  module: demo # 模块名称
   version: 1.0.0 # 工程版本号
   formatted-version: PongSky ${application.name}-${application.module} ${application.version} # 格式化版本
 spring:
