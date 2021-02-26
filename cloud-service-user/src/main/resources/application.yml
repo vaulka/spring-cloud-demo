@@ -40,15 +40,9 @@ spring:
     ansi:
       enabled: always # 启用控制台打印颜色
   cloud:
-    consul:
+    nacos:
       discovery:
-        fail-fast: false # 服务注册失败不抛异常只打印日志
-        service-name: ${spring.application.name} # 服务名称
-        instance-id: ${spring.application.name}-${random.uuid} # 唯一实例ID
-        health-check-critical-timeout: 30s # 设置健康检查失败多长时间后，取消注册
-    loadbalancer:
-      ribbon:
-        enabled: false # 禁用 RibbonLoadBalancerClient
+        group: ${application.name} # 组别
 logging:
   pattern:
     console: ${CONSOLE_LOG_PATTERN:%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}  %-5.5L{5}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}} # 控制台日志打印格式

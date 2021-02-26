@@ -20,21 +20,6 @@
 
 ## 文件、文件夹说明
 
-* cloud-service-consul # `consul` 服务
-
-    * CreateVolumesDirectory.sh # 创建 `consul` 服务挂载数据卷目录脚本
-
-    * DownConsulService.sh # 停止 `consul` 服务脚本
-
-    * StartConsulService.sh # 启动 `consul` 服务脚本
-
-    * cloud-consul1.yml # `consul1` 服务 `docker-compose` 编排文件
-
-    * cloud-consul2.yml # `consul2` 服务 `docker-compose` 编排文件
-
-    * cloud-consul3.yml # `consul3` 服务 `docker-compose` 编排文件
-
-
 * cloud-service-demo # `demo` 服务
 
     * DownDemoService.sh # 停止 `demo` 服务脚本
@@ -126,16 +111,6 @@
 2. 运行 `StartNacosService.sh` 脚本用于启动 `nacos` 服务。
 
 > 如需停止服务，则运行 `DownNacosService.sh` 脚本。
-
-### 部署 consul 服务
-
-1. 执行 `cd cloud-service-consul` 命令进入到目标目录。
-
-2. 运行 `CreateVolumesDirectory.sh` 脚本用于创建数据卷挂载目录。
-
-3. 运行 `StartConsulService.sh` 脚本用于启动 `consul` 服务。
-
-> 如需停止服务，则运行 `DownConsulService.sh` 脚本。
 
 ### 部署 zipkin 服务
 

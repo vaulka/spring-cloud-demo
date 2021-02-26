@@ -36,15 +36,9 @@ spring:
     ansi:
       enabled: always # 启用控制台打印颜色
   cloud:
-    consul:
+    nacos:
       discovery:
-        fail-fast: false # 服务注册失败不抛异常只打印日志
-        service-name: ${spring.application.name} # 服务名称
-        instance-id: ${spring.application.name}-${random.uuid} # 唯一实例ID
-        health-check-critical-timeout: 30s # 设置健康检查失败多长时间后，取消注册
-    loadbalancer:
-      ribbon:
-        enabled: false # 禁用 RibbonLoadBalancerClient
+        group: ${application.name} # 组别
     gateway:
       discovery:
         locator:

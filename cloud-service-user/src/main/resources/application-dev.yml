@@ -15,9 +15,10 @@ spring:
       connection-timeout: 30000
       connection-test-query: SELECT 1
   cloud:
-    consul:
-      host: consul1
-      port: 8500
+    nacos:
+      discovery:
+        namespace: dev
+        server-addr: nacos1:8848
   zipkin:
     base-url: http://zipkin:9411/
 logging:
