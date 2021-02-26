@@ -16,29 +16,38 @@ jar {
     enabled = true
 }
 
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+    }
+}
+
 dependencies {
     implementation project(":cloud-config-web")
     implementation project(":cloud-config-boot")
     implementation project(":cloud-common-utils")
     implementation project(":cloud-common-entity")
+
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
-    runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
+    implementation "com.github.ben-manes.caffeine:caffeine:${caffeineVersion}"
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
+
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-aop"
     implementation "org.springframework.boot:spring-boot-starter-actuator"
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "org.springframework.boot:spring-boot-starter-validation"
-    implementation "com.github.ben-manes.caffeine:caffeine:${caffeineVersion}"
-    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
-    implementation "org.springframework.cloud:spring-cloud-starter-sleuth:${springCloudSleuthVersion}"
-    implementation "org.springframework.cloud:spring-cloud-starter-zipkin:${springCloudZipkinVersion}"
-    implementation "org.springframework.cloud:spring-cloud-starter-openfeign:${springCloudOpenFeignVersion}"
-    implementation "org.springframework.cloud:spring-cloud-starter-consul-discovery:${springCloudConsulVersion}"
-    implementation "org.springframework.cloud:spring-cloud-starter-netflix-hystrix:${springCloudHystrixVersion}"
-    implementation group: "org.springframework.boot", name: "spring-boot-dependencies", version: "${springBootVersion}", ext: "pom"
-    implementation group: "org.springframework.cloud", name: "spring-cloud-dependencies", version: "${springCloudVersion}", ext: "pom"
-    implementation group: "org.springframework.cloud", name: "spring-cloud-dependencies", version: "${springCloudVersion}", ext: "pom"
+
+    implementation "org.springframework.cloud:spring-cloud-starter-sleuth"
+    implementation "org.springframework.cloud:spring-cloud-starter-zipkin"
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+    implementation "org.springframework.cloud:spring-cloud-starter-consul-discovery"
+    implementation "org.springframework.cloud:spring-cloud-starter-netflix-hystrix"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.springframework.security:spring-security-test"

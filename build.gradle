@@ -12,13 +12,6 @@ ext {
     springCloudVersion = "Hoxton.SR8"
     springCloudAlibabaVersion = "2.2.5.RELEASE"
 
-    springCloudSleuthVersion = "2.2.5.RELEASE"
-    springCloudZipkinVersion = "2.2.5.RELEASE"
-    springCloudConsulVersion = "2.2.4.RELEASE"
-    springCloudGatewayVersion = "2.2.5.RELEASE"
-    springCloudHystrixVersion = "2.2.5.RELEASE"
-    springCloudOpenFeignVersion = "2.2.5.RELEASE"
-
     mybatisVersion = "2.1.4"
     jacksonVersion = "2.11.2"
 

@@ -1,21 +1,37 @@
 plugins {
-
+    id "org.springframework.boot" version "${springBootVersion}"
 }
 
 apply plugin: "java"
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
 
 jar {
     enabled = true
 }
 
+bootJar {
+    enabled = false
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+    }
+}
+
 dependencies {
     implementation project(":cloud-common-utils")
     implementation project(":cloud-common-entity")
+
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
-    implementation "org.springframework.data:spring-data-commons:${springBootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
-    implementation "org.springframework.cloud:spring-cloud-starter-openfeign:${springCloudOpenFeignVersion}"
-    implementation "org.springframework.cloud:spring-cloud-starter-netflix-hystrix:${springCloudHystrixVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+    implementation "org.springframework.cloud:spring-cloud-starter-netflix-hystrix"
 }

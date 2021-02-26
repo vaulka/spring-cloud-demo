@@ -1,18 +1,35 @@
 plugins {
-
+    id "org.springframework.boot" version "${springBootVersion}"
 }
 
 apply plugin: "java"
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
 
 jar {
     enabled = true
 }
 
+bootJar {
+    enabled = false
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+    }
+}
+
 dependencies {
     implementation project(":cloud-common-utils")
+
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
     implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
     implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
+
+    implementation "org.springframework.boot:spring-boot-starter-validation"
 }
