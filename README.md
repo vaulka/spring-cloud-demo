@@ -12,32 +12,7 @@
 
 * JDK `11`
 
-* Spring Boot `2.3.3.RELEASE`
-
-    * Spring AOP
-
-    * Spring MVC
-
-    * Spring Validation
-
-    * Spring Security
-
-* Spring Cloud `Hoxton.SR8`
-
-    * Spring Cloud Consul
-
-    * Spring Cloud OpenFeign
-
-    * Spring Cloud Hystrix
-
-    * ~~Spring Cloud Gateway~~
-
-    * Spring Cloud Sleuth
-
-
-* JWT、MyBatis、Orika、Lombok
-
-### 服务发现
+### 服务注册中心
 
 * Consul
 
@@ -47,8 +22,34 @@
 
 ### 项目构建
 
-* Gradle
+* Gradle `6.7.1`
 
 ### 项目部署
 
-* Docker
+* Docker `20.10.2`
+
+### Spring Boot `2.3.3.RELEASE`
+
+* Spring Web
+
+* Spring AOP
+
+* Spring Validation
+
+* Spring Security
+
+### Spring Cloud `Hoxton.SR8`
+
+* Spring Cloud Consul `服务注册`
+
+* Spring Cloud OpenFeign `服务调用`
+
+* Spring Cloud Hystrix `服务降级`
+
+* ~~Spring Cloud Gateway~~ `服务网关`
+
+* Spring Cloud Sleuth `服务调用链路监控`
+
+### Other
+
+* JWT、MyBatis、Orika、Lombok
