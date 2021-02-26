@@ -55,6 +55,15 @@
     * cloud-mysql.yml # `mysql` 服务 `docker-compose` 编排文件
 
 
+* cloud-service-nacos # `nacos` 服务
+
+  * DownNacosService.sh # 停止 `nacos` 服务脚本
+
+  * StartNacosService.sh # 启动 `nacos` 服务脚本
+
+  * cloud-nacos.yml # `nacos` 服务 `docker-compose` 编排文件
+  
+
 * cloud-service-payment # `payment` 服务
 
     * DownPaymentService.sh # 停止 `payment` 服务脚本
@@ -109,6 +118,14 @@
 > 如需停止服务，则运行 `DownMySQLService.sh` 脚本。
 >
 > WARN: 数据库不建议部署在 docker 中。
+
+### 部署 nacos 服务
+
+1. 执行 `cd cloud-service-nacos` 命令进入到目标目录。
+
+2. 运行 `StartNacosService.sh` 脚本用于启动 `nacos` 服务。
+
+> 如需停止服务，则运行 `DownNacosService.sh` 脚本。
 
 ### 部署 consul 服务
 
