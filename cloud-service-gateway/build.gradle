@@ -19,8 +19,8 @@ jar {
 dependencies {
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
     implementation "com.github.ben-manes.caffeine:caffeine:${caffeineVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
     implementation "org.springframework.cloud:spring-cloud-starter-gateway:${springCloudGatewayVersion}"
     implementation "org.springframework.cloud:spring-cloud-starter-consul-discovery:${springCloudConsulVersion}"
     implementation "org.springframework.cloud:spring-cloud-starter-netflix-hystrix:${springCloudHystrixVersion}"
