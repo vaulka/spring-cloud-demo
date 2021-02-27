@@ -61,6 +61,13 @@ feign:
         readTimeout: 5000 # 从建立连接起到连接结束超时限制
   hystrix:
     enabled: true # 开启 hystrix
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000 # 此属性设置时间，在此时间之后，调用者将观察到超时并退出命令执行。 Hystrix 将 HystrixCommand 标记为 TIMEOUT，并执行回退逻辑
 management:
   endpoints:
     web:
