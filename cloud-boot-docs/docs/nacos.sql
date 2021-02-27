@@ -1,14 +1,14 @@
 -- ----------------------------
--- Database structure for cloud_nacos
+-- Database structure for nacos
 -- ----------------------------
-CREATE DATABASE `cloud_nacos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE `nacos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 
 /******************************************/
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info   */
 /******************************************/
-CREATE TABLE `cloud_nacos`.`config_info`
+CREATE TABLE `nacos`.`config_info`
 (
     `id`           bigint(20)   NOT NULL AUTO_INCREMENT COMMENT 'id',
     `data_id`      varchar(255) NOT NULL COMMENT 'data_id',
@@ -37,7 +37,7 @@ CREATE TABLE `cloud_nacos`.`config_info`
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info_aggr   */
 /******************************************/
-CREATE TABLE `cloud_nacos`.`config_info_aggr`
+CREATE TABLE `nacos`.`config_info_aggr`
 (
     `id`           bigint(20)   NOT NULL AUTO_INCREMENT COMMENT 'id',
     `data_id`      varchar(255) NOT NULL COMMENT 'data_id',
@@ -58,7 +58,7 @@ CREATE TABLE `cloud_nacos`.`config_info_aggr`
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info_beta   */
 /******************************************/
-CREATE TABLE `cloud_nacos`.`config_info_beta`
+CREATE TABLE `nacos`.`config_info_beta`
 (
     `id`           bigint(20)   NOT NULL AUTO_INCREMENT COMMENT 'id',
     `data_id`      varchar(255) NOT NULL COMMENT 'data_id',
@@ -83,7 +83,7 @@ CREATE TABLE `cloud_nacos`.`config_info_beta`
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_info_tag   */
 /******************************************/
-CREATE TABLE `cloud_nacos`.`config_info_tag`
+CREATE TABLE `nacos`.`config_info_tag`
 (
     `id`           bigint(20)   NOT NULL AUTO_INCREMENT COMMENT 'id',
     `data_id`      varchar(255) NOT NULL COMMENT 'data_id',
@@ -108,7 +108,7 @@ CREATE TABLE `cloud_nacos`.`config_info_tag`
 /*   数据库全名 = nacos_config   */
 /*   表名称 = config_tags_relation   */
 /******************************************/
-CREATE TABLE `cloud_nacos`.`config_tags_relation`
+CREATE TABLE `nacos`.`config_tags_relation`
 (
     `id`        bigint(20)   NOT NULL COMMENT 'id',
     `tag_name`  varchar(128) NOT NULL COMMENT 'tag_name',
@@ -129,7 +129,7 @@ CREATE TABLE `cloud_nacos`.`config_tags_relation`
 /*   数据库全名 = nacos_config   */
 /*   表名称 = group_capacity   */
 /******************************************/
-CREATE TABLE `cloud_nacos`.`group_capacity`
+CREATE TABLE `nacos`.`group_capacity`
 (
     `id`                bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
     `group_id`          varchar(128)        NOT NULL DEFAULT '' COMMENT 'Group ID，空字符表示整个集群',
@@ -152,7 +152,7 @@ CREATE TABLE `cloud_nacos`.`group_capacity`
 /*   数据库全名 = nacos_config   */
 /*   表名称 = his_config_info   */
 /******************************************/
-CREATE TABLE `cloud_nacos`.`his_config_info`
+CREATE TABLE `nacos`.`his_config_info`
 (
     `id`           bigint(64) unsigned NOT NULL,
     `nid`          bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -180,7 +180,7 @@ CREATE TABLE `cloud_nacos`.`his_config_info`
 /*   数据库全名 = nacos_config   */
 /*   表名称 = tenant_capacity   */
 /******************************************/
-CREATE TABLE `cloud_nacos`.`tenant_capacity`
+CREATE TABLE `nacos`.`tenant_capacity`
 (
     `id`                bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
     `tenant_id`         varchar(128)        NOT NULL DEFAULT '' COMMENT 'Tenant ID',
@@ -199,7 +199,7 @@ CREATE TABLE `cloud_nacos`.`tenant_capacity`
   COLLATE = utf8_bin COMMENT ='租户容量信息表';
 
 
-CREATE TABLE `cloud_nacos`.`tenant_info`
+CREATE TABLE `nacos`.`tenant_info`
 (
     `id`            bigint(20)   NOT NULL AUTO_INCREMENT COMMENT 'id',
     `kp`            varchar(128) NOT NULL COMMENT 'kp',
@@ -216,21 +216,21 @@ CREATE TABLE `cloud_nacos`.`tenant_info`
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin COMMENT ='tenant_info';
 
-CREATE TABLE `cloud_nacos`.`users`
+CREATE TABLE `nacos`.`users`
 (
     `username` varchar(50)  NOT NULL PRIMARY KEY,
     `password` varchar(500) NOT NULL,
     `enabled`  boolean      NOT NULL
 );
 
-CREATE TABLE `cloud_nacos`.`roles`
+CREATE TABLE `nacos`.`roles`
 (
     `username` varchar(50) NOT NULL,
     `role`     varchar(50) NOT NULL,
     UNIQUE INDEX `idx_user_role` (`username` ASC, `role` ASC) USING BTREE
 );
 
-CREATE TABLE `cloud_nacos`.`permissions`
+CREATE TABLE `nacos`.`permissions`
 (
     `role`     varchar(50)  NOT NULL,
     `resource` varchar(255) NOT NULL,
@@ -238,8 +238,8 @@ CREATE TABLE `cloud_nacos`.`permissions`
     UNIQUE INDEX `uk_role_permission` (`role`, `resource`, `action`) USING BTREE
 );
 
-INSERT INTO `cloud_nacos`.users (username, password, enabled)
+INSERT INTO `nacos`.users (username, password, enabled)
 VALUES ('nacos', '$2a$10$EuWPZHzz32dJN7jexM34MOeYirDdFAZm2kuWj7VEOJhhZkDrxfvUu', TRUE);
 
-INSERT INTO `cloud_nacos`.roles (username, role)
+INSERT INTO `nacos`.roles (username, role)
 VALUES ('nacos', 'ROLE_ADMIN');
