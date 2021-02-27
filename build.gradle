@@ -19,7 +19,6 @@ ext {
     jwtVersion = "3.12.1"
     orikaVersion = "1.9.0"
     servletVersion = "4.0.1"
-    caffeineVersion = "2.8.8"
     commonsLang3Version = "3.11"
     apacheHttpCoreVersion = "4.4.14"
 }

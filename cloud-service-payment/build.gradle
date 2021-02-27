@@ -35,7 +35,6 @@ dependencies {
 
     runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
     implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
-    implementation "com.github.ben-manes.caffeine:caffeine:${caffeineVersion}"
     implementation "net.rakugakibox.spring.boot:orika-spring-boot-starter:${orikaVersion}"
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
 

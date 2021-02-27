@@ -34,7 +34,6 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
     runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
-    implementation "com.github.ben-manes.caffeine:caffeine:${caffeineVersion}"
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
 
     implementation "org.springframework.boot:spring-boot-starter-web"
