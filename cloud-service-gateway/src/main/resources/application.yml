@@ -68,3 +68,11 @@ logging:
 server:
   port: 10004 # 服务端口号
   shutdown: graceful # 优雅关机
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 以 web 方式暴露所有监控端点
+  endpoint:
+    health:
+      show-details: always # 总是显示健康详情

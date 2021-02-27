@@ -61,3 +61,11 @@ feign:
         readTimeout: 5000 # 从建立连接起到连接结束超时限制
   hystrix:
     enabled: true # 开启 hystrix
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 以 web 方式暴露所有监控端点
+  endpoint:
+    health:
+      show-details: always # 总是显示健康详情
