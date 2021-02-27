@@ -129,6 +129,14 @@
 
 > 如需停止服务，则运行 `DownZipkinService.sh` 脚本。
 
+### 部署 actuator 服务
+
+1. 执行 `cd cloud-service-actuator` 命令进入到目标目录。
+
+2. 运行 `StartActuatorService.sh` 脚本用于启动 `actuator` 服务。
+
+> 如需停止服务，则运行 `DownActuatorService.sh` 脚本。
+
 ### 部署 demo 服务
 
 1. 执行 `cd cloud-service-demo` 命令进入到目标目录。
