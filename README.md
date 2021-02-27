@@ -28,7 +28,7 @@
 
 * Nacos `1.4.1`
 
-### Spring Boot `2.3.3.RELEASE`
+### Spring Boot `2.3.2.RELEASE`
 
 * Spring Web
 
@@ -37,6 +37,8 @@
 * Spring Validation
 
 * Spring Security
+
+* Spring Actuator
 
 ### Spring Cloud `Hoxton.SR8`
 
