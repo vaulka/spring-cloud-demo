@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        namespace: local
+        server-addr: localhost:8848

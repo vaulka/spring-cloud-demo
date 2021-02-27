@@ -14,6 +14,7 @@ ext {
 
     mybatisVersion = "2.1.4"
     jacksonVersion = "2.11.2"
+    actuatorAdminVersion = "2.3.1"
 
     jwtVersion = "3.12.1"
     orikaVersion = "1.9.0"

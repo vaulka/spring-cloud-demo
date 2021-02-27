@@ -5,6 +5,7 @@ include "cloud-common-entity"
 include "cloud-common-utils"
 include "cloud-config-boot"
 include "cloud-config-web"
+include 'cloud-service-actuator'
 include "cloud-service-demo"
 include 'cloud-service-gateway'
 include "cloud-service-payment"

@@ -1,0 +1,40 @@
+plugins {
+    id "com.google.cloud.tools.jib" version "${jibVersion}"
+    id "org.springframework.boot" version "${springBootVersion}"
+}
+
+apply plugin: "java"
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
+if (!hasProperty("jibProfile")) {
+    ext.jibProfile = "dev"
+}
+apply from: "jib-${jibProfile}.gradle"
+
+jar {
+    enabled = true
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+    }
+}
+
+dependencies {
+    implementation project(":cloud-config-web")
+
+    implementation "de.codecentric:spring-boot-admin-starter-server:${actuatorAdminVersion}"
+
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+
+    implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.springframework.security:spring-security-test"
+}

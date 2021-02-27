@@ -1,0 +1,18 @@
+jib {
+    from {
+        image = "openjdk:11-jre-stretch"
+    }
+    to {
+        image = "cloud-actuator"
+        tags = ["prod-" + version.toString()]
+    }
+    container {
+        mainClass = "com.pongsky.cloud.ActuatorApplication"
+        ports = ["10000"]
+        jvmFlags = ["-Xmx512M", "-Xms330M", "-Xmn100M",
+                    "-XX:MaxDirectMemorySize=64M", "-XX:MetaspaceSize=100M",
+                    "-Djava.security.egd=file:/dev/./urandom", "-Duser.timezone=GMT+08",
+                    "-Dspring.profiles.active=prod"]
+        creationTime = new Date().format("yyyy-MM-dd'T'HH:mm:ssZ", TimeZone.getTimeZone("GMT+08:00"))
+    }
+}

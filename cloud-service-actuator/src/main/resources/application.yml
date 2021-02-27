@@ -1,0 +1,70 @@
+application:
+  name: cloud # 工程名称
+  module: actuator # 模块名称
+  version: 1.0.0 # 工程版本号
+  formatted-version: PongSky ${application.name}-${application.module} ${application.version} # 格式化版本
+spring:
+  application:
+    name: ${application.name}-${application.module} # 应用名称
+  profiles:
+    active: local # 选择配置文件
+  security:
+    user:
+      name: ${application.name} # security 默认账号
+      password: ${application.name} # security 默认密码
+  mvc:
+    log-resolved-exception: true # 开启日志解析异常
+    throw-exception-if-no-handler-found: true # 出现异常直接抛出错误
+    locale: zh_CN # 简体中文语言
+    format:
+      time: HH:mm:ss # time 转换格式
+      date: yyyy-MM-dd # date 转换格式
+      date-time: yyyy-MM-dd HH:mm:ss # date-time 转换格式
+  thymeleaf:
+    check-template-location: false # 不检查模块位置
+  resources:
+    add-mappings: false # 不要为资源文件建立映射
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss # 设置时间默认序列化格式
+    time-zone: Asia/Shanghai # 设置序列化时区
+    default-property-inclusion: non_null # 只序列化非空字段
+  servlet:
+    multipart:
+      max-file-size: 100MB # 设置最大文件上传大小 100MB
+      max-request-size: 100MB # 设置发起请求最大文件上传大小 100MB
+  task:
+    execution:
+      pool:
+        core-size: 10 # 定时任务线程池核心数
+        max-size: 100 # 定时任务最大线程数
+        keep-alive: 30s # 定时任务线程保持空闲时间
+  output:
+    ansi:
+      enabled: always # 启用控制台打印颜色
+  cloud:
+    nacos:
+      discovery:
+        group: ${application.name} # 组别
+logging:
+  pattern:
+    console: ${CONSOLE_LOG_PATTERN:%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}  %-5.5L{5}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}} # 控制台日志打印格式
+server:
+  port: 10000 # 服务端口号
+  shutdown: graceful # 优雅关机
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL # 日志记录级别
+        connectTimeout: 5000 # 建立连接超时限制
+        readTimeout: 5000 # 从建立连接起到连接结束超时限制
+  hystrix:
+    enabled: true # 开启 hystrix
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 以 web 方式暴露所有监控端点
+  endpoint:
+    health:
+      show-details: always # 总是显示健康详情
