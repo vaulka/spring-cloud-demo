@@ -20,6 +20,15 @@
 
 ## 文件、文件夹说明
 
+* cloud-service-actuator # `actuator` 服务
+
+    * DownActuatorService.sh # 停止 `actuator` 服务脚本
+
+    * StartActuatorService.sh # 启动 `actuator` 服务脚本
+
+    * cloud-actuator.yml # `actuator` 服务 `docker-compose` 编排文件
+
+
 * cloud-service-demo # `demo` 服务
 
     * DownDemoService.sh # 停止 `demo` 服务脚本
@@ -42,12 +51,12 @@
 
 * cloud-service-nacos # `nacos` 服务
 
-  * DownNacosService.sh # 停止 `nacos` 服务脚本
+    * DownNacosService.sh # 停止 `nacos` 服务脚本
 
-  * StartNacosService.sh # 启动 `nacos` 服务脚本
+    * StartNacosService.sh # 启动 `nacos` 服务脚本
 
-  * cloud-nacos.yml # `nacos` 服务 `docker-compose` 编排文件
-  
+    * cloud-nacos.yml # `nacos` 服务 `docker-compose` 编排文件
+
 
 * cloud-service-payment # `payment` 服务
 
