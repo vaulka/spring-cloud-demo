@@ -3,7 +3,7 @@ package com.pongsky.cloud.service;
 import com.pongsky.cloud.entity.user.dto.RefreshTokenLoginDto;
 import com.pongsky.cloud.entity.user.dto.UserDto;
 import com.pongsky.cloud.entity.user.vo.UserVo;
-import com.pongsky.cloud.feign.UserFeignService;
+import com.pongsky.cloud.feign.AuthFeignService;
 import com.pongsky.cloud.response.GlobalResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserFeignService userFeignService;
+    private final AuthFeignService authFeignService;
 
     /**
      * 注册
@@ -25,7 +25,7 @@ public class UserService {
      * @return 注册
      */
     public UserVo registered(UserDto userDto) {
-        return GlobalResult.validation(userFeignService.registered(userDto)).getData();
+        return GlobalResult.validation(authFeignService.registered(userDto)).getData();
     }
 
     /**
@@ -35,7 +35,7 @@ public class UserService {
      * @return 登录
      */
     public UserVo login(UserDto userDto) {
-        return GlobalResult.validation(userFeignService.login(userDto)).getData();
+        return GlobalResult.validation(authFeignService.login(userDto)).getData();
     }
 
     /**
@@ -45,7 +45,7 @@ public class UserService {
      * @return refresh 登录
      */
     public UserVo refreshLogin(RefreshTokenLoginDto refreshTokenLoginDto) {
-        return GlobalResult.validation(userFeignService.refreshLogin(refreshTokenLoginDto)).getData();
+        return GlobalResult.validation(authFeignService.refreshLogin(refreshTokenLoginDto)).getData();
     }
 
 }

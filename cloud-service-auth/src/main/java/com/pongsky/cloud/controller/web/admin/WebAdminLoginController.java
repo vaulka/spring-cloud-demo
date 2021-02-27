@@ -1,4 +1,4 @@
-package com.pongsky.cloud.controller.web.user;
+package com.pongsky.cloud.controller.web.admin;
 
 import com.pongsky.cloud.entity.user.dto.RefreshTokenLoginDto;
 import com.pongsky.cloud.entity.user.dto.UserDto;
@@ -6,7 +6,6 @@ import com.pongsky.cloud.entity.user.vo.UserVo;
 import com.pongsky.cloud.response.annotation.ResponseResult;
 import com.pongsky.cloud.service.UserService;
 import com.pongsky.cloud.utils.jwt.JwtUtils;
-import com.pongsky.cloud.validator.CreateGroup;
 import com.pongsky.cloud.validator.SearchGroup;
 import com.pongsky.cloud.web.request.AuthUtils;
 import lombok.RequiredArgsConstructor;
@@ -22,27 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
  * 登录模块
  *
  * @author pengsenhao
- * @create 2021-02-11
+ * @create 2021-02-27
  */
 @ResponseResult
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/web/user/login", produces = MediaType.APPLICATION_JSON_VALUE)
-public class WebUserLoginController {
+@RequestMapping(value = "/web/admin/login", produces = MediaType.APPLICATION_JSON_VALUE)
+public class WebAdminLoginController {
 
     private final UserService userService;
-
-    /**
-     * 注册
-     *
-     * @param userDto 注册信息
-     * @return 注册
-     */
-    @PostMapping("/registered")
-    public UserVo registered(@Validated({CreateGroup.class}) @RequestBody UserDto userDto) {
-        userService.existsByPhoneAndRoleAndNotUserId(userDto.getUsername(), null);
-        return userService.registered(userDto);
-    }
 
     /**
      * 登录

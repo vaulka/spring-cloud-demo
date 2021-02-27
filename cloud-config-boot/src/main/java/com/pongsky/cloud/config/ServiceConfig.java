@@ -7,13 +7,18 @@ package com.pongsky.cloud.config;
 public class ServiceConfig {
 
     /**
+     * auth 服务名称
+     */
+    public static final String AUTH_SERVICE = "cloud-auth";
+
+    /**
      * user 服务名称
      */
-    public static final String USER_SERVICE = "Cloud-User";
+    public static final String USER_SERVICE = "cloud-user";
 
     /**
      * payment 服务名称
      */
-    public static final String PAYMENT_SERVICE = "Cloud-Payment";
+    public static final String PAYMENT_SERVICE = "cloud-payment";
 
 }

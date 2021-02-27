@@ -1,12 +1,10 @@
 package com.pongsky.cloud.mapper;
 
-import com.pongsky.cloud.entity.User;
 import com.pongsky.cloud.entity.user.dos.UserDo;
 import com.pongsky.cloud.entity.user.dto.SearchUserDto;
 import com.pongsky.cloud.entity.user.dto.UserDto;
 import com.pongsky.cloud.model.dto.PageQuery;
 import com.pongsky.cloud.utils.jwt.enums.AuthRole;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -21,27 +19,6 @@ import java.util.Optional;
  */
 @Mapper
 public interface UserMapper {
-
-    /**
-     * 保存用户信息
-     *
-     * @param user 用户信息
-     * @return 保存用户信息
-     */
-    @Insert("insert `user`(id,role,username,password,name,phone,is_disable,data_version,created_at) " +
-            "value(#{data.id},#{data.role},#{data.username},#{data.password},#{data.name},#{data.phone},#{data.isDisable},#{data.dataVersion},#{data.createdAt})")
-    Integer save(@Param("data") User user);
-
-    /**
-     * 根据用户名查询用户信息
-     *
-     * @param username 用户名
-     * @return 根据用户名查询用户信息
-     */
-    @Select("select u.id,u.role,u.username,u.password,u.name,u.phone " +
-            "from `user` u " +
-            "where u.username = #{username} ")
-    Optional<UserDo> findByUsername(@Param("username") String username);
 
     /**
      * 根据用户ID查看数据版本号
