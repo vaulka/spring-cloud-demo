@@ -1,0 +1,25 @@
+version: '3.8' # compose 编排文件版本号
+services: # 服务列表
+
+  pxc1: # 服务名称
+    image: percona/percona-xtradb-cluster:5.7.25 # 引用镜像
+    restart: always # 重启策略，docker 启动后，如果有运行此服务会自启
+    volumes: # 挂载数据卷列表
+      - ~/docker-volumes/pxc1/data:/var/lib/mysql # 挂载 mysql 数据
+    environment: # 环境参数
+      CLUSTER_NAME: pxc # 集群名称
+      MYSQL_ROOT_PASSWORD: 123456 # mysql 密码
+    ports: # 映射端口列表
+      - 3301:3306 # 映射 mysql 服务端口，生产环境有状态服务建议不映射端口号
+    deploy:
+      resources:
+        limits: # 限制资源
+          memory: 500M # 内存容量，支持单位：b、k、m、g
+    networks:
+      - pxc
+
+
+networks:
+  pxc:
+    external: true # 指定加入外部已存在网络
+    name: pxc # 网络名称
