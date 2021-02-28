@@ -1,0 +1,25 @@
+version: '3.8' # compose 编排文件版本号
+services: # 服务列表
+
+  nacos: # 服务名称
+    image: nginx:1.19.7-alpine # 镜像，格式：名称:版本号，部署时会选用此镜像进行部署
+    restart: always # 重启策略，docker启动后，如果有运行此服务会自启
+    environment: # 环境参数
+      TZ: Asia/Shanghai # 设置上海时区
+    deploy:
+      mode: global # 部署模式，global 会自动部署到每台节点上，当新节点加入时会自动部署，此模式适用于负载均衡服务
+      resources:
+        limits: # 限制资源
+          memory: 100M # 内存容量，支持单位：b、k、m、g
+    volumes: # 挂载数据卷列表
+      - ./http:/etc/nginx/conf.d # 挂载 nginx 配置文件
+    ports: # 映射端口列表
+      - 8848:8848 # nacos 端口号
+    networks:
+      - cloud
+
+
+networks:
+  cloud:
+    external: true # 指定加入外部已存在网络
+    name: cloud # 网络名称

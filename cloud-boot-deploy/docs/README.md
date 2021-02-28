@@ -47,6 +47,19 @@
     * cloud-nacos.yml # `nacos` 服务 `docker-compose` 编排文件
 
 
+* cloud-service-nginx-proxy-nacos # `nginx-proxy-nacos` 服务
+
+    * http
+
+        * nacos.conf # 代理 `nacos` 配置文件
+
+    * DownNginxService.sh # 停止 `nginx-proxy-nacos` 服务脚本
+
+    * StartNginxService.sh # 启动 `nginx-proxy-nacos` 服务脚本
+
+    * cloud-nginx.yml # `nginx-proxy-nacos` 服务 `docker-compose` 编排文件
+
+
 * cloud-service-nginx-proxy-pxc # `nginx-proxy-pxc` 服务
 
     * conf
@@ -196,6 +209,14 @@
 2. 运行 `StartNacosService.sh` 脚本用于启动 `nacos` 服务。
 
 > 如需停止服务，则运行 `DownNacosService.sh` 脚本。
+
+### 部署 nginx-proxy-nacos 服务
+
+1. 执行 `cd cloud-service-nginx-proxy-nacos` 命令进入到目标目录。
+
+2. 运行 `StartNginxService.sh` 脚本用于启动 `nginx-proxy-nacos` 服务。
+
+> 如需停止服务，则运行 `DownNginxService.sh` 脚本。
 
 ### 部署 zipkin 服务
 
