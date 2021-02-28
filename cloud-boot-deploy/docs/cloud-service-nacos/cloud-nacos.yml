@@ -8,6 +8,7 @@ services: # 服务列表
     ports: # 映射端口列表
       - 8841:8848 # 映射 nacos 服务端口
     environment: # 环境参数
+      TZ: Asia/Shanghai # 设置上海时区
       PREFER_HOST_MODE: hostname # 支持  hostname 模式
       NACOS_SERVERS: nacos1:8848 nacos2:8848 nacos3:8848 # 集群地址
       MYSQL_SERVICE_HOST: mysql # 数据库连接地址
@@ -19,6 +20,8 @@ services: # 服务列表
       resources:
         limits: # 限制资源
           memory: 2g # 内存容量，支持单位：b、k、m、g
+    networks:
+      - cloud
 
   nacos2: # 服务名称
     image: nacos/nacos-server:1.4.1 # 引用镜像
@@ -27,6 +30,7 @@ services: # 服务列表
     ports: # 映射端口列表
       - 8842:8848 # 映射 nacos 服务端口
     environment: # 环境参数
+      TZ: Asia/Shanghai # 设置上海时区
       PREFER_HOST_MODE: hostname # 支持  hostname 模式
       NACOS_SERVERS: nacos1:8848 nacos2:8848 nacos3:8848 # 集群地址
       MYSQL_SERVICE_HOST: mysql # 数据库连接地址
@@ -38,6 +42,8 @@ services: # 服务列表
       resources:
         limits: # 限制资源
           memory: 2g # 内存容量，支持单位：b、k、m、g
+    networks:
+      - cloud
 
   nacos3: # 服务名称
     image: nacos/nacos-server:1.4.1 # 引用镜像
@@ -46,6 +52,7 @@ services: # 服务列表
     ports: # 映射端口列表
       - 8843:8848 # 映射 nacos 服务端口
     environment: # 环境参数
+      TZ: Asia/Shanghai # 设置上海时区
       PREFER_HOST_MODE: hostname # 支持  hostname 模式
       NACOS_SERVERS: nacos1:8848 nacos2:8848 nacos3:8848 # 集群地址
       MYSQL_SERVICE_HOST: mysql # 数据库连接地址
@@ -57,9 +64,11 @@ services: # 服务列表
       resources:
         limits: # 限制资源
           memory: 2g # 内存容量，支持单位：b、k、m、g
+    networks:
+      - cloud
 
 
 networks:
-  default:
+  cloud:
     external: true # 指定加入外部已存在网络
     name: cloud # 网络名称

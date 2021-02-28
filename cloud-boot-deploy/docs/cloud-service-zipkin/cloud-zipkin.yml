@@ -4,6 +4,8 @@ services: # 服务列表
   zipkin: # 服务名称
     image: openzipkin/zipkin:2.23.2 # 引用镜像
     restart: always # 重启策略，docker 启动后，如果有运行此服务会自启
+    environment: # 环境参数
+      TZ: Asia/Shanghai # 设置上海时区
     ports: # 映射端口列表
       - 9411:9411 # 映射 web 端口号，生产环境有状态服务建议不映射端口号
     deploy:
@@ -11,9 +13,11 @@ services: # 服务列表
       resources:
         limits: # 限制资源
           memory: 500M # 内存容量，支持单位：b、k、m、g
+    networks:
+      - cloud
 
 
 networks:
-  default:
+  cloud:
     external: true # 指定加入外部已存在网络
     name: cloud # 网络名称

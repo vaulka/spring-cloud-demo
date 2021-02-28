@@ -5,7 +5,7 @@ services: # 服务列表
     image: cloud-actuator:dev-1.0.0 # 引用镜像
     restart: always # 重启策略，docker 启动后，如果有运行此服务会自启
     environment: # 环境参数
-      - TZ=Asia/Shanghai # 设置上海时区
+      TZ: Asia/Shanghai # 设置上海时区
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:10000/actuator/health" ] # 心跳检测指令
       interval: 5s # 检查间隔，每次运行检查命令的时间间隔
@@ -17,9 +17,11 @@ services: # 服务列表
       resources:
         limits: # 限制资源
           memory: 500M # 内存容量，支持单位：b、k、m、g
+    networks:
+      - cloud
 
 
 networks:
-  default:
+  cloud:
     external: true # 指定加入外部已存在网络
     name: cloud # 网络名称

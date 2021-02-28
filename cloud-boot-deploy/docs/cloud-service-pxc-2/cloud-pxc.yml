@@ -7,6 +7,7 @@ services: # 服务列表
     volumes: # 挂载数据卷列表
       - ~/docker-volumes/pxc2/data:/var/lib/mysql # 挂载 mysql 数据
     environment: # 环境参数
+      TZ: Asia/Shanghai # 设置上海时区
       CLUSTER_JOIN: pxc1 # 加入 pxc1 集群
       CLUSTER_NAME: pxc # 集群名称
       MYSQL_ROOT_PASSWORD: 123456 # mysql 密码
