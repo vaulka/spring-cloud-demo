@@ -3,7 +3,6 @@ services: # 服务列表
 
   nacos: # 服务名称
     image: nginx:1.19.7-alpine # 镜像，格式：名称:版本号，部署时会选用此镜像进行部署
-    restart: always # 重启策略，docker启动后，如果有运行此服务会自启
     environment: # 环境参数
       TZ: Asia/Shanghai # 设置上海时区
     deploy:

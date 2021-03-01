@@ -3,7 +3,6 @@ services: # 服务列表
 
   user: # 服务名称
     image: cloud-user:user-1.0.0 # 引用镜像
-    restart: always # 重启策略，docker 启动后，如果有运行此服务会自启
     environment: # 环境参数
       TZ: Asia/Shanghai # 设置上海时区
     healthcheck:
