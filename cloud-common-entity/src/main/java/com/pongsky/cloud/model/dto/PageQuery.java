@@ -3,7 +3,6 @@ package com.pongsky.cloud.model.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Range;
 
 /**
  * 分页请求参数
@@ -21,23 +20,50 @@ public class PageQuery {
     }
 
     /**
+     * 默认 pageNumber
+     */
+    private static final int DEFAULT_PAGE_NUMBER = 0;
+
+    /**
      * 当前页号
      */
-    @Range(min = 0)
     private Integer pageNumber;
 
     public Integer getPageNumber() {
-        return pageNumber != null ? pageNumber : 0;
+        if (pageNumber != null
+                && pageNumber >= DEFAULT_PAGE_NUMBER) {
+            return pageNumber;
+        }
+        return DEFAULT_PAGE_NUMBER;
     }
+
+    /**
+     * 默认 pageSize
+     */
+    private static final int DEFAULT_PAGE_SIZE = 20;
+
+    /**
+     * 最小 pageSize
+     */
+    private static final int MIN_PAGE_SIZE = 1;
+
+    /**
+     * 最大 pageSize
+     */
+    private static final int MAX_PAGE_SIZE = 200;
 
     /**
      * 一页数量
      */
-    @Range(min = 1, max = 200)
     private Integer pageSize;
 
     public Integer getPageSize() {
-        return pageSize != null ? pageSize : 20;
+        if (pageSize != null
+                && pageSize >= MIN_PAGE_SIZE
+                && MAX_PAGE_SIZE >= pageSize) {
+            return pageSize;
+        }
+        return DEFAULT_PAGE_SIZE;
     }
 
     /**
