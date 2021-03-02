@@ -16,7 +16,7 @@ services: # 服务列表
       replicas: 2 # 部署节点数量
       resources:
         limits: # 限制资源
-          memory: 500M # 内存容量，支持单位：b、k、m、g
+          memory: 0.5g # 内存容量，支持单位：b、k、m、g
     networks:
       - cloud
 

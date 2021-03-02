@@ -15,7 +15,7 @@ services: # 服务列表
       mode: global # 部署模式，global 会自动部署到每台节点上，当新节点加入时会自动部署，此模式适用于负载均衡服务
       resources:
         limits: # 限制资源
-          memory: 500M # 内存容量，支持单位：b、k、m、g
+          memory: 0.5g # 内存容量，支持单位：b、k、m、g
     networks:
       - cloud
 
