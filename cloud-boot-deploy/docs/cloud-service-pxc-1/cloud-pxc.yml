@@ -9,8 +9,8 @@ services: # 服务列表
       TZ: Asia/Shanghai # 设置上海时区
       CLUSTER_NAME: pxc # 集群名称
       MYSQL_ROOT_PASSWORD: 123456 # mysql 密码
-    ports: # 映射端口列表
-      - 3301:3306 # 映射 mysql 服务端口，生产环境有状态服务建议不映射端口号
+#    ports: # 映射端口列表
+#      - 3301:3306 # 映射 mysql 服务端口，生产环境有状态服务建议不映射端口号
     deploy:
       resources:
         limits: # 限制资源
