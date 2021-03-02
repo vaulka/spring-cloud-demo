@@ -1,6 +1,7 @@
 package com.pongsky.cloud.security;
 
 import com.pongsky.cloud.web.request.AuthUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +15,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,11 +26,12 @@ import java.util.stream.Collectors;
  * @create 2021-02-11
  */
 @EnableWebSecurity
+@RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Resource
-    private AuthenticationFilter authenticationFilter;
+    private final AuthenticationFilter authenticationFilter;
+    private final RestfulAccessDeniedHandler restfulAccessDeniedHandler;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -48,6 +49,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().configurationSource(corsConfigurationSource())
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/feign/**")
+                .access("hasIpAddress('127.0.0.1') or hasIpAddress('0:0:0:0:0:0:0:1')")
+                .and()
+                .exceptionHandling().accessDeniedHandler(restfulAccessDeniedHandler)
                 .and().addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 

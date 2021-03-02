@@ -1,8 +1,8 @@
 package com.pongsky.cloud.web.filter;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.entity.ContentType;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -31,15 +31,11 @@ public class ReplaceStreamFilter implements Filter {
     /**
      * 上传文件请求头
      */
-    private static final List<ContentType> UPLOAD_FILE_CONTENT_TYPE = List.of(
-            ContentType.IMAGE_BMP,
-            ContentType.IMAGE_GIF,
-            ContentType.IMAGE_JPEG,
-            ContentType.IMAGE_PNG,
-            ContentType.IMAGE_SVG,
-            ContentType.IMAGE_TIFF,
-            ContentType.IMAGE_WEBP,
-            ContentType.MULTIPART_FORM_DATA
+    private static final List<String> UPLOAD_FILE_CONTENT_TYPE = List.of(
+            MediaType.IMAGE_GIF_VALUE,
+            MediaType.IMAGE_JPEG_VALUE,
+            MediaType.IMAGE_PNG_VALUE,
+            MediaType.MULTIPART_FORM_DATA_VALUE
     );
 
     /**
@@ -53,7 +49,7 @@ public class ReplaceStreamFilter implements Filter {
             return false;
         }
         return UPLOAD_FILE_CONTENT_TYPE.stream()
-                .filter(contentType -> request.getContentType().contains(contentType.getMimeType()))
+                .filter(contentType -> request.getContentType().contains(contentType))
                 .findAny().isEmpty();
     }
 
