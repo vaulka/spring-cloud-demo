@@ -6,12 +6,14 @@ import com.pongsky.cloud.entity.user.vo.UserVo;
 import com.pongsky.cloud.response.annotation.ResponseResult;
 import com.pongsky.cloud.service.UserService;
 import com.pongsky.cloud.utils.jwt.JwtUtils;
+import com.pongsky.cloud.utils.jwt.enums.AuthRole;
 import com.pongsky.cloud.validator.CreateGroup;
 import com.pongsky.cloud.validator.SearchGroup;
 import com.pongsky.cloud.web.request.AuthUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @ResponseResult
 @RestController
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('" + AuthRole.FEIGN_ROLE + "')")
 @RequestMapping(value = "/feign/user/login", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FeignUserLoginController {
 

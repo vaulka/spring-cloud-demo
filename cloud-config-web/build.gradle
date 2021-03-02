@@ -23,6 +23,8 @@ dependencyManagement {
 }
 
 dependencies {
+    implementation project(":cloud-config-boot")
+
     implementation project(":cloud-common-utils")
     implementation project(":cloud-common-entity")
 

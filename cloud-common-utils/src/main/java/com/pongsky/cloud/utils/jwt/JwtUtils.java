@@ -20,6 +20,16 @@ import java.util.Date;
 public class JwtUtils {
 
     /**
+     * Authorization
+     */
+    public static final String AUTHORIZATION = "Authorization";
+
+    /**
+     * Token 开头前缀
+     */
+    public static final String TOKEN_PREFIX = "Bearer ";
+
+    /**
      * 发行人名称
      */
     private static final String ISS = "彭森豪";

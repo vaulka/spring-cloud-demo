@@ -1,6 +1,7 @@
 package com.pongsky.cloud;
 
 import com.pongsky.cloud.config.DatabaseConfig;
+import com.pongsky.cloud.config.FeignConfig;
 import com.pongsky.cloud.config.JacksonConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.Import;
 @EnableCircuitBreaker
 @SpringBootApplication
 @Import({
+        FeignConfig.class,
         JacksonConfig.class,
         DatabaseConfig.class
 })

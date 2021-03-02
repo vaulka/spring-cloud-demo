@@ -9,6 +9,11 @@ package com.pongsky.cloud.utils.jwt.enums;
 public enum AuthRole {
 
     /**
+     * feign 调用
+     */
+    FEIGN,
+
+    /**
      * 公开
      */
     PUBLIC,
@@ -22,6 +27,11 @@ public enum AuthRole {
      * 用户
      */
     USER;
+
+    /**
+     * feign 调用角色
+     */
+    public static final String FEIGN_ROLE = "FEIGN";
 
     /**
      * 管理员角色

@@ -2,6 +2,7 @@ package com.pongsky.cloud.web.request;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.pongsky.cloud.config.SystemConfig;
 import com.pongsky.cloud.utils.jwt.JwtUtils;
 import com.pongsky.cloud.utils.jwt.dto.AuthInfo;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,16 +17,6 @@ import java.util.Optional;
  * @create 2021-02-11
  */
 public class AuthUtils {
-
-    /**
-     * Authorization
-     */
-    public static final String AUTHORIZATION = "Authorization";
-
-    /**
-     * Token 开头前缀
-     */
-    public static final String TOKEN_PREFIX = "Bearer ";
 
     /**
      * 获取用户信息
@@ -88,7 +79,7 @@ public class AuthUtils {
      */
     public static boolean verifyToken(String token) {
         try {
-            JWT.require(JwtUtils.ALGORITHM).build().verify(token.replace(TOKEN_PREFIX, ""));
+            JWT.require(JwtUtils.ALGORITHM).build().verify(token.replace(JwtUtils.TOKEN_PREFIX, ""));
             return false;
         } catch (Exception e) {
             return true;
@@ -102,16 +93,16 @@ public class AuthUtils {
      * @return Token
      */
     public static String getAuthorization(HttpServletRequest request) {
-        String authorization = Optional.ofNullable(request.getHeader(AUTHORIZATION))
+        String authorization = Optional.ofNullable(request.getHeader(JwtUtils.AUTHORIZATION))
                 .orElseThrow(() -> new BadCredentialsException("缺少访问凭证，请重新登录"))
-                .replace(TOKEN_PREFIX, "");
+                .replace(JwtUtils.TOKEN_PREFIX, "");
         try {
             String active = JwtUtils.getActive(authorization);
-            if (!active.equals(SystemConfigUtils.getActive())) {
+            if (!active.equals(SystemConfig.getActive())) {
                 throw new BadCredentialsException("访问凭证已失效，请重新登录：错误 ACTIVE");
             }
             String application = JwtUtils.getApplication(authorization);
-            if (!application.equals(SystemConfigUtils.getApplicationName())) {
+            if (!application.equals(SystemConfig.getApplicationName())) {
                 throw new BadCredentialsException("访问凭证已失效，请重新登录：错误 APPLICATION");
             }
         } catch (JWTDecodeException e) {

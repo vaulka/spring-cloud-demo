@@ -2,7 +2,9 @@ package com.pongsky.cloud.controller.feign;
 
 import com.pongsky.cloud.exception.ValidationException;
 import com.pongsky.cloud.response.annotation.ResponseResult;
+import com.pongsky.cloud.utils.jwt.enums.AuthRole;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +18,7 @@ import java.util.UUID;
  */
 @ResponseResult
 @RestController
+@PreAuthorize("hasRole('" + AuthRole.FEIGN_ROLE + "')")
 @RequestMapping(value = "/feign/demo", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FeignDemoController {
 

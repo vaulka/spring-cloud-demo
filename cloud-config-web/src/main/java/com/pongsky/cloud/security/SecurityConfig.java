@@ -1,6 +1,6 @@
 package com.pongsky.cloud.security;
 
-import com.pongsky.cloud.web.request.AuthUtils;
+import com.pongsky.cloud.utils.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AuthenticationFilter authenticationFilter;
-    private final RestfulAccessDeniedHandler restfulAccessDeniedHandler;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -49,12 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().configurationSource(corsConfigurationSource())
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/feign/**")
-                .access("hasIpAddress('127.0.0.1') or hasIpAddress('0:0:0:0:0:0:0:1')")
-                .and()
-                .exceptionHandling().accessDeniedHandler(restfulAccessDeniedHandler)
                 .and().addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -75,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         corsConfiguration.setAllowedHeaders(Collections.singletonList("*"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setMaxAge(0L);
-        corsConfiguration.addExposedHeader(AuthUtils.AUTHORIZATION);
+        corsConfiguration.addExposedHeader(JwtUtils.AUTHORIZATION);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;

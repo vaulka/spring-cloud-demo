@@ -1,4 +1,4 @@
-package com.pongsky.cloud.web.request;
+package com.pongsky.cloud.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @create 2021-02-11
  */
 @Component
-public class SystemConfigUtils {
+public class SystemConfig {
 
     /**
      * 环境
@@ -19,7 +19,7 @@ public class SystemConfigUtils {
 
     @Value("${spring.profiles.active}")
     public void setActive(String active) {
-        SystemConfigUtils.active = active;
+        SystemConfig.active = active;
     }
 
     public static String getActive() {
@@ -34,7 +34,7 @@ public class SystemConfigUtils {
 
     @Value("${application.name}")
     public void setApplicationName(String applicationName) {
-        SystemConfigUtils.applicationName = applicationName;
+        SystemConfig.applicationName = applicationName;
     }
 
     public static String getApplicationName() {

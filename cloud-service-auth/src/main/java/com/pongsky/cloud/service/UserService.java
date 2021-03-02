@@ -1,5 +1,6 @@
 package com.pongsky.cloud.service;
 
+import com.pongsky.cloud.config.SystemConfig;
 import com.pongsky.cloud.entity.User;
 import com.pongsky.cloud.entity.user.dos.UserDo;
 import com.pongsky.cloud.entity.user.dto.UserDto;
@@ -11,7 +12,6 @@ import com.pongsky.cloud.mapper.UserMapper;
 import com.pongsky.cloud.utils.jwt.JwtUtils;
 import com.pongsky.cloud.utils.jwt.enums.AuthRole;
 import com.pongsky.cloud.utils.snowflake.SnowFlakeUtils;
-import com.pongsky.cloud.web.request.SystemConfigUtils;
 import lombok.RequiredArgsConstructor;
 import ma.glasnost.orika.MapperFacade;
 import org.apache.commons.lang3.StringUtils;
@@ -91,9 +91,9 @@ public class UserService {
     private UserVo getAuthorization(UserDo user) {
         return mapperFacade.map(user, UserVo.class)
                 .setAuthorization(JwtUtils.createAccessToken(user.getId().toString(),
-                        user.getRole().toString(), SystemConfigUtils.getActive(), SystemConfigUtils.getApplicationName()))
+                        user.getRole().toString(), SystemConfig.getActive(), SystemConfig.getApplicationName()))
                 .setRefreshToken(JwtUtils.createRefreshToken(user.getId().toString(),
-                        SystemConfigUtils.getActive(), SystemConfigUtils.getApplicationName()));
+                        SystemConfig.getActive(), SystemConfig.getApplicationName()));
     }
 
     /**
