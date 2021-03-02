@@ -25,6 +25,8 @@ dependencyManagement {
 }
 
 dependencies {
+    implementation project(":cloud-config-boot")
+
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 

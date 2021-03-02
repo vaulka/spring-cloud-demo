@@ -26,6 +26,7 @@ dependencyManagement {
 
 dependencies {
     implementation project(":cloud-config-web")
+    implementation project(":cloud-config-boot")
 
     implementation "de.codecentric:spring-boot-admin-starter-server:${actuatorAdminVersion}"
 
