@@ -28,6 +28,7 @@ dependencies {
     implementation project(":cloud-config-web")
     implementation project(":cloud-config-boot")
 
+    implementation "net.logstash.logback:logstash-logback-encoder:${logstashVersion}"
     implementation "de.codecentric:spring-boot-admin-starter-server:${actuatorAdminVersion}"
 
     implementation "org.springframework.boot:spring-boot-starter-web"

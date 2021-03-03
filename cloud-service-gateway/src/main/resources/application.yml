@@ -63,6 +63,7 @@ spring:
           filters:
             - StripPrefix=1 # 去除 URL 开头的 /cloud-user
 logging:
+  config: classpath:logback-${spring.profiles.active}.xml # 指定 logback 路径
   pattern:
     console: ${CONSOLE_LOG_PATTERN:%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}  %-5.5L{5}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}} # 控制台日志打印格式
 server:

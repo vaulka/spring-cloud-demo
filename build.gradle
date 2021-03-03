@@ -18,6 +18,7 @@ ext {
 
     jwtVersion = "3.12.1"
     orikaVersion = "1.9.0"
+    logstashVersion = "6.6"
     servletVersion = "4.0.1"
     commonsLang3Version = "3.11"
     apacheHttpCoreVersion = "4.4.14"
