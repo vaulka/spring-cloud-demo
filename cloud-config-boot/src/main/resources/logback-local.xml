@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <springProperty scope="context" name="service_name" source="spring.application.name" defaultValue="spring.application.name"/>
+    <springProperty scope="context" name="service_name" source="spring.application.name"
+                    defaultValue="spring.application.name"/>
 
-    <springProperty scope="context" name="active" source="spring.profiles.active" defaultValue="spring.profiles.active"/>
+    <springProperty scope="context" name="active" source="spring.profiles.active"
+                    defaultValue="spring.profiles.active"/>
 
     <!-- 彩色日志 -->
     <!-- 彩色日志依赖的渲染类 -->
@@ -26,19 +28,20 @@
         </encoder>
     </appender>
 
-    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>127.0.0.1:4560</destination>
+    <appender name="logstash" class="net.logstash.logback.appender.LogstashUdpSocketAppender">
+        <host>127.0.0.1</host>
+        <port>4560</port>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>${logging.level.root}</level>
         </filter>
-        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+        <layout class="net.logstash.logback.layout.LogstashLayout">
             <timestampPattern>yyyy-MM-dd HH:mm:ss.SSS</timestampPattern>
             <customFields>{"service":"${active}-${service_name}"}</customFields>
             <fieldNames>
                 <timestamp>datetime</timestamp>
                 <levelValue>[ignore]</levelValue>
             </fieldNames>
-        </encoder>
+        </layout>
     </appender>
 
     <root level="info">
