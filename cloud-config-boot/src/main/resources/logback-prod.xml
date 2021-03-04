@@ -36,7 +36,6 @@
         </filter>
         <layout class="net.logstash.logback.layout.LogstashLayout">
             <timestampPattern>yyyy-MM-dd HH:mm:ss.SSS</timestampPattern>
-            <customFields>{"service":"${active}-${serviceName}"}</customFields>
             <fieldNames>
                 <timestamp>recordTime</timestamp>
                 <levelValue>[ignore]</levelValue>
