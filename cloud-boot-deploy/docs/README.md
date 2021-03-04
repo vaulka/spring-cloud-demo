@@ -29,6 +29,15 @@
     * cloud-actuator.yml # `actuator` 服务 `docker-compose` 编排文件
 
 
+* cloud-service-auth # `auth` 服务
+
+    * DownAuthService.sh # 停止 `auth` 服务脚本
+
+    * StartAuthService.sh # 启动 `auth` 服务脚本
+
+    * cloud-auth.yml # `auth` 服务 `docker-compose` 编排文件
+
+
 * cloud-service-demo # `demo` 服务
 
     * DownDemoService.sh # 停止 `demo` 服务脚本
@@ -233,6 +242,14 @@
 2. 运行 `StartActuatorService.sh` 脚本用于启动 `actuator` 服务。
 
 > 如需停止服务，则运行 `DownActuatorService.sh` 脚本。
+
+### 部署 auth 服务
+
+1. 执行 `cd cloud-service-auth` 命令进入到目标目录。
+
+2. 运行 `StartAuthService.sh` 脚本用于启动 `auth` 服务。
+
+> 如需停止服务，则运行 `DownAuthService.sh` 脚本。
 
 ### 部署 demo 服务
 

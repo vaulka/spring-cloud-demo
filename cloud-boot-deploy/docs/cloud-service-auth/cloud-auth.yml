@@ -1,8 +1,8 @@
 version: '3.8' # compose 编排文件版本号
 services: # 服务列表
 
-  actuator: # 服务名称
-    image: cloud-actuator:dev-1.0.0 # 引用镜像
+  auth: # 服务名称
+    image: cloud-auth:dev-1.0.0 # 引用镜像
     environment: # 环境参数
       TZ: Asia/Shanghai # 设置上海时区
     healthcheck:
