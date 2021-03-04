@@ -6,7 +6,7 @@ services: # 服务列表
     environment: # 环境参数
       TZ: Asia/Shanghai # 设置上海时区
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:10003/actuator/health" ] # 心跳检测指令
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ] # 心跳检测指令
       interval: 5s # 检查间隔，每次运行检查命令的时间间隔
       timeout: 3s # 超时时间，达到超时时间则失败次数记数 +1
       retries: 3 # 失败次数，达到失败次数会创建新容器替换旧容器

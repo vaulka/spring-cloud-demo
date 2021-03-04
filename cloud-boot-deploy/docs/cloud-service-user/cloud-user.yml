@@ -2,11 +2,11 @@ version: '3.8' # compose 编排文件版本号
 services: # 服务列表
 
   user: # 服务名称
-    image: cloud-user:user-1.0.0 # 引用镜像
+    image: cloud-user:dev-1.0.0 # 引用镜像
     environment: # 环境参数
       TZ: Asia/Shanghai # 设置上海时区
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:10001/actuator/health" ] # 心跳检测指令
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ] # 心跳检测指令
       interval: 5s # 检查间隔，每次运行检查命令的时间间隔
       timeout: 3s # 超时时间，达到超时时间则失败次数记数 +1
       retries: 3 # 失败次数，达到失败次数会创建新容器替换旧容器
