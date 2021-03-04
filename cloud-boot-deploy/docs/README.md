@@ -20,56 +20,89 @@
 
 ## 文件、文件夹说明
 
-* cloud-service-actuator # `actuator` 服务
+* cloud-actuator # `actuator` 服务
 
-    * DownActuatorService.sh # 停止 `actuator` 服务脚本
+    * down.sh # 停止 `actuator` 服务脚本
 
-    * StartActuatorService.sh # 启动 `actuator` 服务脚本
+    * start.sh # 启动 `actuator` 服务脚本
 
     * cloud-actuator.yml # `actuator` 服务 `docker-compose` 编排文件
 
 
-* cloud-service-auth # `auth` 服务
+* cloud-auth # `auth` 服务
 
-    * DownAuthService.sh # 停止 `auth` 服务脚本
+    * down.sh # 停止 `auth` 服务脚本
 
-    * StartAuthService.sh # 启动 `auth` 服务脚本
+    * start.sh # 启动 `auth` 服务脚本
 
     * cloud-auth.yml # `auth` 服务 `docker-compose` 编排文件
 
 
-* cloud-service-demo # `demo` 服务
+* cloud-demo # `demo` 服务
 
-    * DownDemoService.sh # 停止 `demo` 服务脚本
+    * down.sh # 停止 `demo` 服务脚本
 
-    * StartDemoService.sh # 启动 `demo` 服务脚本
+    * start.sh # 启动 `demo` 服务脚本
 
     * cloud-demo.yml # `demo` 服务 `docker-compose` 编排文件
 
 
-* cloud-service-nacos # `nacos` 服务
+* cloud-payment # `payment` 服务
 
-    * DownNacosService.sh # 停止 `nacos` 服务脚本
+    * down.sh # 停止 `payment` 服务脚本
 
-    * StartNacosService.sh # 启动 `nacos` 服务脚本
+    * start.sh # 启动 `payment` 服务脚本
+
+    * cloud-payment.yml # `payment` 服务 `docker-compose` 编排文件
+
+
+* cloud-user # `user` 服务
+
+    * down.sh # 停止 `user` 服务脚本
+
+    * start.sh # 启动 `user` 服务脚本
+
+    * cloud-user.yml # `user` 服务 `docker-compose` 编排文件
+
+
+* service-nacos # `nacos` 服务
+
+    * create-volumes-directory.sh # 创建 `nacos` 服务挂载数据卷目录脚本
+
+    * down.sh # 停止 `nacos` 服务脚本
+
+    * start.sh # 启动 `nacos` 服务脚本
 
     * cloud-nacos.yml # `nacos` 服务 `docker-compose` 编排文件
 
 
-* cloud-service-nginx-proxy-nacos # `nginx-proxy-nacos` 服务
+* service-proxy-gateway # `proxy-gateway` 服务
+
+    * http
+
+        * gateway.conf # 代理 `backend` & `frontend` 配置文件
+
+    * down.sh # 停止 `proxy-gateway` 服务脚本
+
+    * start.sh # 启动 `proxy-gateway` 服务脚本
+
+    * cloud-nginx.yml # `proxy-gateway` 服务 `docker-compose` 编排文件
+
+
+* service-proxy-nacos # `proxy-nacos` 服务
 
     * http
 
         * nacos.conf # 代理 `nacos` 配置文件
 
-    * DownNginxService.sh # 停止 `nginx-proxy-nacos` 服务脚本
+    * down.sh # 停止 `proxy-nacos` 服务脚本
 
-    * StartNginxService.sh # 启动 `nginx-proxy-nacos` 服务脚本
+    * start.sh # 启动 `proxy-nacos` 服务脚本
 
-    * cloud-nginx.yml # `nginx-proxy-nacos` 服务 `docker-compose` 编排文件
+    * cloud-nginx.yml # `proxy-nacos` 服务 `docker-compose` 编排文件
 
 
-* cloud-service-nginx-proxy-pxc # `nginx-proxy-pxc` 服务
+* service-proxy-pxc # `proxy-pxc` 服务
 
     * conf
 
@@ -79,76 +112,60 @@
 
         * pxc.conf # 代理 `pxc` 配置文件
 
-    * DownNginxService.sh # 停止 `nginx-proxy-pxc` 服务脚本
+    * down.sh # 停止 `proxy-pxc` 服务脚本
 
-    * StartNginxService.sh # 启动 `nginx-proxy-pxc` 服务脚本
+    * start.sh # 启动 `proxy-pxc` 服务脚本
 
-    * cloud-nginx.yml # `nginx-proxy-pxc` 服务 `docker-compose` 编排文件
-
-
-* cloud-service-payment # `payment` 服务
-
-    * DownPaymentService.sh # 停止 `payment` 服务脚本
-
-    * StartPaymentService.sh # 启动 `payment` 服务脚本
-
-    * cloud-payment.yml # `payment` 服务 `docker-compose` 编排文件
+    * cloud-nginx.yml # `proxy-pxc` 服务 `docker-compose` 编排文件
 
 
-* cloud-service-pxc-1 # `pxc-1` 服务
+* service-pxc-1 # `pxc-1` 服务
 
-    * CreateVolumesDirectory.sh # 创建 `pxc-1` 服务挂载数据卷目录脚本
+    * create-volumes-directory.sh # 创建 `pxc-1` 服务挂载数据卷目录脚本
 
-    * DownPxcService.sh # 停止 `pxc-1` 服务脚本
+    * down.sh # 停止 `pxc-1` 服务脚本
 
-    * StartPxcService.sh # 启动 `pxc-1` 服务脚本
+    * start.sh # 启动 `pxc-1` 服务脚本
 
     * cloud-pxc.yml # `pxc-1` 服务 `docker-compose` 编排文件
 
 
-* cloud-service-pxc-2 # `pxc-2` 服务
+* service-pxc-2 # `pxc-2` 服务
 
-    * CreateVolumesDirectory.sh # 创建 `pxc-2` 服务挂载数据卷目录脚本
+    * create-volumes-directory.sh # 创建 `pxc-2` 服务挂载数据卷目录脚本
 
-    * DownPxcService.sh # 停止 `pxc-2` 服务脚本
+    * down.sh # 停止 `pxc-2` 服务脚本
 
-    * StartPxcService.sh # 启动 `pxc-2` 服务脚本
+    * start.sh # 启动 `pxc-2` 服务脚本
 
     * cloud-pxc.yml # `pxc-2` 服务 `docker-compose` 编排文件
 
 
-* cloud-service-pxc-3 # `pxc-3` 服务
+* service-pxc-3 # `pxc-3` 服务
 
-    * CreateVolumesDirectory.sh # 创建 `pxc-3` 服务挂载数据卷目录脚本
+    * create-volumes-directory.sh # 创建 `pxc-3` 服务挂载数据卷目录脚本
 
-    * DownPxcService.sh # 停止 `pxc-3` 服务脚本
+    * down.sh # 停止 `pxc-3` 服务脚本
 
-    * StartPxcService.sh # 启动 `pxc-3` 服务脚本
+    * start.sh # 启动 `pxc-3` 服务脚本
 
     * cloud-pxc.yml # `pxc-3` 服务 `docker-compose` 编排文件
 
 
-* cloud-service-user # `user` 服务
+* service-zipkin # `zipkin` 服务
 
-    * DownUserService.sh # 停止 `user` 服务脚本
+    * down.sh # 停止 `zipkin` 服务脚本
 
-    * StartUserService.sh # 启动 `user` 服务脚本
-
-    * cloud-user.yml # `user` 服务 `docker-compose` 编排文件
-
-
-* cloud-service-zipkin # `zipkin` 服务
-
-    * DownZipkinService.sh # 停止 `zipkin` 服务脚本
-
-    * StartZipkinService.sh # 启动 `zipkin` 服务脚本
+    * start.sh # 启动 `zipkin` 服务脚本
 
     * cloud-zipkin.yml # `zipkin` 服务 `docker-compose` 编排文件
 
 
 * README.md # 说明文档
 
-* CreateNetwork.sh # 创建项目全局网络
+* create-cloud-network.sh # 创建 cloud 项目网络
+
+* create-global-network.sh # 创建全局网络
 
 ## 部署
 
@@ -156,8 +173,8 @@
 
 ### 创建全局网络
 
-1. 运行 `CreateCloudNetwork.sh` 脚本用于创建全局网络。
-2. 运行 `CreatePxcNetwork.sh` 脚本用于创建全局网络。
+1. 运行 `create-cloud-network.sh` 脚本用于创建 cloud 项目网络。
+2. 运行 `create-global-network.sh` 脚本用于创建全局网络。
 
 > 只需运行一次，除非网络被删除，后续再部署此项目中的服务时网络需要重新创建。
 
@@ -167,110 +184,118 @@
 
 #### 部署 pxc-1 服务
 
-1. 执行 `cd cloud-service-pxc-1` 命令进入到目标目录。
+1. 执行 `cd service-pxc-1` 命令进入到目标目录。
 
-2. 运行 `CreateVolumesDirectory.sh` 脚本用于创建数据卷挂载目录。
+2. 运行 `create-volumes-directory.sh` 脚本用于创建数据卷挂载目录。
 
-3. 运行 `StartPxcService.sh` 脚本用于启动 `pxc` 服务。
+3. 运行 `start.sh` 脚本用于启动 `pxc` 服务。
 
-> 如需停止服务，则运行 `DownPxcService.sh` 脚本。
+> 如需停止服务，则运行 `down.sh` 脚本。
 
 #### 部署 pxc-2 服务
 
 > 等 pxc-1 服务启动完毕能连接数据库后再进行后续操作
 
-1. 执行 `cd cloud-service-pxc-2` 命令进入到目标目录。
+1. 执行 `cd service-pxc-2` 命令进入到目标目录。
 
-2. 运行 `CreateVolumesDirectory.sh` 脚本用于创建数据卷挂载目录。
+2. 运行 `create-volumes-directory.sh` 脚本用于创建数据卷挂载目录。
 
-3. 运行 `StartPxcService.sh` 脚本用于启动 `pxc` 服务。
+3. 运行 `start.sh` 脚本用于启动 `pxc` 服务。
 
-> 如需停止服务，则运行 `DownPxcService.sh` 脚本。
+> 如需停止服务，则运行 `down.sh` 脚本。
 
 #### 部署 pxc-3 服务
 
 > 等 pxc-1 服务启动完毕能连接数据库后再进行后续操作
 
-1. 执行 `cd cloud-service-pxc-3` 命令进入到目标目录。
+1. 执行 `cd service-pxc-3` 命令进入到目标目录。
 
-2. 运行 `CreateVolumesDirectory.sh` 脚本用于创建数据卷挂载目录。
+2. 运行 `create-volumes-directory.sh` 脚本用于创建数据卷挂载目录。
 
-3. 运行 `StartPxcService.sh` 脚本用于启动 `pxc` 服务。
+3. 运行 `start.sh` 脚本用于启动 `pxc` 服务。
 
-> 如需停止服务，则运行 `DownPxcService.sh` 脚本。
+> 如需停止服务，则运行 `down.sh` 脚本。
 
 #### 创建数据库
 
 1. 连接 mysql，并根据当前版本运行版本相关 SQL。（文档参考：cloud-boot-docs 模块）
 
-### 部署 nginx-proxy-pxc 服务
+### 部署 proxy-pxc 服务
 
-1. 执行 `cd cloud-service-nginx-proxy-pxc` 命令进入到目标目录。
+1. 执行 `cd service-proxy-pxc` 命令进入到目标目录。
 
-2. 运行 `StartNginxService.sh` 脚本用于启动 `nginx-proxy-pxc` 服务。
+2. 运行 `start.sh` 脚本用于启动 `proxy-pxc` 服务。
 
-> 如需停止服务，则运行 `DownNginxService.sh` 脚本。
+> 如需停止服务，则运行 `down.sh` 脚本。
 
 ### 部署 nacos 服务
 
-1. 执行 `cd cloud-service-nacos` 命令进入到目标目录。
+1. 执行 `cd service-nacos` 命令进入到目标目录。
 
-2. 运行 `StartNacosService.sh` 脚本用于启动 `nacos` 服务。
+2. 运行 `start.sh` 脚本用于启动 `nacos` 服务。
 
-> 如需停止服务，则运行 `DownNacosService.sh` 脚本。
+> 如需停止服务，则运行 `down.sh` 脚本。
 
-### 部署 nginx-proxy-nacos 服务
+### 部署 proxy-nacos 服务
 
-1. 执行 `cd cloud-service-nginx-proxy-nacos` 命令进入到目标目录。
+1. 执行 `cd service-proxy-nacos` 命令进入到目标目录。
 
-2. 运行 `StartNginxService.sh` 脚本用于启动 `nginx-proxy-nacos` 服务。
+2. 运行 `start.sh` 脚本用于启动 `proxy-nacos` 服务。
 
-> 如需停止服务，则运行 `DownNginxService.sh` 脚本。
+> 如需停止服务，则运行 `down.sh` 脚本。
 
 ### 部署 zipkin 服务
 
-1. 执行 `cd cloud-service-zipkin` 命令进入到目标目录。
+1. 执行 `cd service-zipkin` 命令进入到目标目录。
 
-2. 运行 `StartZipkinService.sh` 脚本用于启动 `zipkin` 服务。
+2. 运行 `start.sh` 脚本用于启动 `zipkin` 服务。
 
-> 如需停止服务，则运行 `DownZipkinService.sh` 脚本。
+> 如需停止服务，则运行 `down.sh` 脚本。
 
 ### 部署 actuator 服务
 
-1. 执行 `cd cloud-service-actuator` 命令进入到目标目录。
+1. 执行 `cd cloud-actuator` 命令进入到目标目录。
 
-2. 运行 `StartActuatorService.sh` 脚本用于启动 `actuator` 服务。
+2. 运行 `start.sh` 脚本用于启动 `actuator` 服务。
 
-> 如需停止服务，则运行 `DownActuatorService.sh` 脚本。
+> 如需停止服务，则运行 `down.sh` 脚本。
 
 ### 部署 auth 服务
 
-1. 执行 `cd cloud-service-auth` 命令进入到目标目录。
+1. 执行 `cd cloud-auth` 命令进入到目标目录。
 
-2. 运行 `StartAuthService.sh` 脚本用于启动 `auth` 服务。
+2. 运行 `start.sh` 脚本用于启动 `auth` 服务。
 
-> 如需停止服务，则运行 `DownAuthService.sh` 脚本。
+> 如需停止服务，则运行 `down.sh` 脚本。
 
 ### 部署 demo 服务
 
-1. 执行 `cd cloud-service-demo` 命令进入到目标目录。
+1. 执行 `cd cloud-demo` 命令进入到目标目录。
 
-2. 运行 `StartDemoService.sh` 脚本用于启动 `demo` 服务。
+2. 运行 `start.sh` 脚本用于启动 `demo` 服务。
 
-> 如需停止服务，则运行 `DownDemoService.sh` 脚本。
+> 如需停止服务，则运行 `down.sh` 脚本。
 
 ### 部署 payment 服务
 
-1. 执行 `cd cloud-service-payment` 命令进入到目标目录。
+1. 执行 `cd cloud-payment` 命令进入到目标目录。
 
-2. 运行 `StartPaymentService.sh` 脚本用于启动 `payment` 服务。
+2. 运行 `start.sh` 脚本用于启动 `payment` 服务。
 
-> 如需停止服务，则运行 `DownPaymentService.sh` 脚本。
+> 如需停止服务，则运行 `down.sh` 脚本。
 
 ### 部署 user 服务
 
-1. 执行 `cd cloud-service-user` 命令进入到目标目录。
+1. 执行 `cd cloud-user` 命令进入到目标目录。
 
-2. 运行 `StartUserService.sh` 脚本用于启动 `user` 服务。
+2. 运行 `start.sh` 脚本用于启动 `user` 服务。
 
-> 如需停止服务，则运行 `DownUserService.sh` 脚本。
+> 如需停止服务，则运行 `down.sh` 脚本。
+
+### 部署 proxy-gateway 服务
+
+1. 执行 `cd service-proxy-gateway` 命令进入到目标目录。
+
+2. 运行 `start.sh` 脚本用于启动 `proxy-gateway` 服务。
+
+> 如需停止服务，则运行 `down.sh` 脚本。

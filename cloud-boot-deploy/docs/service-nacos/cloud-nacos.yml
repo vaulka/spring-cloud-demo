@@ -7,7 +7,7 @@ services: # 服务列表
 #    ports: # 映射端口列表
 #      - 8841:8848 # 映射 nacos 服务端口
 #    volumes: # 挂载数据卷列表
-#      - ~/docker-volumes/cloud/nacos1/logs:/home/nacos/logs # 挂载 nacos 日志
+#      - ~/docker-volumes/nacos1/logs:/home/nacos/logs # 挂载 nacos 日志
     environment: # 环境参数
       TZ: Asia/Shanghai # 设置上海时区
       PREFER_HOST_MODE: hostname # 支持  hostname 模式
@@ -30,7 +30,7 @@ services: # 服务列表
 #    ports: # 映射端口列表
 #      - 8842:8848 # 映射 nacos 服务端口
 #    volumes: # 挂载数据卷列表
-#      - ~/docker-volumes/cloud/nacos2/logs:/home/nacos/logs # 挂载 nacos 日志
+#      - ~/docker-volumes/nacos2/logs:/home/nacos/logs # 挂载 nacos 日志
     environment: # 环境参数
       TZ: Asia/Shanghai # 设置上海时区
       PREFER_HOST_MODE: hostname # 支持  hostname 模式
@@ -53,7 +53,7 @@ services: # 服务列表
 #    ports: # 映射端口列表
 #      - 8843:8848 # 映射 nacos 服务端口
 #    volumes: # 挂载数据卷列表
-#      - ~/docker-volumes/cloud/nacos3/logs:/home/nacos/logs # 挂载 nacos 日志
+#      - ~/docker-volumes/nacos3/logs:/home/nacos/logs # 挂载 nacos 日志
     environment: # 环境参数
       TZ: Asia/Shanghai # 设置上海时区
       PREFER_HOST_MODE: hostname # 支持  hostname 模式
