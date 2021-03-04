@@ -2,7 +2,7 @@ version: '3.8' # compose 编排文件版本号
 services: # 服务列表
 
   gateway: # 服务名称
-    image: nginx:1.19.7-alpine # 镜像，格式：名称:版本号，部署时会选用此镜像进行部署
+    image: openresty/openresty:1.19.3.1-3-centos # 镜像，格式：名称:版本号，部署时会选用此镜像进行部署
     environment: # 环境参数
       TZ: Asia/Shanghai # 设置上海时区
     deploy:
@@ -11,6 +11,7 @@ services: # 服务列表
         limits: # 限制资源
           memory: 0.1g # 内存容量，支持单位：b、k、m、g
     volumes: # 挂载数据卷列表
+      - ./conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf # 挂载 nginx 配置文件
       - ./http:/etc/nginx/conf.d # 挂载 nginx 配置文件
     ports: # 映射端口列表
       - 80:80 # web 端口号
