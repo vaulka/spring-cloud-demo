@@ -12,8 +12,8 @@ services: # 服务列表
           memory: 0.1g # 内存容量，支持单位：b、k、m、g
     volumes: # 挂载数据卷列表
       - ./http:/etc/nginx/conf.d # 挂载 nginx 配置文件
-#    ports: # 映射端口列表
-#      - 8848:8848 # nacos 端口号
+    ports: # 映射端口列表
+      - 8848:8848 # nacos 端口号
     networks:
       - global
       - cloud
