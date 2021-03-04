@@ -18,7 +18,7 @@ spring:
     nacos:
       discovery:
         namespace: dev
-        server-addr: nacos1:8848
+        server-addr: nacos:8848
   zipkin:
     base-url: http://zipkin:9411/
 logging:
