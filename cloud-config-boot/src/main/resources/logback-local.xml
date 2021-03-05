@@ -30,7 +30,7 @@
 
     <appender name="logstash" class="net.logstash.logback.appender.LogstashUdpSocketAppender">
         <host>127.0.0.1</host>
-        <port>4560</port>
+        <port>8080</port>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>${logging.level.root}</level>
         </filter>

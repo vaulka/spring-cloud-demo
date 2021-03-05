@@ -3,4 +3,4 @@
 SHELL_FOLDER=$(dirname "$0")
 
   # 启动 pxc3 服务
-docker-compose -f cloud-pxc.yml -p cloud_pxc up -d;
+docker-compose -f docker-compose.yml -p pxc up -d;

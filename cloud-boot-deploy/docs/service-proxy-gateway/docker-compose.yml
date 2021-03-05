@@ -16,10 +16,14 @@ services: # 服务列表
     ports: # 映射端口列表
       - 80:80 # web 端口号
     networks:
+      - global
       - cloud
 
 
 networks:
+  global:
+    external: true # 指定加入外部已存在网络
+    name: global # 网络名称
   cloud:
     external: true # 指定加入外部已存在网络
     name: cloud # 网络名称
