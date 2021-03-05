@@ -3,7 +3,7 @@ plugins {
 }
 
 ext {
-    jibVersion = "2.7.1"
+    jibVersion = "2.8.0"
     lombokVersion = "1.18.16"
 
     mysqlVersion = "8.0.22"
