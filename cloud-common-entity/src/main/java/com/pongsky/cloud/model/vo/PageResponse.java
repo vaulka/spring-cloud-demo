@@ -2,6 +2,7 @@ package com.pongsky.cloud.model.vo;
 
 import com.pongsky.cloud.model.dto.PageQuery;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -12,9 +13,8 @@ import java.util.List;
  * @create 2021-02-11
  */
 @Data
+@NoArgsConstructor
 public class PageResponse<T> {
-
-    private static final long serialVersionUID = -1474452277295643002L;
 
     public PageResponse(List<T> content, PageQuery pageQuery, long totalElements) {
         this.content = content;

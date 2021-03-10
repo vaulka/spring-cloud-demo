@@ -22,7 +22,7 @@ public class PageQuery {
     /**
      * 默认 pageNumber
      */
-    private static final int DEFAULT_PAGE_NUMBER = 0;
+    private static final int DEFAULT_PAGE_NUMBER = 1;
 
     /**
      * 当前页号
@@ -30,8 +30,7 @@ public class PageQuery {
     private Integer pageNumber;
 
     public Integer getPageNumber() {
-        if (pageNumber != null
-                && pageNumber >= DEFAULT_PAGE_NUMBER) {
+        if (pageNumber != null && pageNumber >= DEFAULT_PAGE_NUMBER) {
             return pageNumber;
         }
         return DEFAULT_PAGE_NUMBER;
@@ -81,7 +80,7 @@ public class PageQuery {
      */
     @JsonIgnore
     public Long getOffset() {
-        return (long) getPageNumber() * getPageSize();
+        return (long) (getPageNumber() - 1) * getPageSize();
     }
 
     /**
@@ -93,10 +92,10 @@ public class PageQuery {
         if (count == null) {
             count = 0L;
         }
-        this.pageCount = count;
-        this.pageLine = this.pageCount % getPageSize() == 0
-                ? this.pageCount / getPageSize()
-                : this.pageCount / getPageSize() + 1;
+        pageCount = count;
+        pageLine = pageCount % getPageSize() == 0
+                ? pageCount / getPageSize()
+                : pageCount / getPageSize() + 1;
     }
 
 }
