@@ -10,4 +10,5 @@ include "cloud-service-auth"
 include "cloud-service-demo"
 include "cloud-service-gateway"
 include "cloud-service-payment"
+include 'cloud-service-sentinel'
 include "cloud-service-user"
