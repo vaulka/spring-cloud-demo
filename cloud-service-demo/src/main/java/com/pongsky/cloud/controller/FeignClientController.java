@@ -1,7 +1,5 @@
 package com.pongsky.cloud.controller;
 
-import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.pongsky.cloud.entity.user.dto.UserDto;
 import com.pongsky.cloud.response.GlobalResult;
 import com.pongsky.cloud.response.annotation.ResponseResult;
@@ -26,10 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/feignClient", produces = MediaType.APPLICATION_JSON_VALUE)
-@DefaultProperties(
-        defaultFallback = "circuitBreakerResult",
-        ignoreExceptions = RuntimeException.class
-)
+//@DefaultProperties(
+//        defaultFallback = "circuitBreakerResult",
+//        ignoreExceptions = RuntimeException.class
+//)
 public class FeignClientController {
 
     private final UserService userService;
@@ -51,7 +49,7 @@ public class FeignClientController {
      * @param userDto 登录信息
      * @return 登录
      */
-    @HystrixCommand
+//    @SentinelResource
     @RequestMapping("/login")
     public Object login(@Validated({SearchGroup.class}) @RequestBody UserDto userDto) {
         return userService.login(userDto);
@@ -62,7 +60,7 @@ public class FeignClientController {
      *
      * @return 获取 Payment 随机 UUID
      */
-    @HystrixCommand
+//    @SentinelResource
     @GetMapping("/uid")
     public Object uid() {
         return paymentService.uid();
@@ -73,7 +71,7 @@ public class FeignClientController {
      *
      * @return 异常
      */
-    @HystrixCommand
+//    @SentinelResource
     @RequestMapping("/exception")
     public Object exception() {
         return paymentService.exception();

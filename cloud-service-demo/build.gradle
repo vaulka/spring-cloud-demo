@@ -47,8 +47,8 @@ dependencies {
     implementation "org.springframework.cloud:spring-cloud-starter-sleuth"
     implementation "org.springframework.cloud:spring-cloud-starter-zipkin"
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
-    implementation "org.springframework.cloud:spring-cloud-starter-netflix-hystrix"
 
+    implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel"
     implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
