@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build . -t cloud-sentinel-dashboard:1.8.1;
+docker build . -t sentinel-dashboard:1.8.1;
