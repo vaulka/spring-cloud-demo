@@ -2,6 +2,8 @@ application:
   name: cloud # 工程名称
   version: 1.0.0 # 工程版本号
 spring:
+  profiles:
+    active: local # 选择配置文件
   security:
     user:
       name: ${application.name} # security 默认账号

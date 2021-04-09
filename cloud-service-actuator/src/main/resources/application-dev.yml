@@ -1,6 +1,0 @@
-spring:
-  cloud:
-    nacos:
-      discovery:
-        namespace: dev
-        server-addr: nacos:8848
