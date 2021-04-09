@@ -19,6 +19,10 @@ spring:
       discovery:
         namespace: dev
         server-addr: nacos:8848
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: sentinel_dashboard:9999
   zipkin:
     base-url: http://zipkin:9411/
 logging:
