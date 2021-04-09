@@ -4,8 +4,6 @@ application:
 spring:
   application:
     name: ${application.name}-${application.module} # 应用名称
-  profiles:
-    active: local # 选择配置文件
 logging:
   config: classpath:logback-${spring.profiles.active}.xml # 指定 logback 路径
 server:
