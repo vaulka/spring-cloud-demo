@@ -5,7 +5,6 @@ import com.pongsky.cloud.exception.RemoteCallException;
 import com.pongsky.cloud.response.enums.ResultCode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -15,17 +14,19 @@ import lombok.experimental.Accessors;
  * @create 2021-02-10
  */
 @Data
-@NoArgsConstructor
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 public class GlobalResult<T> {
+
+    private GlobalResult() {
+    }
 
     /**
      * 【成功】构造方法
      *
      * @param data 接口响应数据体
      */
-    public GlobalResult(T data) {
+    private GlobalResult(T data) {
         this.code = ResultCode.Success.getCode();
         this.message = ResultCode.Success.getMessage();
         this.data = data;
@@ -39,14 +40,40 @@ public class GlobalResult<T> {
      * @param path       调用接口路径地址
      * @param exception  异常类型信息
      */
-    public GlobalResult(String ip, ResultCode resultCode, String path, String exception) {
+    private GlobalResult(String ip, ResultCode resultCode, String path, Class<? extends Exception> exception) {
         this.ip = ip;
         this.details = resultCode.getDetails();
         this.code = resultCode.getCode();
         this.message = resultCode.getMessage();
         this.path = path;
-        this.exception = exception;
+        this.exception = exception.getName();
         this.timestamp = System.currentTimeMillis();
+    }
+
+    /**
+     * 【成功】构造方法
+     *
+     * @param data 接口响应数据体
+     * @return 成功响应体
+     */
+    public static <T> GlobalResult<T> success(T data) {
+        return new GlobalResult<>(data);
+    }
+
+    /**
+     * 【失败】构造方法
+     *
+     * @param ip         客户端 IP 地址
+     * @param resultCode 响应数据枚举
+     * @param path       调用接口路径地址
+     * @param exception  异常类型信息
+     * @return 失败响应体
+     */
+    public static GlobalResult<Void> fail(String ip,
+                                          ResultCode resultCode,
+                                          String path,
+                                          Class<? extends Exception> exception) {
+        return new GlobalResult<>(ip, resultCode, path, exception);
     }
 
     /**
@@ -57,7 +84,8 @@ public class GlobalResult<T> {
      * @return 远程调用异常 fallback 响应数据
      */
     public static <T> GlobalResult<T> remoteCallExceptionResult(Class<T> clazz) {
-        return new GlobalResult<>(null, ResultCode.RemoteCallException, null, RemoteCallException.class.getName());
+        return new GlobalResult<>(null, ResultCode.RemoteCallException, null,
+                RemoteCallException.class);
     }
 
     /**
@@ -66,7 +94,8 @@ public class GlobalResult<T> {
      * @return 熔断 响应数据
      */
     public static GlobalResult<Void> circuitBreakerExceptionResult() {
-        return new GlobalResult<>(null, ResultCode.CircuitBreakerException, null, CircuitBreakerException.class.getName());
+        return new GlobalResult<>(null, ResultCode.CircuitBreakerException, null,
+                CircuitBreakerException.class);
     }
 
     /**

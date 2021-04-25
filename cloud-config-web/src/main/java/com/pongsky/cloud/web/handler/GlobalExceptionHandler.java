@@ -74,6 +74,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @param request request
      * @return 校验 param 数据异常
      */
+    @SuppressWarnings("NullableProblems")
     @Override
     protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers,
                                                          HttpStatus status, WebRequest request) {
@@ -93,6 +94,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @param request request
      * @return 校验 param 数据异常
      */
+    @SuppressWarnings("NullableProblems")
     @Override
     protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex,
                                                                           HttpHeaders headers, HttpStatus status,
@@ -112,6 +114,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @param request request
      * @return 校验 body 数据异常
      */
+    @SuppressWarnings("NullableProblems")
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status,
@@ -206,6 +209,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @param request request
      * @return JSON 数据错误异常
      */
+    @SuppressWarnings("NullableProblems")
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
                                                                   HttpHeaders headers, HttpStatus status,
@@ -216,6 +220,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
                                                                    HttpStatus status, WebRequest request) {
@@ -226,6 +231,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
                                                                          HttpHeaders headers, HttpStatus status,
@@ -428,7 +434,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         String ip = IpUtils.getIp(request);
         // 可通过 getAttribute 获取自定义注解对 body 数据对特定业务场景进行特殊处理
 
-        GlobalResult<Void> result = new GlobalResult<>(ip, resultCode, request.getRequestURI(), exception.getClass().getName());
+        GlobalResult<Void> result = GlobalResult.fail(ip, resultCode, request.getRequestURI(), exception.getClass());
         exception = getException(exception, 0);
         if (message != null) {
             result.setMessage(message);

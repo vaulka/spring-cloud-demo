@@ -32,11 +32,13 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
 
     private final ObjectMapper jsonMapper;
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         return true;
     }
 
+    @SuppressWarnings({"NullableProblems", "unchecked"})
     @Override
     public Object beforeBodyWrite(Object body,
                                   MethodParameter returnType,
@@ -48,7 +50,7 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
                 ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
         // 判断是否已封装好全局响应结果
         if (body instanceof GlobalResult) {
-            GlobalResult<?> result = (GlobalResult<?>) body;
+            GlobalResult<Void> result = (GlobalResult<Void>) body;
             if (result.getIp() == null) {
                 result.setIp(IpUtils.getIp(httpServletRequest));
             }
@@ -61,13 +63,13 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
         if (httpServletRequest.getAttribute(ResponseResult.class.getSimpleName()) != null) {
             if (body instanceof String) {
                 try {
-                    return jsonMapper.writeValueAsString(new GlobalResult<>(body));
+                    return jsonMapper.writeValueAsString(GlobalResult.success(body));
                 } catch (JsonProcessingException e) {
                     log.error(e.getLocalizedMessage());
-                    return new GlobalResult<>(body);
+                    return GlobalResult.success(body);
                 }
             } else {
-                return new GlobalResult<>(body);
+                return GlobalResult.success(body);
             }
         }
         return body;

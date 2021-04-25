@@ -30,6 +30,7 @@ import java.lang.reflect.Method;
 @RequiredArgsConstructor
 public class RemoteCallAspect {
 
+    @SuppressWarnings({"unchecked"})
     @Around("execution(public * com.pongsky.cloud.feign..*.*(..))")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
