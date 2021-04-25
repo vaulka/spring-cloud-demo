@@ -3,8 +3,10 @@ package com.pongsky.cloud.response;
 import com.pongsky.cloud.exception.CircuitBreakerException;
 import com.pongsky.cloud.exception.RemoteCallException;
 import com.pongsky.cloud.response.enums.ResultCode;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -16,10 +18,8 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GlobalResult<T> {
-
-    private GlobalResult() {
-    }
 
     /**
      * 【成功】构造方法
