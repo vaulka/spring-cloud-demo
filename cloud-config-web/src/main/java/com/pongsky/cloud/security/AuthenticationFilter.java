@@ -25,6 +25,7 @@ import java.util.Collections;
 @Component
 public class AuthenticationFilter extends OncePerRequestFilter {
 
+    @SuppressWarnings("NullableProblems")
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         return false;
@@ -35,6 +36,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
      */
     private static final String ROLE_STARTS_WITH = "ROLE_";
 
+    @SuppressWarnings("NullableProblems")
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,

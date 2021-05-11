@@ -18,6 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 鉴权配置
@@ -60,8 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowedOrigins(Collections.singletonList("*"));
-        List<String> methods = List.of(RequestMethod.PATCH, RequestMethod.OPTIONS,
-                RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE).stream()
+        List<String> methods = Stream.of(RequestMethod.PATCH, RequestMethod.OPTIONS,
+                RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE)
                 .map(Enum::toString)
                 .collect(Collectors.toList());
         corsConfiguration.setAllowedMethods(methods);
